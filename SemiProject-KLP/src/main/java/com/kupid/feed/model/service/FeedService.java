@@ -12,7 +12,6 @@ import java.util.List;
 
 import com.kupid.feed.model.dao.FeedDao;
 import com.kupid.feed.model.dto.Feed;
-import com.kupid.feed.model.dto.LikeFeed;
 import com.kupid.feed.model.dto.Reply;
 public class FeedService {
 	private FeedDao dao = new FeedDao();
