@@ -167,10 +167,9 @@ const test = ()=>{
 	                    "width": "800px",
 	                    'overflow': 'hidden'
 	                }).attr("class", "board");
-
-	                $div.append('<h3 class="feedNo">' + element.feedNo + '</h3>');
-	                $div.append('<h3>' + element.feedMemberName + '</h3>');
-	                $div.append('<h3>' + element.profileImgOriname + '</h3>');
+	                
+	                $div.append('<input type="hidden" class="feedNo" value='+element.feedNo+'>');
+	                $div.append('<input type="hidden" class="memberNo" value='+element.feedMemberName+'>');
 	                $div.append('<img src='+"<%=request.getContextPath()%>/upload/member/profile/"+element.profileImgOriname+'>');
 	                $div.append('<h3>' + element.feedWriterName + '</h3>');
 	                $div.append('<h3>' + element.feedWriteDate + '</h3>');
@@ -223,7 +222,7 @@ const test = ()=>{
 	    const $button = $(e.target);
 	    const $board = $button.closest('.board');
 	    const $feedNo = $board.find('.feedNo');
-	    const feedNoText = $feedNo.text();
+	    const feedNoText = $feedNo.val();
 	    
 	    let url = '<%=request.getContextPath()%>/feed/feedreportview.do?feedno=' + feedNoText;
 	    let popup = window.open(url, "popup", "width=400, height=300, left=100, top=50");
@@ -232,7 +231,7 @@ const test = ()=>{
    $(document).on("click", "button.comment", function(e) {
 	    const $parent = $(e.target).parent();
 	    const existingDiv = $parent.find('.comment-container');
-		const feedNoText = $(e.target).parent().find('.feedNo').text();
+		const feedNoText = $(e.target).parent().find('.feedNo').val();
 		console.log(feedNoText);
 	    if (existingDiv.length > 0) {
 	        existingDiv.remove();
@@ -413,7 +412,7 @@ $(document).on("click", "a.updateBt", function(e) {
 	    showSlide(index);
 	}
 // 좋아요 기능
-   function switchingLikes(feedNo, feed, e) {
+   function switchingLikes(feedNo,e) {
 	    $.ajax({
 	        type: "POST",
 	        url: "<%=request.getContextPath()%>/feed/likesswitch.do",
@@ -430,9 +429,9 @@ $(document).on("click", "a.updateBt", function(e) {
 	   
 	$(document).ready(function () {
 	    $(document).on('click', '.likes', function(e) {
-	        const feedNo = $(e.target).parent().find('h3:first').text();
-	        const feed = $(e.target).parent().find('h3:first');
-	        switchingLikes(feedNo, feed, e);
+	        const feedNo = $(e.target).parent().find('input.feedNo').val();
+	        console.log(feedNo);
+	        switchingLikes(feedNo, e);
 	    });
 	}); 
 
