@@ -6,6 +6,6 @@ public class FaqDao {
 	private Properties sql=new Properties();
 	
 	{
-		String path=
+		//String path=
 	}
 }
