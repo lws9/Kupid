@@ -7,18 +7,20 @@
 <title>Insert title here</title>
 <style>
  .slider-container {
-     width: 600px;
-     height: 320px;
+     width: 1200px;
      overflow: hidden;
      border-radius: 30px;
      margin: 50px auto;
+     border: 1px solid blue;
+     gap: 10px;
+     height: 350px;
+     position: realtive;
  }
   .slider {
-     width: 1800px; /* (600px * 3) */
-     height: 320px;
+     width: 2400px; /* (600px * 6) */
+     height: 350px;
      display: flex;
      transition: transform 0.5s ease;
-     border: 1px solid black;
      align-self: center;
  }
  
@@ -37,7 +39,7 @@
 
  .prev, .next {
      position: absolute;
-     top: 42%;
+     top: 38%;
      transform: translateY(-50%);
      background-color: rgba(255, 255, 255, 0.5);
      color: #333;
@@ -68,10 +70,11 @@
             <div class="slide"><img src="<%=request.getContextPath() %>/image/banner/banner1.jpg" alt="Slide 1"></div>
             <div class="slide"><img src="<%=request.getContextPath() %>/image/banner/banner2.jpeg" alt="Slide 2"></div>
             <div class="slide"><img src="<%=request.getContextPath() %>/image/banner/banner3.jpg" alt="Slide 3"></div>
-        </div>
+            <div class="slide"><img src="<%=request.getContextPath() %>/image/banner/banner1.jpg" alt="Slide 4"></div>
+	    </div>
+    </div>
         <div class="prev">❮</div>
         <div class="next">❯</div>
-    </div>
 	 
 	<div>
 	<% if(loginMember != null){ %>
@@ -97,4 +100,45 @@
 	</div>
 </body>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    let currentIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const slider = document.querySelector('.slider');
+    const totalSlides = slides.length;
+    const slideWidth = slides[0].clientWidth;
+
+    const updateSliderPosition = () => {
+        slider.style.transform = `translateX(${-currentIndex * slideWidth}px)`;
+    };
+
+    const showNextSlide = () => {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateSliderPosition();
+    };
+
+    const showPrevSlide = () => {
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateSliderPosition();
+    };
+
+    document.getElementById('next').addEventListener('click', () => {
+        showNextSlide();
+        resetAutoSlide();
+    });
+
+    document.getElementById('prev').addEventListener('click', () => {
+        showPrevSlide();
+        resetAutoSlide();
+    });
+
+    let autoSlideInterval = setInterval(showNextSlide, 3000);
+
+    const resetAutoSlide = () => {
+        clearInterval(autoSlideInterval);
+        autoSlideInterval = setInterval(showNextSlide, 3000);
+    };
+});
+</script>
 </html>

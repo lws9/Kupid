@@ -28,13 +28,13 @@ public class MemberDAO {
 		}
 	}
 	
-	public List<MemberDto> selectMemberAll(Connection conn,int cPage,int numPerpage,String grade){
+	public List<MemberDto> selectMemberAll(Connection conn,int cPage,int numPerpage){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		List<MemberDto> mg=new ArrayList<>();
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("selectMemberAll"));
-			pstmt.setString(1,grade);
+			pstmt.setString(1,"회원");
 			pstmt.setInt(2,(cPage-1)*numPerpage+1);
 			pstmt.setInt(3, cPage*numPerpage);
 			rs=pstmt.executeQuery();
@@ -50,13 +50,13 @@ public class MemberDAO {
 		return mg;
 	}
 	
-	public int selectMemberAllCount(Connection conn,String grade) {
+	public int selectMemberAllCount(Connection conn) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		int result=0;
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("selectMemberAllCount"));
-			pstmt.setString(1,grade);
+			pstmt.setString(1,"회원");
 			rs=pstmt.executeQuery();
 			if(rs.next()) result=rs.getInt(1);
 		}catch(SQLException e) {

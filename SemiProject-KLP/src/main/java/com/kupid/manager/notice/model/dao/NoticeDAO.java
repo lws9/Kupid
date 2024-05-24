@@ -190,8 +190,6 @@ public class NoticeDAO {
 	}
 	
 	
-	
-	
 	public static Notice getNotice(ResultSet rs) throws SQLException{
 		return Notice.builder()
 				.noticeNo(rs.getInt("notice_no"))

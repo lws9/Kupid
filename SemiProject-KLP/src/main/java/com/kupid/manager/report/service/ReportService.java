@@ -1,12 +1,12 @@
 package com.kupid.manager.report.service;
 
-import static com.kupid.common.JDBCTemplate.close;
-import static com.kupid.common.JDBCTemplate.commit;
-import static com.kupid.common.JDBCTemplate.getConnection;
-import static com.kupid.common.JDBCTemplate.rollback;
-
 import java.sql.Connection;
 import java.util.List;
+
+import static com.kupid.common.JDBCTemplate.getConnection;
+import static com.kupid.common.JDBCTemplate.commit;
+import static com.kupid.common.JDBCTemplate.rollback;
+import static com.kupid.common.JDBCTemplate.close;
 
 import com.kupid.manager.penalty.model.dto.Penalty;
 import com.kupid.manager.report.model.dao.ReportDAO;
@@ -45,9 +45,6 @@ public class ReportService {
 		if(result>0) {
 			dao.updateReportResult(conn,p);
 			commit(conn);
-			if(p.getPenaltyCategory().equals("unactive")) {
-				dao.memberGradeUpdate(conn,p);
-			}
 		}
 		else rollback(conn);
 		close(conn);

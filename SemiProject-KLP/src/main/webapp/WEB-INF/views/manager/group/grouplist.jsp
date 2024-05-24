@@ -14,7 +14,7 @@
 <body>
 <style>
 ul{
-   /* width:80%; */ 
+   /* width:80%; */
    display:table;
    padding:0px;
    margin:auto;

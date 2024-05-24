@@ -4,6 +4,8 @@
 <%
 	List<Faq> faqs=(List<Faq>)request.getAttribute("faq");
 	StringBuffer pagebar=(StringBuffer)request.getAttribute("pageBar");
+	String searchType=request.getParameter("searchType");
+	String searchKeyword=request.getParameter("searchKeyword");
 %>
 <!DOCTYPE html>
 <html>
@@ -18,7 +20,7 @@ ul{
    margin:auto;
 }
 ul li { 
-   list-style-type: none;  
+   list-style-type: none; 
    width: 8em; 
    height: 2em;
    float: left; 
@@ -58,11 +60,16 @@ ul li:hover > a{
 	font-size:30px;
 	border :1px solid blue;
 }
-.top-categry{
-	display:flex;
-	border :1px solid blue;
-	width:100%;
+.section{
+	width:95%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
+/* div#search-회원{display:inline-block;}
+div#search-상점{display:none;}
+div#search-커뮤니티{display:none;} */
 </style>
 </head>
 <body>
@@ -70,11 +77,38 @@ ul li:hover > a{
 <div class="faq-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
 <div class="faq-sec">
-	<div class="top-categry">
-		<span><button>faq</button></span>
-		<span><button onclick="location.assign('<%=request.getContextPath()%>/manager/inquirylist.do')">문의</button></span>
-	</div>
 		<h1>FAQ</h1>
+		<h1>
+		<div>
+			<select id="searchType">
+		     	<option value="회원" <%=searchType!=null&&searchType.equals("회원")?"selected":"" %>>회원</option>
+		        <option value="상점" <%=searchType!=null&&searchType.equals("상점")?"selected":"" %>>상점</option>
+		        <option value="커뮤니티" <%=searchType!=null&&searchType.equals("커뮤니티")?"selected":"" %>>커뮤니티</option>
+	        </select>
+	        <div id="search-회원">
+				<form action="<%=request.getContextPath()%>/manager/searchFaq.do">
+					<input type="hidden" name="searchType" value="회원">
+					<input type="text" name="searchKeyword" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
+					<button type="submit" style="width:50px; height:50px">검색</button>
+				</form>
+			</div>
+			<div id="search-상점">
+				<form action="<%=request.getContextPath()%>/manager/searchFaq.do">
+					<input type="hidden" name="searchType" value="상점">
+					<input type="text" name="searchKeyword" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
+					<button type="submit" style="width:50px; height:50px">검색</button>
+				</form>
+			</div>
+				<div id="search-커뮤니티">
+					<form action="<%=request.getContextPath()%>/manager/searchFaq.do">
+						<input type="hidden" name="searchType" value="커뮤니티">
+						<input type="text" name="searchKeyword" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
+						<button type="submit" style="width:50px; height:50px">검색</button>
+					</form>
+				</div>	
+			</div>
+		</h1>	
+		<section class="section">
 		<table class="table-size">
 			<tr>
 				<th>No</th>
@@ -98,6 +132,7 @@ ul li:hover > a{
 				<span>등록된 faq가 없습니다</span>
 			<%} %>
 		</table>
+		</section>
 			<div><button onclick="location.assign('<%=request.getContextPath()%>/manager/faqinsert.do')">작성</button></div>
 			<br><br><br>
 			<div><%=pagebar%></div>
@@ -112,6 +147,17 @@ ul li:hover > a{
 				alert("삭제가 취소되었습니다");
 			}
 		}
+		
+		$(()=>{
+	    	 $("#searchType").change();
+	     })
+	     
+	     
+	     $("#searchType").change(e=>{
+    			const type=e.target.value;
+    			$(e.target).parent().children("div").hide();
+    			$("#search-"+type).css("display","inline-block");
+    		})
 	</script>
 
 </body>

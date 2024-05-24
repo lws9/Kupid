@@ -18,7 +18,7 @@
 <body>
 <div class="myInfo-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
-    <main class="main"> 
+    <main class="main">
         <section class="myInfo">
             <div class="flex_col">
                 <h1 class="title">신고 처리</h1>

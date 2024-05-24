@@ -14,7 +14,7 @@
 <body>
 	
 <div class="myInfo-container">
-<%@ include file="/WEB-INF/views/manager/manageraside.jsp" %> 
+<%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
     <main class="main">
         <section class="myInfo">
             <div class="flex_col">

@@ -26,6 +26,7 @@ public class ManagerhomeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("pagenum", 1);
 		request.getRequestDispatcher("/WEB-INF/views/manager/managehome.jsp").forward(request, response);
 	}
 
