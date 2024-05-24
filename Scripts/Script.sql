@@ -1,2 +1,0 @@
-SELECT * FROM feed;
-SELECT * FROM MEMBER;
