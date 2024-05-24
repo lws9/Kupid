@@ -360,6 +360,7 @@ public class FeedDao {
 				.likes(rs.getInt("LIKES"))
 				.report(rs.getInt("REPORT"))
 				.filePath(rs.getString("FILE_PATH"))
+				.profileImgOriname(rs.getString("PROFILE_IMG_ORINAME"))
 				.build();
 	}
 	public static LikeFeed getLikeFeed(ResultSet rs) throws SQLException{

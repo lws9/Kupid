@@ -113,6 +113,7 @@
 <script>
 const test = ()=>{
 	console.log(<%=loginMember.getMemberNo()%>);
+	console.log(<%=loginMember.getProfileImgOriname()%>);
 }
 /* $("#submitButton").click(e=>{
 	const form = new FormData();
@@ -129,7 +130,7 @@ const test = ()=>{
 
 			var fileInput = $('<input>')
 				.attr('type', "file")
-				.attr('name', file.name)
+				.attr('name', "upfile"+idx)
 				.css({'display':'none'});
 			
 			fileInput[0].file = file
@@ -169,6 +170,8 @@ const test = ()=>{
 
 	                $div.append('<h3 class="feedNo">' + element.feedNo + '</h3>');
 	                $div.append('<h3>' + element.feedMemberName + '</h3>');
+	                $div.append('<h3>' + element.profileImgOriname + '</h3>');
+	                $div.append('<img src='+"<%=request.getContextPath()%>/upload/member/profile/"+element.profileImgOriname+'>');
 	                $div.append('<h3>' + element.feedWriterName + '</h3>');
 	                $div.append('<h3>' + element.feedWriteDate + '</h3>');
 	                $div.append('<h3>' + element.feedUpdateDate + '</h3>');
