@@ -79,7 +79,7 @@
 	<div>
 	<% if(loginMember != null){ %>
 		<h2><%=loginMember.getMemberName()%>님 안녕하세요 :)</h2>
-	<%} %>
+	<%} %> 
 	</div>
 	<br><br><br>
 	<a href="<%=request.getContextPath()%>/feed/feedView.do">피드</a>

@@ -72,9 +72,8 @@ ul li:hover > a{
 </style>
 </head>
 <body>
-
 <div class="faq-container">
-<%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
+<%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>s
 <div class="faq-sec">
 		<h1>ARTIST</h1>
 		<h1>

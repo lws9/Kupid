@@ -16,7 +16,6 @@
 }
 </style>
 <!-- 임시디자인 -->
-
 <div class="myInfo-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
     <main class="main">
