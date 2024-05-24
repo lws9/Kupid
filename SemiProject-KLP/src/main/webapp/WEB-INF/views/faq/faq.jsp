@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List,com.kupid.faq.model.dto.FaqDto,java.text.SimpleDateFormat" %>
+<% List<FaqDto> faqs = (List<FaqDto>) request.getAttribute("faqs"); %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,6 +62,7 @@
             <option value="category2">상점</option>
             <option value="category3">커뮤니티</option>
         </select>
+        
         <input type="text" id="search" name="search" placeholder="검색어 입력">
         <button type="button" onclick="searchFAQ()">검색</button>
     </div>
@@ -74,29 +77,21 @@
             </tr>
         </thead>
         <tbody>
- <%--            <% 
-                // 데이터베이스에서 FAQ 목록을 불러와야함
-                String[][] faqData = {
-                    {"1", "카테고리 1", "제목 1", "2024-05-01", "100"},
-                    {"2", "카테고리 2", "제목 2", "2024-05-02", "150"},
-                    
-                };
-
-                for(int i = 0; i < faqData.length; i++) {
-            %>
+    <% if(faqs!=null) { %>
+        <% for(FaqDto f:faqs) { %>
             <tr>
-                <td><%= faqData[i][0] %></td>
-                <td><%= faqData[i][1] %></td>
-                <td><%= faqData[i][2] %></td>
-                <td><%= faqData[i][3] %></td>
-                <td><%= faqData[i][4] %></td>
-                <td><%= faqData[i][5] %></td>
-                <td><%= faqData[i][6] %></td>
-                <td><%= faqData[i][7] %></td>
-                <td><%= faqData[i][8] %></td>
-                <td><%= faqData[i][9] %></td>
+                <td><%= f.getFaqNo() %></td>
+                <td><%= f.getFaqCategory() %></td>
+                <td><%= f.getFaqTitle() %></td>
+                <td><%= f.getFaqContent() %></td>
+                <td><%= new SimpleDateFormat("yyyy-MM-dd").format(f.getFaqDate()) %></td>
             </tr>
-            <% } %> --%>
+        <% } %>
+    <% } else { %>
+        <tr>
+            <td colspan="5"><span>등록된 FAQ가 없습니다</span></td>
+        </tr>
+    <% } %>
         </tbody>
     </table>
     <div class="pagination">
@@ -105,21 +100,18 @@
         <button type="button" onclick="nextPage()">다음</button>
     </div>
     <div class="footer">
-        <button type="button" 
-        onclick="location.assign('<%=request.getContextPath()%>/customer/customermain.do')">고객센터 바로가기</button>
-        <button type="button" 
-         onclick="location.assign('<%=request.getContextPath()%>/inquiry/inquiry.do')">1:1 문의하기</button>
+        <button type="button" onclick="location.assign('<%=request.getContextPath()%>/customer/customermain.do')">고객센터 바로가기</button>
+        <button type="button" onclick="location.assign('<%=request.getContextPath()%>/inquiry/inquiry.do')">1:1 문의하기</button>
     </div>
     <script>
-     
         function searchFAQ() {
-            var category = document.getElementById('category').value;
+            var category =document.getElementById('category').value;
             var search = document.getElementById('search').value;
             
             alert('검색어: ' + search + ', 카테고리: ' + category);
         }
 
-      
+        // 페이지 이동 함수
         function prevPage() {
             // 이전 페이지로 이동하는 로직 구현
             alert('이전 페이지로 이동');
@@ -129,10 +121,6 @@
             // 다음 페이지로 이동하는 로직 구현
             alert('다음 페이지로 이동');
         }
-
-  
-
-
     </script>
 </body>
 </html>

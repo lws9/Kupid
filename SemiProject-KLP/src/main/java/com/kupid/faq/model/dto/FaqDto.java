@@ -7,11 +7,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Faq {
+public class FaqDto {
+
 	private int faqNo;
 	private String faqTitle;
 	private String faqContent;
