@@ -1,24 +1,31 @@
-package com.kupid.member.log.controller;
+package com.kupid.mypage.profile.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.catalina.Session;
+
+import com.kupid.member.model.dto.MemberDto;
+import com.kupid.mypage.service.MyPageService;
 
 /**
  * Servlet implementation class MyProfileServlet
  */
-@WebServlet(urlPatterns="/login.do")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/mypage/myprofile.do")
+public class MyProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public MyProfileServlet() {
         super();
     }
 
@@ -26,7 +33,14 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/views/member/login.jsp")
+		request.setAttribute("pagenum", 1);
+		HttpSession session=request.getSession();
+		MemberDto m = (MemberDto) session.getAttribute("loginMember");
+		
+		List<MemberDto> result = new MyPageService().selectMemberForProfile(m.getMemberId());
+		System.out.println(m.toString());
+		request.setAttribute("memberProfile", result);
+		request.getRequestDispatcher("/WEB-INF/views/mypage/myProfile.jsp")
 		.forward(request, response);
 	}
 
