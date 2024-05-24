@@ -10,20 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kupid.manager.member.service.MemberService;
-import com.kupid.manager.notice.service.NoticeService;
 import com.kupid.member.model.dto.MemberDto;
 
 /**
- * Servlet implementation class MemberListServlet
+ * Servlet implementation class UnactiveMemberListServlet
  */
-@WebServlet("/manager/memberlist.do")
-public class MemberListServlet extends HttpServlet {
+@WebServlet("/manager/unactivememberlist.do")
+public class UnactiveMemberListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberListServlet() {
+    public UnactiveMemberListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,8 +31,9 @@ public class MemberListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("pagenum", 8);
-		String grade="회원";
+		request.setAttribute("pagenum", 9);
+		
+		String grade="탈퇴";
 		int cPage=1;
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
@@ -97,6 +97,7 @@ public class MemberListServlet extends HttpServlet {
 //		System.out.println("member : "+member);
 		
 		request.getRequestDispatcher("/WEB-INF/views/manager/member/managermemberlist.jsp").forward(request, response);
+		
 	}
 
 	/**
