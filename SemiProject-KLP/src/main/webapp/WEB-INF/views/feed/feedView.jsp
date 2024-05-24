@@ -8,11 +8,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<% MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");%>
 
 <script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 <title>Insert title here</title>
 </head>
+
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <body>
 	<div>
 		 <form id="feedForm" action="<%=request.getContextPath()%>/feed/feedWrite.do" enctype="multipart/form-data" method="post" onsubmit="return submitFeed();">
@@ -224,11 +225,12 @@ const test = ()=>{
 	    let url = '<%=request.getContextPath()%>/feed/feedreportview.do?feedno=' + feedNoText;
 	    let popup = window.open(url, "popup", "width=400, height=300, left=100, top=50");
 	});
-   
+//댓글 버튼 클릭  
    $(document).on("click", "button.comment", function(e) {
 	    const $parent = $(e.target).parent();
 	    const existingDiv = $parent.find('.comment-container');
-
+		const feedNoText = $(e.target).parent().find('.feedNo').text();
+		console.log(feedNoText);
 	    if (existingDiv.length > 0) {
 	        existingDiv.remove();
 	    } else {
@@ -241,9 +243,11 @@ const test = ()=>{
 	        innerDiv.append(commentBt);
 	        newDiv.append(innerDiv);
 	        $parent.append(newDiv);
+	        
+	        selectComment(feedNoText)
 	    }
 	});
-   
+//댓글 작성버튼 클릭
    $(document).on("click", "a.commentBt", function(e) {
 	    const $button = $(e.target);
 	    const $board = $button.closest('.board');
@@ -252,7 +256,6 @@ const test = ()=>{
 
 	    let commentText = $textArea.val();
 	    const feedNoText = $feedNo.text();
-
 	    ajaxComment(commentText, feedNoText);
 
 	    $textArea.val("");
@@ -268,7 +271,7 @@ const test = ()=>{
 	            "commentText": commentText,
 	            "feedNoText": feedNoText
 	        },
-	        success: function() {
+	        success: function(data) {
 	            selectComment(feedNoText);
 	        },
 	        error: function(xhr, status, error) {
@@ -278,17 +281,17 @@ const test = ()=>{
 	};
 	
 	
-
+// 해당 피드 댓글목록 불러오기 
 	const selectComment = (feedNoText) => {
 	    $.ajax({
 	        type: "POST",
-	        url: "<%=request.getContextPath()%>/feed/feedcomment.do",
+	        url: "<%=request.getContextPath()%>/feed/selectcomment.do",
 	        data: {
 	            "feedNo": feedNoText
 	        },
 	        success: function(data) {
 	            const $commentContainer = $('.board .comment-container');
-	            $commentContainer.empty(); 
+	            $commentContainer.find('.comment-item').remove();
 
 	            $.each(data, function(idx, element) {
 	                const $commentDiv = $("<div>").css({
@@ -297,12 +300,17 @@ const test = ()=>{
 	                    'overflow': 'hidden'
 	                }).addClass("comment-item");
 
-	                $commentDiv.append('<h3>' + element.replyNumber + '</h3>');
-	                $commentDiv.append('<h3>' + element.feedNo + '</h3>');
+	                $commentDiv.append('<input type="hidden" class="replyNumber" value='+element.replyNumber+'>');
+	                $commentDiv.append('<input type="hidden" class="feedNo" value='+ element.feedNo +'>');
 	                $commentDiv.append('<h3>' + element.replyDate + '</h3>');
 	                $commentDiv.append('<h3>' + element.likes + '</h3>');
 	                $commentDiv.append('<h3>' + element.memberNo + '</h3>');
-	                $commentDiv.append('<h3>' + element.replyContent + '</h3>');
+	                $commentDiv.append('<h3 class="replyContent">' + element.replyContent + '</h3>');
+	                
+	                if(<%=loginMember.getMemberNo()%>==element.memberNo){
+	               		$commentDiv.append('<br><a class="deleteBt"=>' + '삭제' + '</a>');
+	               		$commentDiv.append('<a class="updateBt"=>' + '수정' + '</a>');
+	                }
 
 	                $commentContainer.append($commentDiv);
 	            });
@@ -312,6 +320,70 @@ const test = ()=>{
 	        }
 	    });
 	};
+	
+//댓글 삭제기능
+	 $(document).on("click", "a.deleteBt", function(e){	
+
+		 	const replyNumber =  $(e.target).parent().find('.replyNumber').val();
+		 	const feedNo = $(e.target).parent().find('.feedNo').val();
+			
+			$.ajax({
+				type:"POST",
+				url:"<%=request.getContextPath()%>/feed/feedcommentdelete.do",
+				data:{
+					"replyNumber":replyNumber
+				},
+				success:
+					function(data){
+						selectComment(feedNo)
+					}
+				
+				
+				
+			})
+		
+	 })
+	 
+//댓글 수정기능
+$(document).on("click", "a.updateBt", function(e) {
+    const $parent = $(e.target).parent();
+    const replyNumber = $parent.find('.replyNumber').val();
+    const feedNo = $parent.find('.feedNo').val();
+    const $feedReply = $parent.find('h3.replyContent');
+    const feedReplyContent = $feedReply.text();
+    
+    const $textarea = $("<textarea>").val(feedReplyContent);
+    
+    const $cancelButton = $("<button>").text("취소").addClass("cancelUpdate");
+    const $confirmButton = $("<button>").text("확인").addClass("confirmUpdate");
+    
+    const $container = $("<div>").append($textarea, $cancelButton, $confirmButton);
+    
+    $feedReply.replaceWith($container);
+    
+    $cancelButton.click(function() {
+        $container.replaceWith($feedReply);
+    });
+    $confirmButton.click(function() {
+        $.ajax({
+            type: "POST",
+            url: "<%=request.getContextPath()%>/feed/feedcommentupdate.do",
+            data: {
+                "replyNumber": replyNumber,
+                "replyContent": $textarea.val() 
+            },
+            success: function(data) {
+                selectComment(feedNo);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error updating comment:', error);
+            }
+        });
+    });
+});
+
+	
+// 캐러셀 기능 
    const initializeCarousel = (carousel) => {
 	    const imgListBt = carousel.find('.img_listBt');
 	    const slides = imgListBt.children();

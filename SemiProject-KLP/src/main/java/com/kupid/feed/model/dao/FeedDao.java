@@ -47,6 +47,22 @@ public class FeedDao {
 		return result;
 	}
 	
+	public int updateFeedComment(Connection conn,int replyNumber, String replyContent) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("updateFeedComment"));
+			pstmt.setString(1,replyContent);
+			pstmt.setInt(2,replyNumber);
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public int selectMemberByFeedNo(Connection conn, int reportedfeedNo) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -110,7 +126,7 @@ public class FeedDao {
 		ResultSet rs=null;
 		List<Reply> result = new ArrayList<>();
 		try {
-			pstmt=conn.prepareStatement(sql.getProperty("selectFeedCount"));
+			pstmt=conn.prepareStatement(sql.getProperty("selectFeedComment"));
 			pstmt.setInt(1, feedNo);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
@@ -260,6 +276,21 @@ public class FeedDao {
 		
 	}
 	
+	public int deleteFeedComment(Connection conn,int replyNumber) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("deleteFeedComment"));
+			pstmt.setInt(1,replyNumber);
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 //	public int insertFile(Connection conn,String filePath ) {
 //		PreparedStatement pstmt = null;
