@@ -1,12 +1,12 @@
 package com.kupid.manager.report.service;
 
+import static com.kupid.common.JDBCTemplate.close;
+import static com.kupid.common.JDBCTemplate.commit;
+import static com.kupid.common.JDBCTemplate.getConnection;
+import static com.kupid.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.List;
-
-import static com.kupid.common.JDBCTemplate.getConnection;
-import static com.kupid.common.JDBCTemplate.commit;
-import static com.kupid.common.JDBCTemplate.rollback;
-import static com.kupid.common.JDBCTemplate.close;
 
 import com.kupid.manager.penalty.model.dto.Penalty;
 import com.kupid.manager.report.model.dao.ReportDAO;
@@ -49,6 +49,20 @@ public class ReportService {
 		else rollback(conn);
 		close(conn);
 		return result;
+	}
+	
+	public List<Report> searchReport(String type,String keyword,int cPage,int numPerpage){
+		Connection conn=getConnection();
+		List<Report> report=dao.searchReport(conn,type,keyword,cPage,numPerpage);
+		close(conn);
+		return report;
+	}
+	
+	public int searchReportCount(String type,String keyword) {
+		Connection conn=getConnection();
+		int count=dao.searchReportCount(conn,type,keyword);
+		close(conn);
+		return count;
 	}
 	
 }
