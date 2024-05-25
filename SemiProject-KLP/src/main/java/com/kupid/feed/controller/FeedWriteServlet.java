@@ -38,7 +38,7 @@ public class FeedWriteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				//파일업로드 경로
 				String path=getServletContext().getRealPath("/upload/feed");
-				
+				System.out.println(path);
 				File dir=new File(path);
 				if(!dir.exists()) dir.mkdirs();
 				

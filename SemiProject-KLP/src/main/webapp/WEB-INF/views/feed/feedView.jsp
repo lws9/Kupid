@@ -29,6 +29,267 @@
     <div class="container" id="container"></div>  
 </body>
 <style>
+*, *:before, *:after {
+  position: relative;
+  box-sizing: border-box;
+}:root {
+  --color-bg: #FDF1F2;
+  --color-heart: #EA442B;
+  --easing: cubic-bezier(.7,0,.3,1);
+  --duration: .5s;
+}
+
+
+.likes {
+  font-size: 47px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  width: 1em;
+  height: 1em;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  z-index: 2;
+  -webkit-transition: -webkit-transform var(--duration) var(--easing);
+  transition: -webkit-transform var(--duration) var(--easing);
+  transition: transform var(--duration) var(--easing);
+  transition: transform var(--duration) var(--easing), -webkit-transform var(--duration) var(--easing);
+  cursor: pointer;
+}
+.likes:before {
+  z-index: -1;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  -webkit-transition: inherit;
+  transition: inherit;
+}
+.likes:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+@-webkit-keyframes depress {
+  from, to {
+    -webkit-transform: none;
+            transform: none;
+  }
+  50% {
+    -webkit-transform: translateY(5%) scale(0.9);
+            transform: translateY(5%) scale(0.9);
+  }
+}
+@keyframes depress {
+  from, to {
+    -webkit-transform: none;
+            transform: none;
+  }
+  50% {
+    -webkit-transform: translateY(5%) scale(0.9);
+            transform: translateY(5%) scale(0.9);
+  }
+}
+@-webkit-keyframes depress-shadow {
+  from, to {
+    -webkit-transform: none;
+            transform: none;
+  }
+  50% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+}
+@keyframes depress-shadow {
+  from, to {
+    -webkit-transform: none;
+            transform: none;
+  }
+  50% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+}
+.like-wrapper {
+  display: grid;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  z-index: 1;
+}
+.like-wrapper > * {
+  margin: auto;
+  grid-area: 1 / 1;
+}
+
+.heart {
+  width: .5em;
+  height: .5em;
+  display: block;
+  -webkit-transform-origin: center 80%;
+          transform-origin: center 80%;
+}
+.heart > path {
+  stroke: var(--color-heart);
+  stroke-width: 1.5;
+  fill: transparent;
+  -webkit-transition: fill var(--duration) var(--easing);
+  transition: fill var(--duration) var(--easing);
+}
+
+/* 빨간 하트로 바꿔주기 */
+.likes:focus .heart > path {
+  fill: var(--color-heart);
+}
+
+.heart {
+  -webkit-animation: heart-bounce var(--duration) var(--easing);
+          animation: heart-bounce var(--duration) var(--easing);
+}
+@-webkit-keyframes heart-bounce {
+  40% {
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7);
+  }
+  0%, 80%, 100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@keyframes heart-bounce {
+  40% {
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7);
+  }
+  0%, 80%, 100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+/* Added wrapper to prevent layout jank with resizing particles */
+.particles {
+  width: 1px;
+  height: 1px;
+}
+
+.particle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: .1em;
+  width: .1em;
+  border-radius: .05em;
+  background-color: var(--color);
+  --percentage: calc( var(--i) / var(--total-particles) );
+  --Θ: calc( var(--percentage) * 1turn );
+  -webkit-transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(0) scaleY(0);
+          transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(0) scaleY(0);
+  -webkit-transition: all var(--duration) var(--easing);
+  transition: all var(--duration) var(--easing);
+}
+.likes:focus .particle {
+  -webkit-animation: particles-out calc(var(--duration) * 1.2) var(--easing) forwards;
+          animation: particles-out calc(var(--duration) * 1.2) var(--easing) forwards;
+}
+@-webkit-keyframes particles-out {
+  50% {
+    height: .3em;
+  }
+  50%, 60% {
+    height: .3em;
+    -webkit-transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(0.8em) scale(1);
+            transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(0.8em) scale(1);
+  }
+  60% {
+    height: .2em;
+  }
+  100% {
+    -webkit-transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(1em) scale(0);
+            transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(1em) scale(0);
+  }
+}
+@keyframes particles-out {
+  50% {
+    height: .3em;
+  }
+  50%, 60% {
+    height: .3em;
+    -webkit-transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(0.8em) scale(1);
+            transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(0.8em) scale(1);
+  }
+  60% {
+    height: .2em;
+  }
+  100% {
+    -webkit-transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(1em) scale(0);
+            transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(1em) scale(0);
+  }
+}
+.ripple {
+  height: 1em;
+  width: 1em;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 1;
+}
+.ripple:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0.4em solid var(--color-heart);
+  border-radius: inherit;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+}
+.likes:focus .ripple:before {
+  -webkit-animation: ripple-out var(--duration) var(--easing);
+          animation: ripple-out var(--duration) var(--easing);
+}
+@-webkit-keyframes ripple-out {
+  from {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(5);
+            transform: scale(5);
+  }
+}
+@keyframes ripple-out {
+  from {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(5);
+            transform: scale(5);
+  }
+}
+
+/* 다시 클릭하면 원래대로 */
+.likes:focus {
+  pointer-events: none;
+  cursor: normal;
+}
+
     .img_list {
         position: relative;
         width: 500px;
@@ -76,9 +337,16 @@
         margin-top: 10px;
     }
 
-    .board-footer button {
-        margin-right: 10px;
-    }
+    .textArea {
+  width: 300px;
+  height: 80px;
+  font-size: 18px;
+  resize: none;
+  color: black;
+  border: none;
+  border-bottom: 2px solid #0000007e;
+  outline: none;
+}
 </style>
 <script>
 const test = () => {
@@ -130,8 +398,9 @@ const loadPage = () => {
                 const $header = $('<div>').addClass('board-header');
                 $header.append('<div><img style="border-radius:50%; height:32px; width:32px;" src="<%=request.getContextPath()%>/upload/member/profile/' + element.profileImgOriname + '"></div>');
                 $header.append('<div>' + element.feedWriterName + '</div>');
+                if(element.feedUpdateDate == undefined){
                 $header.append('<div>' + element.feedWriteDate + '</div>');
-                $header.append('<div>' + element.feedUpdateDate + '</div>');
+                }else $header.append('<div>' + element.feedUpdateDate + '</div>');
                 $div.append($header);
 
                 $div.append('<div>' + element.feedContent + '</div>');
@@ -162,7 +431,22 @@ const loadPage = () => {
                 }
 
                 const $footer = $('<div>').addClass('board-footer');
-                $footer.append('<button class="likes">좋아요</button>');
+                $footer.append('<button class="likes">'+
+                	    '<div class="like-wrapper">'+
+                	      '<div class="ripple"></div>'+
+                	      '<svg class="heart" width="24" height="24" viewBox="0 0 24 24">'+
+                	        '<path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>'+
+                	      '</svg>'+
+                	      '<div class="particles" style="--total-particles: 6">'+
+                	        '<div class="particle" style="--i: 1; --color: #7642F0"></div>'+
+                	        '<div class="particle" style="--i: 2; --color: #AFD27F"></div>'+
+                	        '<div class="particle" style="--i: 3; --color: #DE8F4F"></div>'+
+                	        '<div class="particle" style="--i: 4; --color: #D0516B"></div>'+
+                	        '<div class="particle" style="--i: 5; --color: #5686F2"></div>'+
+                	        '<div class="particle" style="--i: 6; --color: #D53EF3"></div>'+
+                	      '</div>'+
+                	    '</div>'+
+                	  '</button>');
                 $footer.append('<button class="comment">댓글</button>');
                 $footer.append('<button class="reportBt">신고</button>');
                 $div.append($footer);
@@ -195,10 +479,11 @@ $(document).on("click", "button.comment", function(e) {
     const feedNoText = $(e.target).closest('.board').find('input.feedNo').val();
 
     if (existingDiv.length === 0) { // 기존에 댓글 입력창이 없으면 새로 생성
-        const newDiv = $("<div>").addClass('comment-container').css("border", "1px solid red");
+        const newDiv = $("<div>").addClass('comment-container')
+        ;
         const commentBt = $("<button>").text("등록").addClass('commentBt');
-        const innerDiv = $("<div>").css("border", "1px solid blue");
-        const textArea = $("<textarea>").css("width", "80%");
+        const innerDiv = $("<div>");
+        const textArea = $("<textarea>").css("width", "80%").addClass('textArea');
 
         innerDiv.append(textArea);
         innerDiv.append(commentBt);
@@ -260,23 +545,22 @@ const selectComment = (feedNoText) => {
             "feedNo": feedNoText
         },
         success: function(data) {
-            // 댓글 목록을 출력할 컨테이너를 선택합니다.
-            const $commentContainer = $('.comment-container'); // 예시로 '#commentContainer'를 사용했습니다. 실제로 사용하는 컨테이너 ID에 맞게 수정해주세요.
-            
-            // 댓글 목록을 비우지 않고 새로운 댓글을 추가합니다.
+            const $commentContainer = $('input.feedNo[value="' + feedNoText + '"]').closest('.board').find('.comment-container');
+
             $.each(data, function(idx, element) {
                 const $commentDiv = $("<div>").css({
-                    "border": "1px solid red",
+                    "border-bottom": "1px solid #aba7a7",
                     "width": "800px",
-                    'overflow': 'hidden'
+                    'overflow': 'hidden',
+                    'padding-bottom': '10px'
                 }).addClass("comment-item");
 
                 $commentDiv.append('<input type="hidden" class="replyNumber" value=' + element.replyNumber + '>');
                 $commentDiv.append('<input type="hidden" class="feedNo" value=' + element.feedNo + '>');
-                $commentDiv.append('<h3>' + element.replyDate + '</h3>');
-                $commentDiv.append('<h3>' + element.likes + '</h3>');
-                $commentDiv.append('<h3>' + element.memberNo + '</h3>');
-                $commentDiv.append('<h3 class="replyContent">' + element.replyContent + '</h3>');
+                $commentDiv.append('<div>' + element.replyDate + '</div>');
+                $commentDiv.append('<div>' + element.likes + '</div>');
+                $commentDiv.append('<div>' + element.memberNo + '</div>');
+                $commentDiv.append('<div class="replyContent">' + element.replyContent + '</div>');
 
                 if (<%=loginMember.getMemberNo()%> == element.memberNo) {
                     $commentDiv.append('<br><a class="deleteBt">삭제</a>');
@@ -314,7 +598,7 @@ $(document).on("click", "a.updateBt", function(e) {
     const $parent = $(e.target).parent();
     const replyNumber = $parent.find('.replyNumber').val();
     const feedNo = $parent.find('.feedNo').val();
-    const $feedReply = $parent.find('h3.replyContent');
+    const $feedReply = $parent.find('div.replyContent');
     const feedReplyContent = $feedReply.text();
 
     const $textarea = $("<textarea>").val(feedReplyContent);
@@ -359,7 +643,7 @@ const initializeCarousel = (carousel) => {
         if (idx >= totalSlides) idx = 0;
         if (idx < 0) idx = totalSlides - 1;
         imgListBt.css('transform', 'translateX(' + (-idx * slideWidth) + 'px)');
-        index = idx;  // Update the global index after correction
+        index = idx;
     }
 
     carousel.find('.prev').click(() => {
@@ -370,7 +654,6 @@ const initializeCarousel = (carousel) => {
         showSlide(index + 1);
     });
 
-    // Initial display of the first slide
     showSlide(index);
 }
 
