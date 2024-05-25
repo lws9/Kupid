@@ -38,6 +38,7 @@ public class FeedWriteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				//파일업로드 경로
 				String path=getServletContext().getRealPath("/upload/feed");
+				
 				File dir=new File(path);
 				if(!dir.exists()) dir.mkdirs();
 				
@@ -45,7 +46,7 @@ public class FeedWriteServlet extends HttpServlet {
 				String encode="UTF-8";
 				
 				//파일크기
-				int maxSize=1024*1024*650;
+				int maxSize=1024*1024*100;
 				
 				//리네임 규칙 설정하기
 				DefaultFileRenamePolicy dfrp=new DefaultFileRenamePolicy();
