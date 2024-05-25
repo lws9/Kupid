@@ -20,4 +20,5 @@ public class Inquiry {
 	private Date inqDate;
 	private String writer;
 	private boolean answer;//답변유무
+	private String inqFile;
 }

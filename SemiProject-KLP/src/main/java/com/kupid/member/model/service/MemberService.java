@@ -6,6 +6,7 @@ import static com.kupid.common.JDBCTemplate.getConnection;
 import static com.kupid.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.kupid.member.model.dao.MemberDao;
 import com.kupid.member.model.dto.MemberDto;
@@ -41,6 +42,18 @@ public class MemberService {
 		int result = dao.insertMember(conn, m);
 		if(result>0) commit(conn);
 		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	public List<MemberDto> selectMemberFavorite() {
+		Connection conn = getConnection();
+		List<MemberDto> result = dao.selectMemberFavorite(conn);
+		close(conn);
+		return result;
+	}
+	public List<MemberDto> selectGroupSubscribe() {
+		Connection conn = getConnection();
+		List<MemberDto> result = dao.selectGroupSubscribe(conn);
 		close(conn);
 		return result;
 	}
