@@ -4,6 +4,7 @@
 <%
 	List<Inquiry> inq=(List<Inquiry>)request.getAttribute("inquiry");
 	StringBuffer pagebar=(StringBuffer)request.getAttribute("pageBar");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -14,7 +15,7 @@
 ul{
    /* width:80%; */
    display:table;
-   padding:0px; 
+   padding:0px;
    margin:auto;
 }
 ul li { 
@@ -42,11 +43,30 @@ ul li:hover{
 ul li:hover > a{
    color:#FFF; /* 글자색*/
 }
+.inq-container{
+	display:flex;
+}
+.inq-sec{
+	width:85%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.table-size{
+	width:85%;
+	height:650px;
+	font-size:30px;
+	border :1px solid blue;
+}
 </style>
 </head>
 <body>
+<div class="inq-container">
+<%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
+<div class="inq-sec">
 	<h1>문의</h1>
-	<table>
+	<table class="table-size">
 		<tr>
 			<th>No</th>
 			<th>제목</th>
@@ -58,17 +78,21 @@ ul li:hover > a{
 			<tr>
 				<td><%=i.getInqNo()%></td>
 				<td><%=i.getInqTitle()%></td>
-				<td><%=i.getInqContent()%></td>
-				<td></td>
-				<td><button onclick="">답변</button></td>
+				<td><%=i.getInqDate()%></td>
+				<td><%=i.getWriter()%></td>
+				<%if(i.isAnswer()){ %>
+					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/answerinsert.do?no=<%=i.getInqNo()%>')">답변</button></td>
+				<%}else{ %>
+					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/answerupdate.do?no=<%=i.getInqNo()%>')">수정</button></td>
+				<%} %>
 			</tr>
 			<%} 
 		}else{%>
 			<tr><td>문의내역이 없습니다</td></tr>
 		<%} %>
 	</table>
-		<div><button onclick="location.assign('<%=request.getContextPath()%>/manager/noticeinsert.do')">작성</button></div>
-		<br><br><br>
 		<div><%=pagebar %></div>
+	</div>
+</div>
 </body>
 </html>

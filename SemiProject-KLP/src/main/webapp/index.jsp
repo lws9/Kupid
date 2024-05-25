@@ -319,6 +319,5 @@ document.addEventListener('DOMContentLoaded', () => {
         autoSlideInterval = setInterval(()=>showNextSlide(), 3000);
     };
 });
-
 </script>
 </html>

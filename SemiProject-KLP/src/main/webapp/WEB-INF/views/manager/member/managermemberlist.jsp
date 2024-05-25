@@ -15,7 +15,7 @@
 <style>
 ul{
    /* width:80%; */
-   display:table; 
+   display:table;
    padding:0px;
    margin:auto;
 }

@@ -12,14 +12,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 <style>
 ul{
    /* width:80%; */
    display:table;
    padding:0px;
    margin:auto;
-} 
+}
 ul li { 
    list-style-type: none; 
    width: 8em; 
@@ -73,9 +72,6 @@ ul li:hover > a{
 	float: right;
 }
 
-div#search-일반{display:inline-block;}
-div#search-굿즈{display:none;}
-div#search-행사{display:none;}
 </style>
 </head>
 <body>
@@ -160,7 +156,6 @@ div#search-행사{display:none;}
 	     $("#searchType").change(e=>{
      			const type=e.target.value;
      			$(e.target).parent().children("div").hide();
-     			/* $("#search-container>div").hide(); */
      			$("#search-"+type).css("display","inline-block");
      		})
 	</script>

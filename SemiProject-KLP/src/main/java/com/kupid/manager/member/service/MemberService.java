@@ -16,16 +16,16 @@ public class MemberService {
 	
 	MemberDAO dao=new MemberDAO();
 	
-	public List<MemberDto> selectMemberAll(int cPage,int numPerpage,String grade){
+	public List<MemberDto> selectMemberAll(int cPage,int numPerpage){
 		Connection conn=getConnection();
-		List<MemberDto> member=dao.selectMemberAll(conn,cPage,numPerpage,grade);
+		List<MemberDto> member=dao.selectMemberAll(conn,cPage,numPerpage);
 		close(conn);
 		return member;
 	}
 	
-	public int selectMemberAllCount(String grade) {
+	public int selectMemberAllCount() {
 		Connection conn=getConnection();
-		int result=dao.selectMemberAllCount(conn,grade);
+		int result=dao.selectMemberAllCount(conn);
 		close(conn);
 		return result;
 	}

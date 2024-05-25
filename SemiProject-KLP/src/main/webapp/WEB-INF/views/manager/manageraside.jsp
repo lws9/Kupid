@@ -305,7 +305,7 @@
   color: black;
 }
 .aside{
-        width: 15%; 
+        width: 15%;
         height: 1100px;
         border: 1px solid blue; 
         display: flex;
@@ -357,10 +357,7 @@
                     <h3>그룹</h3>
                 </button>
                 <button class="<%=pagenum==8?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/memberlist.do?pagenum=8')">
-                    <h3>회원</h3>
-                </button>
-                  <button class="<%=pagenum==9?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/unactivememberlist.do?pagenum=9')">
-                    <h3>탈퇴회원</h3>
+                    <h3>팬</h3>
                 </button>
            </div>
            <br>
@@ -370,10 +367,10 @@
                 </div>
             </div>
             <div class="flex_col2">
-                <button class="<%=pagenum==10?"btn1":"btn2" %>">
+                <button class="<%=pagenum==9?"btn1":"btn2" %>">
                     <h3>아티스트</h3>
                 </button>
-                <button class="<%=pagenum==11?"btn1":"btn2" %>" onclick="">
+                <button class="<%=pagenum==10?"btn1":"btn2" %>" onclick="">
                     <h3>팬</h3>
                 </button>
            </div>
@@ -384,13 +381,13 @@
                 </div>
             </div>
             <div class="flex_col2">
-                <button class="<%=pagenum==12?"btn1":"btn2" %>">
+                <button class="<%=pagenum==11?"btn1":"btn2" %>">
                     <h3>배너</h3>
                 </button>
-                <button class="<%=pagenum==13?"btn1":"btn2" %>" onclick="">
+                <button class="<%=pagenum==12?"btn1":"btn2" %>" onclick="">
                     <h3>상품</h3>
                 </button>
-                <button class="<%=pagenum==14?"btn1":"btn2" %>" onclick="">
+                <button class="<%=pagenum==13?"btn1":"btn2" %>" onclick="">
                     <h3>결제내역</h3>
                 </button>
            </div>

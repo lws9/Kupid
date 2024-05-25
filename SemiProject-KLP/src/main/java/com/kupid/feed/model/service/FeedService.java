@@ -35,6 +35,23 @@ public class FeedService {
 		
 	}
 	
+	public int deleteFeedComment(int replyNumber) {
+		Connection conn = getConnection();
+		int result = dao.deleteFeedComment(conn,replyNumber);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		return result;
+		
+	}
+	
+	public int updateFeedComment(int replyNumber, String replyContent) {
+		Connection conn = getConnection();
+		int result = dao.updateFeedComment(conn,replyNumber,replyContent);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+	
 
 	public int switchingLikes(int memberNo,int feedNo) {
 		Connection conn = getConnection();

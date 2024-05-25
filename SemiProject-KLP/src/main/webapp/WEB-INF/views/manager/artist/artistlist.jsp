@@ -78,7 +78,7 @@ ul li:hover > a{
 <div class="faq-sec">
 		<h1>ARTIST</h1>
 		<h1>
-			<div> 
+			<div>
 				<select id="searchType">
 		       		<option value="group_name" <%=searchType!=null&&searchType.equals("group_name")?"selected":"" %>>그룹명</option>
 		        	<option value="member_name" <%=searchType!=null&&searchType.equals("member_name")?"selected":"" %>>이름</option>

@@ -125,23 +125,6 @@ public class ReportDAO {
 		return result;
 	}
 	
-	public int memberGradeUpdate(Connection conn,Penalty p) {
-		PreparedStatement pstmt=null;
-		int result=0;
-		try {
-			pstmt=conn.prepareStatement(sql.getProperty("memberGradeUpdate"));
-			pstmt.setString(1, "탈퇴");
-			pstmt.setInt(2, p.getMemberNo());
-			result=pstmt.executeUpdate();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-		return result;
-	}
-	
-	
 	
 	public static Report getReport(ResultSet rs) throws SQLException {
 		return Report.builder()

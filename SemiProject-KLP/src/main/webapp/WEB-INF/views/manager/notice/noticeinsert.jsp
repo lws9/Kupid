@@ -20,7 +20,7 @@
                        	<div class="content-container">
 							<h3>카테고리</h3>
                        		<div>
-								<select name="category" > 
+								<select name="category" >
 	        						<option value="굿즈" >굿즈</option>
 	        						<option value="일반" >일반</option>
 	        						<option value="행사" >행사</option>

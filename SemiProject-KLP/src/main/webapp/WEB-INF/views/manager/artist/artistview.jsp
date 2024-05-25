@@ -10,10 +10,14 @@
 <head>
 <meta charset="UTF-8">
 </head>
-
+<style>
+.input_box p{
+	margin-top:2px;
+}
+</style>
 <!-- 임시디자인 -->
 
-<div class="myInfo-container"> 
+<div class="myInfo-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
     <main class="main">
         <section class="myInfo">
