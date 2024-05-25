@@ -42,7 +42,6 @@ public class GetgroupListFilter extends HttpFilter implements Filter {
 		//페인페이지에서만 필터하여 저장하는 분기처리
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
-		if ("/".equals(path)) {
 			System.out.println("전체 아티스트+구독한 멤버 아이디 request 저장 필터 실행: key=GroupList");
 			//아티스트그룹의 구독자 정보 가져오기(전체 아티스트)
 //			List<MemberDto> result = new MemberService().selectGroupSubscribe();
@@ -50,7 +49,6 @@ public class GetgroupListFilter extends HttpFilter implements Filter {
 			System.out.println(result.toString());
 			request.setAttribute("GroupList", result);
 			request.setAttribute("subscribeCk", false);
-		}
 		//화면전환
 //		response.sendRedirect(request.getContextPath());
 		chain.doFilter(request, response);
