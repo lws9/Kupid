@@ -51,7 +51,8 @@
      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
      font-weight: normal;
      font-style: normal;
-     letter-spacing: -0.36px;
+     letter-spacing: -1.36px;
+     font-size: 1.1rem;
 	}
 </style>
 <header class="p-2 border-bottom d-flex">
