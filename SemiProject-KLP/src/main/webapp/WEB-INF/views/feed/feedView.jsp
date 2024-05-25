@@ -29,6 +29,28 @@
     <div class="container" id="container"></div>  
 </body>
 <style>
+.indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+}
+
+.indicator {
+    width: 10px;
+    height: 10px;
+    background-color: black;
+    margin: 0 5px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.indicator.active {
+    background-color: gray; /* 활성 상태일 때 색상 변경 */
+}
+
+
 *, *:before, *:after {
   position: relative;
   box-sizing: border-box;
@@ -374,7 +396,7 @@ $(container).css({"display": "flex", "flex-direction": "column", "justify-conten
 let page = 1; 
 const perPage = 10;
 let time = true;
-
+//피드 페이지 불러오기
 const loadPage = () => {    
     $.ajax({
         type: "POST",
@@ -631,20 +653,41 @@ $(document).on("click", "a.updateBt", function(e) {
     });
 });
 
-// 캐러셀 기능 
+//캐러셀 기능 
 const initializeCarousel = (carousel) => {
     const imgListBt = carousel.find('.img_listBt');
     const slides = imgListBt.children();
     const totalSlides = slides.length;
     let index = 0;
 
+    const indicators = $('<div class="indicators"></div>');
+    for (let i = 0; i < totalSlides; i++) {
+        const indicatorClass = i === 0 ? ' active' : '';
+        indicators.append('<span class="indicator' + indicatorClass + '" data-index="' + i + '"></span>');
+    }
+    carousel.append(indicators);
+    
     const showSlide = (idx) => {
         const slideWidth = slides.first().outerWidth();
         if (idx >= totalSlides) idx = 0;
         if (idx < 0) idx = totalSlides - 1;
         imgListBt.css('transform', 'translateX(' + (-idx * slideWidth) + 'px)');
         index = idx;
+
+        updateIndicators();
     }
+    
+ // Update indicators
+    const updateIndicators = () => {
+        carousel.find('.indicator').removeClass('active').eq(index).addClass('active');
+    }
+
+    // Handle click events for indicators
+    carousel.on('click', '.indicator', function() {
+    const idx = $(this).data('index');
+    showSlide(idx);
+});
+
 
     carousel.find('.prev').click(() => {
         showSlide(index - 1);
@@ -656,6 +699,7 @@ const initializeCarousel = (carousel) => {
 
     showSlide(index);
 }
+
 
 // 좋아요 기능
 function switchingLikes(feedNo, e) {
