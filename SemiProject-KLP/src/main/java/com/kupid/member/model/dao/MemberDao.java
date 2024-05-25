@@ -8,9 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import com.kupid.member.model.dto.MemberDto;
+import com.kupid.mypage.dao.MyPageDao;
 public class MemberDao {
 	private Properties sql = new Properties();
 	{
@@ -32,8 +35,6 @@ public class MemberDao {
 			pstmt.setString(1, userId);
 			rs=pstmt.executeQuery();
 			if(rs.next()) m=memberBuilder(rs);
-			System.out.println(rs.getString("member_pw")+"daasd");
-			System.out.println(m.getMemberPw());
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -98,6 +99,39 @@ public class MemberDao {
 		}
 		return result; 
 	}
+	@SuppressWarnings("static-access")
+	public List<MemberDto> selectMemberFavorite(Connection conn) {
+		PreparedStatement pstmt = null;
+		List<MemberDto> m = new ArrayList<>();
+		ResultSet rs = null;
+		try{
+			pstmt = conn.prepareStatement(sql.getProperty("selectMemberFavorite"));
+//			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				m.add((MemberDto)new MyPageDao().favoriteGroupBuilder(rs));
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return m; 
+	}
+	public List<MemberDto> selectGroupSubscribe(Connection conn) {
+		PreparedStatement pstmt = null;
+		List<MemberDto> m = new ArrayList<>();
+		ResultSet rs = null;
+		try{
+			pstmt = conn.prepareStatement(sql.getProperty("selectGroupSubscribe"));
+//			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				m.add(GroupSubscribesBuilder(rs));
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return m; 
+	}
 	public static MemberDto memberBuilder(ResultSet rs) throws SQLException {
 //		String email,phone,addressDetail,address,memberPw;
 //					try {
@@ -139,5 +173,14 @@ public class MemberDao {
 						.memberGrade(rs.getString("member_grade"))
 						.enrollDate(rs.getDate("enroll_date"))
 						.build();
+	}
+	public static MemberDto GroupSubscribesBuilder(ResultSet rs) throws SQLException {
+		return MemberDto.builder()
+					.groupNo(rs.getInt("group_no"))
+					.groupName(rs.getString("group_name"))
+					.groupImg(rs.getString("group_img"))
+					.memberNo(rs.getInt("member_no"))
+					.subscribeNo(rs.getInt("subscribe_no"))
+					.build();
 	}
 }
