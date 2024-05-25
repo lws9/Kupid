@@ -9,14 +9,15 @@
 <body>
 	
 <div class="myInfo-container">
-<%@ include file="/WEB-INF/views/manager/manageraside.jsp" %> 
+<%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
     <main class="main">
         <section class="myInfo">
             <div class="flex_col">
                 <h1 class="title">GROUP 등록</h1>
                 <div class="content_box">
                     <div class="flex_row">
-                        <form action="<%=request.getContextPath()%>/manager/groupinsertend.do" method="post">
+                    
+                        <form action="<%=request.getContextPath()%>/manager/groupinsertend.do" method="post" enctype="multipart/form-data">
                        	<div class="content-container">
                             <h3>그룹명</h3>
                             	<div class="input_box">
@@ -36,7 +37,7 @@
 							</div>
 							<h3>사진</h3>
                            	<div class="input_box">
-								<input type="file" name="img" class="inputTag" required>
+								<input type="file" name="upfile" class="inputTag" required>
 							</div>								    
                            	<br>
 	                		<button name="submit" class="btn">등록</button>

@@ -3,7 +3,8 @@
 <%@ page import="com.kupid.member.model.dto.MemberDto, java.util.List" %>
 <% 
 	List<MemberDto> profile = (List<MemberDto>) request.getAttribute("memberProfile");
-	MemberDto m = profile.get(0);
+	 MemberDto m = profile.get(0); 
+/* 	MemberDto m =(MemberDto) session.getAttribute("loginMember"); */
 	String favorite = "";
 	
 	for(int i=0; i<profile.size(); i++){
@@ -269,7 +270,7 @@
     <main class="main">
         <section class="myProfile">
             <div class="flex_col">
-                <h1 class="title">내 프로필</h1>
+                <h1 class="title fs-5">내 프로필</h1>
                 <div class="content_box1 content_box">
                     <div class="flex_row">
                         <div class="flex_col1">
@@ -319,6 +320,7 @@
     </main>
 </div>
 <script>
+
 	$("#changeImg").click(e=>{
 		$("#upload_profile_img").click();
 	});

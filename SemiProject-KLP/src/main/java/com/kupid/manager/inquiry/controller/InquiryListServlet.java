@@ -36,7 +36,7 @@ public class InquiryListServlet extends HttpServlet {
     
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setAttribute("pagenum", 4);
 		int cPage=1;
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
@@ -96,7 +96,7 @@ public class InquiryListServlet extends HttpServlet {
 		
 		
 		List<Inquiry> inq=new InquiryService().selectInquiryAll(cPage, numPerpage);
-		
+//		String writer=inq.get(7);
 		request.setAttribute("inquiry", inq);//sql문에서 memeber와 join후 가져와야하나? 답변후에 처리는 어떻게 해야하나.....
 		
 		request.getRequestDispatcher("/WEB-INF/views/manager/inquiry/inquirylist.jsp").forward(request, response);

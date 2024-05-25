@@ -133,6 +133,31 @@ Properties sql=new Properties();
 		return result;
 	}
 	
+	public int insertArtist(Connection conn,MemberDto m) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("insertArtist"));
+			pstmt.setString(1,m.getMemberId());
+			pstmt.setString(2,m.getMemberPw());
+			pstmt.setString(3,m.getMemberName());
+			pstmt.setString(4,m.getGender());
+			pstmt.setString(5,m.getPhone());
+			pstmt.setString(6,m.getAddress());
+			pstmt.setString(7,m.getAddressDetail());
+			pstmt.setString(8,m.getEmail());
+			pstmt.setDate(9,m.getBirth());
+			pstmt.setString(10,m.getNickname());
+			pstmt.setString(11,"아티스트");
+			pstmt.setInt(12,m.getGroupNo());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 
 	

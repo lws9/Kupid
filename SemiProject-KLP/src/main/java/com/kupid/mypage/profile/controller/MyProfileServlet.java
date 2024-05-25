@@ -36,9 +36,9 @@ public class MyProfileServlet extends HttpServlet {
 		request.setAttribute("pagenum", 1);
 		HttpSession session=request.getSession();
 		MemberDto m = (MemberDto) session.getAttribute("loginMember");
-		
+		System.out.println(m.getProfileImgOriname());
 		List<MemberDto> result = new MyPageService().selectMemberForProfile(m.getMemberId());
-		System.out.println(m.toString());
+		System.out.println(result.get(0).toString());
 		request.setAttribute("memberProfile", result);
 		request.getRequestDispatcher("/WEB-INF/views/mypage/myProfile.jsp")
 		.forward(request, response);

@@ -45,13 +45,24 @@ public class ReportService {
 		if(result>0) {
 			dao.updateReportResult(conn,p);
 			commit(conn);
-			if(p.getPenaltyCategory().equals("unactive")) {
-				dao.memberGradeUpdate(conn,p);
-			}
 		}
 		else rollback(conn);
 		close(conn);
 		return result;
+	}
+	
+	public List<Report> searchReport(String type,String keyword,int cPage,int numPerpage){
+		Connection conn=getConnection();
+		List<Report> report=dao.searchReport(conn,type,keyword,cPage,numPerpage);
+		close(conn);
+		return report;
+	}
+	
+	public int searchReportCount(String type,String keyword) {
+		Connection conn=getConnection();
+		int count=dao.searchReportCount(conn,type,keyword);
+		close(conn);
+		return count;
 	}
 	
 }

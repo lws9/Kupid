@@ -305,7 +305,7 @@
   color: black;
 }
 .aside{
-        width: 15%; 
+        width: 15%;
         height: 1100px;
         border: 1px solid blue; 
         display: flex;

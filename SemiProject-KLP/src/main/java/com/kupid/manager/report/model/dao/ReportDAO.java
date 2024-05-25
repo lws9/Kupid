@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.kupid.manager.penalty.model.dto.Penalty;
 import com.kupid.manager.report.model.dto.Report;
+import com.kupid.member.model.dto.MemberDto;
 
 
 public class ReportDAO {
@@ -125,20 +126,68 @@ public class ReportDAO {
 		return result;
 	}
 	
-	public int memberGradeUpdate(Connection conn,Penalty p) {
+	public List<Report> searchReport(Connection conn,String type,String keyword, int cPage,int numPerpage) {
 		PreparedStatement pstmt=null;
-		int result=0;
+		ResultSet rs=null;
+		List<Report> report=new ArrayList<>();
 		try {
-			pstmt=conn.prepareStatement(sql.getProperty("memberGradeUpdate"));
-			pstmt.setString(1, "탈퇴");
-			pstmt.setInt(2, p.getMemberNo());
-			result=pstmt.executeUpdate();
+			String sql="";
+			if(type.equals("reporting_member")) {
+				sql=this.sql.getProperty("selectSearchReporting");
+			}else {
+				sql=this.sql.getProperty("selectSearchReported");
+			}
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,"%"+keyword+"%");
+			pstmt.setInt(2, (cPage-1)*numPerpage+1);
+			pstmt.setInt(3, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				report.add(getReport(rs));
+			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return report;
+	}
+	
+	public int searchReportCount(Connection conn,String type,String keyword) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		String sql=this.sql.getProperty("searchReportCount");
+		sql=sql.replace("#COL", type);
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+keyword+"%" );
+			rs=pstmt.executeQuery();
+			if(rs.next()) result=rs.getInt(1);
+			
+		}catch(SQLException e) {
+			
+		}finally {
+			close(rs);
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	
+	public static Report getSearchReport(ResultSet rs) throws SQLException {
+		return Report.builder()
+				.reportNo(rs.getInt("report_no"))
+				.reportCategory(rs.getString("report_category"))
+				.reportContent(rs.getString("report_content"))
+				.reportDate(rs.getDate("report_date"))
+				.reportingMember(rs.getInt("reporting_member"))//신고한 회원
+				.reportedMember(rs.getInt("reported_member"))//신고받은 회원
+				.reportedId(rs.getString("member_id"))
+				.reportResult(rs.getString("report_result"))
+				.build();
 	}
 	
 	

@@ -14,7 +14,7 @@
 <body>
 	
 <div class="myInfo-container">
-<%@ include file="/WEB-INF/views/manager/manageraside.jsp" %> 
+<%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
     <main class="main">
         <section class="myInfo">
             <div class="flex_col">
@@ -37,6 +37,7 @@
 							<td style="text-align:center;"><%=inq.getWriter()%></td>
 						</tr>
 					</table>
+                       	<div><h3>Ã·ºÎÆÄÀÏ</h3><p style="text-align:center;"><img src="<%=request.getContextPath()%>/upload/<%=inq.getInqFile()%>"></p></div>
 		        </div>
                     <div class="flex_row">
                     

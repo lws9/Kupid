@@ -31,12 +31,12 @@ public class FeedCommentDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			int replyNumber = Integer.parseInt(request.getParameter("replyNumber"));
-//			int result = new FeedService().deleteFeedComment(replyNumber);
+			int result = new FeedService().deleteFeedComment(replyNumber);
 			
 			response.setContentType("application/json;charset=utf-8");
 
 			Gson gson = new Gson();
-//			gson.toJson(result,response.getWriter());
+			gson.toJson(result,response.getWriter());
 	}
 
 	/**

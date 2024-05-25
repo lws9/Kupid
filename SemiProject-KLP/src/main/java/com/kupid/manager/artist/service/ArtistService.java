@@ -51,4 +51,14 @@ public class ArtistService {
 		return count;
 	}
 	
+	public int insertArtist(MemberDto m) {
+		Connection conn=getConnection();
+		int result=dao.insertArtist(conn,m);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		return result;
+		
+	}
+	
+	
 }

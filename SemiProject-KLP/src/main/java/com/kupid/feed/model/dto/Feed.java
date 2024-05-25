@@ -23,4 +23,5 @@ public class Feed {
 	private String filePath;
 	private int likes;
 	private int report;
+	private String profileImgOriname;
 }

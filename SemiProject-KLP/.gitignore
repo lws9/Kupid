@@ -2,6 +2,6 @@
 /src/main/resources/
 /src/main/webapp/upload/
 .DS_Store
-.dbeaver/
+.dbeaver/	
 .idea/
 Scripts/

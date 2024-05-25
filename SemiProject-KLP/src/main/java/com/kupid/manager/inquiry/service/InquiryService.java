@@ -35,5 +35,4 @@ public class InquiryService {
 		return result;
 	}
 	
-	
 }

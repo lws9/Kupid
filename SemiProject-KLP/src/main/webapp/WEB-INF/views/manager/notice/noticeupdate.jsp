@@ -19,7 +19,7 @@
         <section class="myInfo">
             <div class="flex_col">
                 <h1 class="title">공지사항 수정</h1>
-                <div class="content_box"> 
+                <div class="content_box">
                     <div class="flex_row">
                         <form action="<%=request.getContextPath()%>/manager/noticeupdateend.do" method="post">
                        	<div class="content-container">
@@ -42,7 +42,7 @@
 								<textarea rows="10" cols="30" name="content" class="inputTag" required><%=n.getNoticeContent()%></textarea>	
 							</div>
                            	<br>
-	                		<button name="submit" class="btn">수정</button>
+	                		<button name="submit" class="btn">등록</button>
                         </div>
                         </form>
                     </div>

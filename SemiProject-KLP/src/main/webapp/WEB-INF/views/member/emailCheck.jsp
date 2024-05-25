@@ -124,6 +124,7 @@ String email =(String) (request.getAttribute("email"));
 		if($("input#input_email").value ===""){
 			alert('값을 입력해주세요.');
 		}else{
+			$("#result_container").html('');
 			$.ajax({
 				url: "<%=request.getContextPath()%>/member/signupemailSend.do",
 				data: {

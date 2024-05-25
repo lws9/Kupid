@@ -72,13 +72,12 @@ ul li:hover > a{
 </style>
 </head>
 <body>
-
 <div class="faq-container">
-<%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
+<%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>s
 <div class="faq-sec">
 		<h1>ARTIST</h1>
 		<h1>
-			<div> 
+			<div>
 				<select id="searchType">
 		       		<option value="group_name" <%=searchType!=null&&searchType.equals("group_name")?"selected":"" %>>그룹명</option>
 		        	<option value="member_name" <%=searchType!=null&&searchType.equals("member_name")?"selected":"" %>>이름</option>
@@ -126,7 +125,7 @@ ul li:hover > a{
 					<td><%=m.getMemberName()%></td>
 					<td><%=m.getGroupCompany()%></td>
 					<td><%=m.getEnrollDate()%></td>
-					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/artistupdate.do?no=<%=m.getMemberNo()%>')">상세정보(수정)</button></td>
+					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/artistupdate.do?no=<%=m.getMemberNo()%>')">상세정보</button></td>
 					<td><button onclick="deleteArtist(<%=m.getMemberNo()%>);">삭제</button></td>
 				</tr>
 				<%} 

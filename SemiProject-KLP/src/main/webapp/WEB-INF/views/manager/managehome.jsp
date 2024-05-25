@@ -14,7 +14,7 @@
 <body>
 <div class="myprofile-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
-
+<h1>메인메뉴</h1>
 </div>
-</body> 
+</body>
 </html>

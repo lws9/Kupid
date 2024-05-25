@@ -16,8 +16,10 @@
 .myInfo-container{
 	display: flex;
 	width: 100%;
-}  
-
+}
+.input_box p{
+	margin-top:2px;
+}
 </style>
 <!-- 임시디자인 -->
 
@@ -31,7 +33,7 @@
                     <div class="flex_row">
                         
                        	<div class="content-container">
-                       		<%-- <h3><img src="<%=request.getContextPath()%>/image/member/<%=m.getProfileImgOriname()%>" width=150px height=150px></h3> --%>                 
+                       		<h3><img src="<%=request.getContextPath()%>/upload/<%=m.getProfileImgOriname()%>" width=150px height=150px></h3>             
                             <h3>이름</h3>
                             <div class="input_box">
 	                            <p><%=m.getMemberName() %></p>

@@ -5,6 +5,8 @@
 	List<Report> report=(List<Report>)request.getAttribute("report");
 
 	StringBuffer pagebar=(StringBuffer)request.getAttribute("pageBar");
+	String searchType=request.getParameter("searchType");
+	String searchKeyword=request.getParameter("searchKeyword");
 %>
 <!DOCTYPE html>
 <html>
@@ -15,7 +17,7 @@
 ul{
    /* width:80%; */
    display:table;
-   padding:0px; 
+   padding:0px;
    margin:auto;
 }
 ul li { 
@@ -74,6 +76,28 @@ ul li:hover > a{
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
 	<div class="report-sec">
 	<h1>신고 내역</h1>
+	<h1>
+			<div>
+				<select id="searchType">
+		       		<option value="reporting_member" <%=searchType!=null&&searchType.equals("reporting_member")?"selected":"" %>>신고한 회원</option>
+		        	<option value="reported_member" <%=searchType!=null&&searchType.equals("reported_member")?"selected":"" %>>신고받은 회원</option>
+	        	</select>
+	        	<div id="search-reported_member">
+					<form action="<%=request.getContextPath()%>/manager/searchreport.do">
+						<input type="hidden" name="searchType" value="reported_member">
+						<input type="text" name="searchKeyword" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
+						<button type="submit" style="width:50px; height:50px">검색</button>
+					</form>
+				</div>
+				<div id="search-reporting_member">
+					<form action="<%=request.getContextPath()%>/manager/searchreport.do">
+						<input type="hidden" name="searchType" value="reporting_member">
+						<input type="text" name="searchKeyword" placeholder="검색할 내용을 입력하세요" style="width:300px; height:50px">
+						<button type="submit" style="width:50px; height:50px">검색</button>
+					</form>
+				</div>
+			</div> 
+		</h1>
 	<section class="section">
 	<table class="table-size">
 		<tr>
@@ -112,5 +136,17 @@ ul li:hover > a{
 		<div><%=pagebar %></div>
 		</div>
 	</div>
+	<script>
+	$(()=>{
+		 $("#searchType").change();
+	})
+
+
+	$("#searchType").change(e=>{
+			const type=e.target.value;
+			$(e.target).parent().children("div").hide();
+			$("#search-"+type).css("display","inline-block");
+		})
+	</script>
 </body>
 </html>
