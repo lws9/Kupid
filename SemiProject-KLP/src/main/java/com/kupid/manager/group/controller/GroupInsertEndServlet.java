@@ -3,7 +3,6 @@ package com.kupid.manager.group.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,7 +36,7 @@ public class GroupInsertEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//file upload에 저장하는 로직
 		//절대경로
-		String path = getServletContext().getRealPath("/upload");
+		String path = getServletContext().getRealPath("/upload/manager/artist");
 //		String path = request.getContextPath()+"/upload";
 		//Not a directory: /Users/pjh/git/SemiProject---KLP/src/main/webapp/upload/member/profile
 		System.out.println(path);

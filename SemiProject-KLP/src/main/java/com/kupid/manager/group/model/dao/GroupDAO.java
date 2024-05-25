@@ -131,7 +131,7 @@ Properties sql=new Properties();
 			pstmt.setString(1,g.getGroupName() );
 			pstmt.setInt(2,g.getMemberCount() );
 			pstmt.setString(3,g.getGroupCompany() );
-			pstmt.setString(4,g.getGroupImg() );
+			pstmt.setString(4,g.getGroupImg());
 			pstmt.setInt(5,g.getGroupNo() );
 			result=pstmt.executeUpdate();
 		}catch(SQLException e) {
