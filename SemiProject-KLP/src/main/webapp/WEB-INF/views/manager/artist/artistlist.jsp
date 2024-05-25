@@ -125,7 +125,7 @@ ul li:hover > a{
 					<td><%=m.getMemberName()%></td>
 					<td><%=m.getGroupCompany()%></td>
 					<td><%=m.getEnrollDate()%></td>
-					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/artistupdate.do?no=<%=m.getMemberNo()%>')">상세정보(수정)</button></td>
+					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/artistupdate.do?no=<%=m.getMemberNo()%>')">상세정보</button></td>
 					<td><button onclick="deleteArtist(<%=m.getMemberNo()%>);">삭제</button></td>
 				</tr>
 				<%} 

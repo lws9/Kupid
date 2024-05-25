@@ -97,6 +97,7 @@ Properties sql=new Properties();
 				.inqDate(rs.getDate("inq_date"))
 				.writer(rs.getString("member_id"))
 				.answer(rs.getString("ans_title")==null?true:false)
+				.inqFile(rs.getString("inq_file"))
 				.build();
 	}
 }

@@ -3,6 +3,7 @@
 <%@ page import="com.kupid.group.model.dto.GroupDto" %>      
 <%
 	GroupDto g=(GroupDto)request.getAttribute("group");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -21,6 +22,8 @@
                     <div class="flex_row">
                         <form action="<%=request.getContextPath()%>/manager/groupupdateend.do?no=<%=g.getGroupNo()%>" method="post">
                        	<div class="content-container">
+                       	    <%-- <h3><img src="<%=getServletContext().getRealPath("/upload/")%><%=g.getGroupImg()%>" width=150px height=150px></h3> --%>
+                       	    <h3><img src="<%=request.getContextPath()%>/upload/<%=g.getGroupImg()%>" width=150px height=150px></h3>
                             <h3>그룹명</h3>
                             	<div class="input_box">
 									<input type="text" name="name" value="<%=g.getGroupName()%>" class="inputTag" required>
