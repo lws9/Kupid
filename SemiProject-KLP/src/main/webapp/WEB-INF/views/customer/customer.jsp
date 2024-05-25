@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List,com.kupid.faq.model.dto.Faq,java.text.SimpleDateFormat"%>     
+<%@ page import="java.util.List,com.kupid.faq.model.dto.FaqDto,java.text.SimpleDateFormat"%>     
 <%@ include file="/WEB-INF/views/common/header.jsp" %>  
 
     <title>kupid 고객센터</title>
