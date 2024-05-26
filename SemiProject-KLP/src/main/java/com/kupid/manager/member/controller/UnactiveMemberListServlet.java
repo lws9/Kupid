@@ -96,7 +96,7 @@ public class UnactiveMemberListServlet extends HttpServlet {
 		request.setAttribute("member", member);
 //		System.out.println("member : "+member);
 		
-		request.getRequestDispatcher("/WEB-INF/views/manager/member/managermemberlist.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/manager/member/managerunmemberlist.jsp").forward(request, response);
 		
 	}
 
