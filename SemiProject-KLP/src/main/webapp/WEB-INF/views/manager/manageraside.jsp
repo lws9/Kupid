@@ -10,6 +10,7 @@
 
 <!DOCTYPE html>
 <script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
+
 <html>
 <style>
 .myInfo-container{
@@ -51,8 +52,7 @@
 	padding: 15px;
 	margin-bottom: 10px;
 	min-width: 400px;
-}
-.myInfo .flex_row {
+}.myInfo .flex_row {
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -60,6 +60,7 @@
   gap: 0px 10px;
   margin: 0px auto;
 }
+
 .myInfo .btn {
   position: relative;
   display: flex;
@@ -215,14 +216,14 @@
   flex-direction: column;
   align-items: center;
   gap: 22px 0px;
-  /* border : 1px solid black; */
+ /*  border : 1px solid black;  */
 }
 .sidebar-container .flex_row {
   position: relative;
   display: flex;
   justify-content: space-between;
   gap: 0px 10px;
-  width: 90%;
+  width: 100%;
 }
 .sidebar-container .subtitle {
   position: relative;
@@ -306,12 +307,17 @@
 }
 .aside{
         width: 15%;
-        height: 1100px;
-        border: 1px solid blue; 
+        height: 1150px;
+        border: 1px solid black; 
         display: flex;
         justify-content: left;
         /* align-items: top; */
-        }
+}
+.sidebar-container button:hover {
+    background-color: #e9bcff;/* #d1ade3; 진보라 */
+}
+        
+        
 </style>
 <head>
 <meta charset="utf-8" />
@@ -323,75 +329,77 @@
         <div class="flex_col">
             <div class="flex_col1">
                 <div class="flex_row">
-                    <h2 class="subtitle">관리자 메뉴</h2>
+                    <h4 class="subtitle">관리자 메뉴&nbsp;&nbsp;&nbsp;
+	                 <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/')"><h4>main</h4></button>&nbsp;
+	                 <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/logout.do')"><h4>logout</h4></button></h4>
                 </div>
             </div>
             <div class="flex_col2">
                 <button class="<%=pagenum==1?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/home.do?pagenum=1')">
-                    <h3>메인화면</h3>
+                    <h4>관리자페이지</h4>
                 </button>
                 <button class="<%=pagenum==2?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/noticelist.do?pagenum=2')">
-                    <h3>공지사항</h3>
+                    <h4>공지사항</h4>
                 </button>
                 <button class="<%=pagenum==3?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/faqlist.do?pagenum=3')">
-                    <h3>faq</h3>
+                    <h4>faq</h4>
                 </button>
                   <button class="<%=pagenum==4?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/inquirylist.do?pagenum=4')">
-                    <h3>1:1문의</h3>
+                    <h4>1:1문의</h4>
                 </button>
                  <button class="<%=pagenum==5?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/reportlist.do?pagenum=5')">
-                    <h3>신고내역</h3>
+                    <h4>신고내역</h4>
                 </button>
            </div>
            <br>
            <div class="flex_col1">
                 <div class="flex_row">
-                    <h3 class="subtitle">회원 관리</h3>
+                    <h4 class="subtitle">회원 관리</h4>
                 </div>
             </div>
             <div class="flex_col2">
                 <button class="<%=pagenum==6?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/artistlist.do?pagenum=6')">
-                    <h3>아티스트</h3>
+                    <h4>아티스트</h4>
                 </button>
                 <button class="<%=pagenum==7?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/grouplist.do?pagenum=7')">
-                    <h3>그룹</h3>
+                    <h4>그룹</h4>
                 </button>
                 <button class="<%=pagenum==8?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/memberlist.do?pagenum=8')">
-                    <h3>회원</h3>
+                    <h4>회원</h4>
                 </button>
                   <button class="<%=pagenum==9?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/unactivememberlist.do?pagenum=9')">
-                    <h3>탈퇴회원</h3>
+                    <h4>탈퇴회원</h4>
                 </button>
            </div>
            <br>
            <div class="flex_col1">
                 <div class="flex_row">
-                    <h3 class="subtitle">피드 관리</h3>
+                    <h4 class="subtitle">피드 관리</h4>
                 </div>
             </div>
             <div class="flex_col2">
                 <button class="<%=pagenum==10?"btn1":"btn2" %>">
-                    <h3>아티스트</h3>
+                    <h4>아티스트</h4>
                 </button>
                 <button class="<%=pagenum==11?"btn1":"btn2" %>" onclick="">
-                    <h3>팬</h3>
+                    <h4>팬</h4>
                 </button>
            </div>
            <br>
            <div class="flex_col1">
                 <div class="flex_row">
-                    <h3 class="subtitle">상점 관리</h3>
+                    <h4 class="subtitle">상점 관리</h4>
                 </div>
             </div>
             <div class="flex_col2">
                 <button class="<%=pagenum==12?"btn1":"btn2" %>">
-                    <h3>배너</h3>
+                    <h4>배너</h4>
                 </button>
                 <button class="<%=pagenum==13?"btn1":"btn2" %>" onclick="">
-                    <h3>상품</h3>
+                    <h4>상품</h4>
                 </button>
                 <button class="<%=pagenum==14?"btn1":"btn2" %>" onclick="">
-                    <h3>결제내역</h3>
+                    <h4>결제내역</h4>
                 </button>
            </div>
            
