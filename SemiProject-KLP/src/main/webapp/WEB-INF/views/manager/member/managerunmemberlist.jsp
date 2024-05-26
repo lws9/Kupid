@@ -252,6 +252,7 @@ ul li:hover > a{
 				<th>아이디</th>
 				<th>닉네임</th>
 				<th>가입일</th>
+				<th>탈퇴일</th>
 				<th colspan="2"></th>
 				
 				
@@ -264,6 +265,7 @@ ul li:hover > a{
 					<td style="text-align:center;"><%=m.getMemberId()%></td>
 					<td style="text-align:center;"><%=m.getNickname() %></td>
 					<td style="text-align:center;"><%=m.getEnrollDate() %></td>
+					<td style="text-align:center;"><%=m.getPenaltyDay() %></td>
 					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/memberview.do?no=<%=m.getMemberNo()%>')">상세정보</button></td>
 					<td><button onclick="deleteMember(<%=m.getMemberNo()%>);">회원삭제</button></td>
 				</tr>

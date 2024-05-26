@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kupid.feed.model.dto.Reply;
 import com.kupid.feed.model.service.FeedService;
+import com.kupid.member.model.dto.MemberDto;
 
 /**
  * Servlet implementation class CommentSelectServlet
@@ -33,7 +33,7 @@ public class CommentSelectServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int feedNo =Integer.parseInt(request.getParameter("feedNo"));
-		List<Reply> fc = new FeedService().selectFeedComment(feedNo);
+		List<MemberDto> fc = new FeedService().selectFeedComment(feedNo);
 		
 		response.setContentType("application/json;charset=utf-8");
 

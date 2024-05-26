@@ -82,7 +82,7 @@ public class ReportDAO {
 			pstmt.setInt(1, no);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
-				report=getReport(rs);
+				report=getReportView(rs);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -90,6 +90,7 @@ public class ReportDAO {
 			close(pstmt);
 			close(rs);
 		}
+		System.out.println(report);
 		return report;
 	}
 	
@@ -206,18 +207,22 @@ public class ReportDAO {
 				.build();
 	}
 	
-//	public Report getReportByNo(ResultSet rs) throws SQLException {
-//		return Report.builder()
-//				.reportNo(rs.getInt("report_no"))
-//				.reportCategory(rs.getString("report_category"))
-//				.reportContent(rs.getString("report_content"))
-//				.reportDate(rs.getDate("report_date"))
-//				.reportingMember(rs.getInt("reporting_member"))//신고한 회원
-//				.reportedMember(rs.getInt("reported_member"))//신고받은 회원
-//				.reportedId(rs.getString(10))//인덱스 번호 11 신고받은 회원
-//				.reportingId(rs.getString(11))//인덱스 번호 12 신고한 회원
-//				.build();
-//	}
+	public static Report getReportView(ResultSet rs) throws SQLException {
+		return Report.builder()
+				.reportNo(rs.getInt("report_no"))
+				.reportCategory(rs.getString("report_category"))
+				.reportContent(rs.getString("report_content"))
+				.reportDate(rs.getDate("report_date"))
+				.reportingMember(rs.getInt("reporting_member"))//신고한 회원
+				.reportedMember(rs.getInt("reported_member"))//신고받은 회원
+				.reportedId(rs.getString(10))//인덱스 번호 11 신고받은 회원
+				.reportingId(rs.getString(11))//인덱스 번호 12 신고한 회원
+				.reportResult(rs.getString("report_result"))
+				.penaltyDate(rs.getString("penalty_start_date")!=null?rs.getString("penalty_start_date"):"")
+				.build();
+	}
+	
+
 	
 	
 }

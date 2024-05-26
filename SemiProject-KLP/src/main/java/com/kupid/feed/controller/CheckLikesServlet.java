@@ -1,4 +1,4 @@
-package com.kupid.manager.report.controller;
+package com.kupid.feed.controller;
 
 import java.io.IOException;
 
@@ -8,20 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kupid.manager.report.model.dto.Report;
-import com.kupid.manager.report.service.ReportService;
+import com.google.gson.Gson;
+import com.kupid.feed.model.service.FeedService;
 
 /**
- * Servlet implementation class ReportViewServlet
+ * Servlet implementation class CheckLikesServlet
  */
-@WebServlet("/manager/reportview.do")
-public class ReportViewServlet extends HttpServlet {
+@WebServlet("/feed/checklikes.do")
+public class CheckLikesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReportViewServlet() {
+    public CheckLikesServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,11 +30,13 @@ public class ReportViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int no=Integer.parseInt(request.getParameter("no"));
-		Report r=new ReportService().selectReportByNo(no);
-		request.setAttribute("report", r);
-		System.out.println(r);
-		request.getRequestDispatcher("/WEB-INF/views/manager/report/reportview.jsp").forward(request, response);
+		int feedNo = Integer.parseInt(request.getParameter("feedNo"));
+		int loginMemberNo = Integer.parseInt(request.getParameter("loginMemberNo"));
+		int result = new FeedService().checkLikes(feedNo,loginMemberNo);
+
+		Gson gson = new Gson();
+		gson.toJson(result>0,response.getWriter());
+
 	}
 
 	/**

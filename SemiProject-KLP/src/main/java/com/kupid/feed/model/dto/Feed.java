@@ -23,5 +23,7 @@ public class Feed {
 	private String filePath;
 	private int likes;
 	private int report;
+	private int memberNo;
 	private String profileImgOriname;
+	private int commentCnt;
 }

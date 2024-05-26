@@ -13,14 +13,22 @@ import java.util.List;
 import com.kupid.feed.model.dao.FeedDao;
 import com.kupid.feed.model.dto.Feed;
 import com.kupid.feed.model.dto.Reply;
+import com.kupid.member.model.dto.MemberDto;
 public class FeedService {
 	private FeedDao dao = new FeedDao();
 	
-	public List<Reply> selectFeedComment(int feedNo) {
+	public List<MemberDto> selectFeedComment(int feedNo) {
 		Connection conn = getConnection();
-		List<Reply> fc = dao.selectFeedComment(conn,feedNo);
+		List<MemberDto> fc = dao.selectFeedComment(conn,feedNo);
 		close(conn);
 		return fc;
+	}
+	
+	public int checkLikes(int feedNo,int loginMemberNo) {
+		Connection conn = getConnection();
+		int result = dao.checkLikes(conn,feedNo,loginMemberNo);
+		
+		return result;
 	}
 	
 	public int insertFeedReport(String category, String content, int reportMemberNo, int reportedfeedNo) {
@@ -33,6 +41,13 @@ public class FeedService {
 		else rollback(conn);
 		return result;
 		
+	}
+	
+	public int countFeedComment(int feedNo) {
+		Connection conn = getConnection();
+		int result = dao.countFeedComment(conn,feedNo);
+		
+		return result;
 	}
 	
 	public int deleteFeedComment(int replyNumber) {

@@ -45,6 +45,12 @@
                             <div class="input_box">
 	                            <p><%=r.getReportDate() %></p>
                             </div>
+                            <%if(r.getPenaltyDate()!=""){ %>
+                            	<h3>처리 날짜</h3>
+                            	<div class="input_box">
+	                            <p><%=r.getPenaltyDate() %></p>
+                            </div>
+                            <%}%>
                             <br>
                             <form action="<%=request.getContextPath()%>/manager/penalty.do" method="post">
                             	<input type="hidden" name="reportNo" value="<%=r.getReportNo()%>">

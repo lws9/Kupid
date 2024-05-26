@@ -6,6 +6,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+.main{
+	width:85%;
+	justify-content:center;
+	 align-items: center;
+}
+
+</style>
 <body>
 <div class="myInfo-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
@@ -31,7 +39,7 @@
 								</div>
                             <h3>내용</h3>
                             <div class="input_box">
-								<textarea rows="10" cols="30" name="content" class="inputTag" required></textarea>	
+								<textarea rows="20" cols="50" name="content" class="inputTag" required></textarea>	
 							</div>
                            	<br>
 	                		<button name="submit" class="btn">등록</button>
