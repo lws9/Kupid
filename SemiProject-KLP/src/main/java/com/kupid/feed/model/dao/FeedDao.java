@@ -27,11 +27,39 @@ public class FeedDao {
 			e.printStackTrace();
 		}
 	}
+	
+	public int checkLikes(Connection conn,int feedNo,int loginMemberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		System.out.println("========");
+		System.out.println(loginMemberNo);
+		System.out.println(feedNo);
+		System.out.println("========");
+		int result = 0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("checkLikes"));
+			pstmt.setInt(1,feedNo);
+			pstmt.setInt(2,loginMemberNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt(1);
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+		
+		System.out.println(result);
+		
+			return result;
+		
+	}
 
 	public int insertFeedReport(Connection conn, String category, String content, int reportMemberNo, int reportedMemberNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		System.out.println(reportMemberNo+" "+reportedMemberNo);
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("insertFeedReport"));
 			pstmt.setInt(1,reportMemberNo);

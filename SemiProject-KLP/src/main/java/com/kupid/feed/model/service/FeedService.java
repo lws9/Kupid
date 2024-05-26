@@ -23,6 +23,13 @@ public class FeedService {
 		return fc;
 	}
 	
+	public int checkLikes(int feedNo,int loginMemberNo) {
+		Connection conn = getConnection();
+		int result = dao.checkLikes(conn,feedNo,loginMemberNo);
+		
+		return result;
+	}
+	
 	public int insertFeedReport(String category, String content, int reportMemberNo, int reportedfeedNo) {
 		Connection conn = getConnection();
 		System.out.println(reportedfeedNo);
