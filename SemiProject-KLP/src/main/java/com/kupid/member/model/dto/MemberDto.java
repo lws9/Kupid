@@ -40,4 +40,5 @@ public class MemberDto {
 	private Date startday;//membership 시작일
 	private Date endday;//membership 종료일
 	private int subscribeNo; //구독테이블 pk번호(메인 인기순 아티스트 출력에 사용)
+	private String penaltyDay;
 }

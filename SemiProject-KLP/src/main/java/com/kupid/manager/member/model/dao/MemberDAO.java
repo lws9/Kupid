@@ -225,7 +225,7 @@ public class MemberDAO {
 						//.profileImgRenamed(rs.getString("profile_img_renamed"))
 						.memberGrade(rs.getString("member_grade"))
 						.enrollDate(rs.getDate("enroll_date"))
-						
+						.penaltyDay(rs.getString("penalty_start_date")!=null?rs.getString("penalty_start_date"):"")
 						.build();
 	}
 	
