@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.kupid.faq.model.dto.FaqDto;
+import com.kupid.manager.faq.model.dto.Faq;
 
 
 
@@ -66,30 +67,52 @@ public class FaqDao {
 			return result;
 		}
 		
-		public List<FaqDto> selectFaqByCategory(Connection conn, String category, String keyword, int cPage, int numPerPage) {
-	        PreparedStatement pstmt = null;
-	        ResultSet rs = null;
-	        List<FaqDto> faqList = new ArrayList<>();
-	        String query = sql.getProperty("selectFaqByCategory");
 	        
-	        try {
-	            pstmt = conn.prepareStatement(query);
-	            pstmt.setString(1, category);
-	            pstmt.setString(2, "%" + keyword + "%");
-	            pstmt.setInt(3, (cPage - 1) * numPerPage + 1);
-	            pstmt.setInt(4, cPage * numPerPage);
-	            rs = pstmt.executeQuery();
-	            while (rs.next()) {
-	                faqList.add(getFaq(rs));
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        } finally {
-	            close(rs);
-	            close(pstmt);
-	        }
-	        return faqList;
-	    }
+	        public List<FaqDto> searchFaq(Connection conn,String category,String keyword, int cPage,int numBerpage) {
+	    		PreparedStatement pstmt=null;
+	    		ResultSet rs=null;
+	    		List<FaqDto> faq=new ArrayList<>();
+	    		try { 
+	    			pstmt=conn.prepareStatement(sql.getProperty("selectAllCategories"));
+	    			pstmt.setString(1,category);
+	    			pstmt.setString(2,"%"+keyword+"%");
+	    			pstmt.setInt(3, (cPage-1)*numBerpage+1);
+	    			pstmt.setInt(4, cPage*numBerpage);
+	    			rs=pstmt.executeQuery();
+	    			while(rs.next()) {
+	    				faq.add(getFaq(rs));
+	    			}
+	    			
+	    		}catch(SQLException e) {
+	    			e.printStackTrace();
+	    		}finally {
+	    			close(rs);
+	    			close(pstmt);
+	    		}
+	    		
+	    		return faq;
+	    	}
+	    	public int searchFaqCount(Connection conn,String category,String keyword) {
+	    		PreparedStatement pstmt=null;
+	    		ResultSet rs=null;
+	    		int result=0;
+	    		String sql=this.sql.getProperty("searchFaqCount");
+	    		try {
+	    			pstmt=conn.prepareStatement(sql);
+	    			pstmt.setString(1,category);
+	    			pstmt.setString(2,"%"+keyword+"%");
+	    			rs=pstmt.executeQuery();
+	    			if(rs.next()) result=rs.getInt(1);
+	    			
+	    		}catch(SQLException e) {
+	    			
+	    		}finally {
+	    			close(rs);
+	    			close(pstmt);
+	    		}
+	    		return result;
+	    	}
+	    
 			
 			public static FaqDto getFaq(ResultSet rs) throws SQLException{
 				return FaqDto.builder()
