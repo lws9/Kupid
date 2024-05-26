@@ -11,14 +11,14 @@
 
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <body>
-    <div>
+    <div class = "textarea-container">
         <form id="feedForm" action="<%=request.getContextPath()%>/feed/feedWrite.do" enctype="multipart/form-data" method="post" onsubmit="return submitFeed();">
             <input type="hidden" name="writer" value="<%=loginMember.getMemberId()%>">
             <div>
                 <input type="file" id="upfile" multiple>
             </div>
-            <div>
-                <textarea class="form-control" cols="40" rows="5" name="content" id="content"></textarea>
+            <div >
+                <textarea class="form-cont" cols="40" rows="3" name="content" id="content"></textarea>
             </div>
             <button type="submit" >제출</button>
             <button type="button" onclick="test()">테스트용 버튼</button>
@@ -29,6 +29,41 @@
     <div class="container" id="container"></div>  
 </body>
 <style>
+          .textarea-container {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        #content {
+            width: 40vw;
+        }
+.comment svg {
+    display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+}
+        
+.comment svg path {
+    transform: scale(0.2);
+}
+.comment {
+    width: 41px;
+    height: 47px;
+}
+.commentIcon{
+	width: 41px;
+    height: 47px;
+}
+        
+.form-cont{
+  font-size: 18px;
+  resize: none;
+  color: black;
+  border: none;
+  border-bottom: 2px solid #0000007e;
+  outline: none;}
+
 .indicators {
     position: absolute;
     bottom: 10px;
@@ -62,9 +97,8 @@
 }
 
 
-.likes {
+.likes1 {
   font-size: 47px;
-  -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
   border: none;
@@ -76,7 +110,6 @@
   margin: 0;
   outline: none;
   z-index: 2;
-  -webkit-transition: -webkit-transform var(--duration) var(--easing);
   transition: -webkit-transform var(--duration) var(--easing);
   transition: transform var(--duration) var(--easing);
   transition: transform var(--duration) var(--easing), -webkit-transform var(--duration) var(--easing);
@@ -91,7 +124,6 @@
   width: 100%;
   height: 100%;
   border-radius: inherit;
-  -webkit-transition: inherit;
   transition: inherit;
 }
 .likes:after {
@@ -106,51 +138,27 @@
   z-index: -1;
 }
 
-@-webkit-keyframes depress {
-  from, to {
-    -webkit-transform: none;
-            transform: none;
-  }
-  50% {
-    -webkit-transform: translateY(5%) scale(0.9);
-            transform: translateY(5%) scale(0.9);
-  }
-}
+
 @keyframes depress {
   from, to {
-    -webkit-transform: none;
             transform: none;
   }
   50% {
-    -webkit-transform: translateY(5%) scale(0.9);
             transform: translateY(5%) scale(0.9);
   }
 }
-@-webkit-keyframes depress-shadow {
-  from, to {
-    -webkit-transform: none;
-            transform: none;
-  }
-  50% {
-    -webkit-transform: scale(0.5);
-            transform: scale(0.5);
-  }
-}
+
 @keyframes depress-shadow {
   from, to {
-    -webkit-transform: none;
             transform: none;
   }
   50% {
-    -webkit-transform: scale(0.5);
             transform: scale(0.5);
   }
 }
 .like-wrapper {
   display: grid;
-  -webkit-box-align: center;
           align-items: center;
-  -webkit-box-pack: center;
           justify-content: center;
   z-index: 1;
 }
@@ -163,47 +171,32 @@
   width: .5em;
   height: .5em;
   display: block;
-  -webkit-transform-origin: center 80%;
           transform-origin: center 80%;
 }
 .heart > path {
   stroke: var(--color-heart);
   stroke-width: 1.5;
   fill: transparent;
-  -webkit-transition: fill var(--duration) var(--easing);
   transition: fill var(--duration) var(--easing);
 }
 
 /* 빨간 하트로 바꿔주기 */
-.likes:focus .heart > path {
+/*  .likes.clicked .heart > path {
   fill: var(--color-heart);
-}
+}   */
 
-.heart {
-  -webkit-animation: heart-bounce var(--duration) var(--easing);
+/* .heart {
           animation: heart-bounce var(--duration) var(--easing);
-}
-@-webkit-keyframes heart-bounce {
-  40% {
-    -webkit-transform: scale(0.7);
-            transform: scale(0.7);
-  }
-  0%, 80%, 100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-}
+} */
+
 @keyframes heart-bounce {
   40% {
-    -webkit-transform: scale(0.7);
             transform: scale(0.7);
   }
   0%, 80%, 100% {
-    -webkit-transform: scale(1);
             transform: scale(1);
   }
 }
-/* Added wrapper to prevent layout jank with resizing particles */
 .particles {
   width: 1px;
   height: 1px;
@@ -219,46 +212,25 @@
   background-color: var(--color);
   --percentage: calc( var(--i) / var(--total-particles) );
   --Θ: calc( var(--percentage) * 1turn );
-  -webkit-transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(0) scaleY(0);
           transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(0) scaleY(0);
-  -webkit-transition: all var(--duration) var(--easing);
   transition: all var(--duration) var(--easing);
 }
-.likes:focus .particle {
-  -webkit-animation: particles-out calc(var(--duration) * 1.2) var(--easing) forwards;
+/* .likes1:focus .particle {
           animation: particles-out calc(var(--duration) * 1.2) var(--easing) forwards;
-}
-@-webkit-keyframes particles-out {
-  50% {
-    height: .3em;
-  }
-  50%, 60% {
-    height: .3em;
-    -webkit-transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(0.8em) scale(1);
-            transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(0.8em) scale(1);
-  }
-  60% {
-    height: .2em;
-  }
-  100% {
-    -webkit-transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(1em) scale(0);
-            transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(1em) scale(0);
-  }
-}
+} */
+
 @keyframes particles-out {
   50% {
     height: .3em;
   }
   50%, 60% {
     height: .3em;
-    -webkit-transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(0.8em) scale(1);
             transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(0.8em) scale(1);
   }
   60% {
     height: .2em;
   }
   100% {
-    -webkit-transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(1em) scale(0);
             transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(1em) scale(0);
   }
 }
@@ -282,19 +254,9 @@
           transform: scale(0);
 }
 .likes:focus .ripple:before {
-  -webkit-animation: ripple-out var(--duration) var(--easing);
           animation: ripple-out var(--duration) var(--easing);
 }
-@-webkit-keyframes ripple-out {
-  from {
-    -webkit-transform: scale(0);
-            transform: scale(0);
-  }
-  to {
-    -webkit-transform: scale(5);
-            transform: scale(5);
-  }
-}
+
 @keyframes ripple-out {
   from {
     -webkit-transform: scale(0);
@@ -345,6 +307,8 @@
         padding: 10px;
         text-decoration: none;
         cursor: pointer;
+        opacity: 0.6;
+        
     }
 
     .board-header {
@@ -390,6 +354,42 @@ function submitFeed() {
     })}
     return true;
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    loadPage();
+    window.addEventListener("scroll", function() {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const windowHeight = window.innerHeight;
+        const scrollHeight = document.documentElement.scrollHeight;
+        if (scrollTop + windowHeight >= scrollHeight - 150) {
+            if (time) {
+                time = false;
+                loadPage();
+            }
+        }
+    });
+});
+
+
+//해당 피드 페이지에 해당 유저의 좋아요가 있는지 확인
+const checkLikes = (feedNo, callback) => {
+    $.ajax({
+        type: "POST",
+        url: "<%=request.getContextPath()%>/feed/checklikes.do",
+        data: {
+            "loginMemberNo": <%=loginMember.getMemberNo()%>,
+            "feedNo": feedNo
+        },
+        success: function(data) {
+            callback(data);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error checking likes:', error);
+            callback(false); // 에러 발생 시 false를 전달할 수 있습니다.
+        }
+    });
+}
+
 
 const container = document.getElementById("container");
 $(container).css({"display": "flex", "flex-direction": "column", "justify-content": "center", "align-items": "center"});
@@ -445,33 +445,69 @@ const loadPage = () => {
                     }
 
                     const slider_btn = $('<div>').attr('class', 'slider_btn');
-                    slider_btn.append($('<a>').html('이전').attr('class', 'prev'));
-                    slider_btn.append($('<a>').html('다음').attr('class', 'next'));
+                    slider_btn.append($('<a>').html('<').attr('class', 'prev'));
+                    slider_btn.append($('<a>').html('>').attr('class', 'next'));
                     img_list.append(slider_btn);
 
                     initializeCarousel(img_list);
                 }
 
                 const $footer = $('<div>').addClass('board-footer');
-                $footer.append('<button class="likes">'+
-                	    '<div class="like-wrapper">'+
-                	      '<div class="ripple"></div>'+
-                	      '<svg class="heart" width="24" height="24" viewBox="0 0 24 24">'+
-                	        '<path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>'+
-                	      '</svg>'+
-                	      '<div class="particles" style="--total-particles: 6">'+
-                	        '<div class="particle" style="--i: 1; --color: #7642F0"></div>'+
-                	        '<div class="particle" style="--i: 2; --color: #AFD27F"></div>'+
-                	        '<div class="particle" style="--i: 3; --color: #DE8F4F"></div>'+
-                	        '<div class="particle" style="--i: 4; --color: #D0516B"></div>'+
-                	        '<div class="particle" style="--i: 5; --color: #5686F2"></div>'+
-                	        '<div class="particle" style="--i: 6; --color: #D53EF3"></div>'+
-                	      '</div>'+
-                	    '</div>'+
-                	  '</button>');
-                $footer.append('<button class="comment">댓글</button>');
+                
+                checkLikes(element.feedNo, function(data) {
+					if (data=="true") {
+                    	$footer.append(
+                        		'<button class="likes1 clicked">'+
+                        	    '<div class="like-wrapper">'+
+                        	      '<div class="ripple"></div>'+
+                        	      '<svg class="heart" width="24" height="24" viewBox="0 0 24 24">'+
+                        	        '<path style="fill:var(--color-heart)" d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>'+
+                        	      '</svg>'+
+                        	      '<div class="particles" style="--total-particles: 6">'+
+                        	        '<div class="particle" style="--i: 1; --color: #7642F0"></div>'+
+                        	        '<div class="particle" style="--i: 2; --color: #AFD27F"></div>'+
+                        	        '<div class="particle" style="--i: 3; --color: #DE8F4F"></div>'+
+                        	        '<div class="particle" style="--i: 4; --color: #D0516B"></div>'+
+                        	        '<div class="particle" style="--i: 5; --color: #5686F2"></div>'+
+                        	        '<div class="particle" style="--i: 6; --color: #D53EF3"></div>'+
+                        	      '</div>'+
+                        	    '</div>'+
+                        	  '</button>');
+                    	
+                    	console.log(data);
+                    }else if(data=="false"){
+                    	$footer.append(
+                        		'<button class="likes1">'+
+                        	    '<div class="like-wrapper">'+
+                        	      '<div class="ripple"></div>'+
+                        	      '<svg class="heart" viewBox="0 0 24 24">'+
+                        	        '<path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>'+
+                        	      '</svg>'+
+                        	      '<div class="particles" style="--total-particles: 6">'+
+                        	        '<div class="particle" style="--i: 1; --color: #7642F0"></div>'+
+                        	        '<div class="particle" style="--i: 2; --color: #AFD27F"></div>'+
+                        	        '<div class="particle" style="--i: 3; --color: #DE8F4F"></div>'+
+                        	        '<div class="particle" style="--i: 4; --color: #D0516B"></div>'+
+                        	        '<div class="particle" style="--i: 5; --color: #5686F2"></div>'+
+                        	        '<div class="particle" style="--i: 6; --color: #D53EF3"></div>'+
+                        	      '</div>'+
+                        	    '</div>'+
+                        	  '</button>');
+                    	
+                    	console.log(data);
+                    }
+                });
+                
+                
+                
+                $footer.append('<a class="comment">'+
+                				'<svg viewBox="0 -13 35 55" class="commentIcon""><path d="M61.44,0a61.46,61.46,0,0,1,54.91,89l6.44,25.74a5.83,5.83,0,0,1-7.25,7L91.62,115A61.43,61.43,0,1,1,61.44,0ZM96.63,26.25a49.78,49.78,0,1,0-9,77.52A5.83,5.83,0,0,1,92.4,103L109,107.77l-4.5-18a5.86,5.86,0,0,1,.51-4.34,49.06,49.06,0,0,0,4.62-11.58,50,50,0,0,0-13-47.62Z"/></svg>'+
+                				'</a>');
                 $footer.append('<button class="reportBt">신고</button>');
                 $div.append($footer);
+
+                $('.likes1.clicked .heart > path').css('fill', 'var(--color-heart)');
+
 
                 $(container).append($div);
             });
@@ -484,6 +520,8 @@ const loadPage = () => {
     });
 }
 
+
+
 $(document).on("click", "button.reportBt", function(e) {
     const $button = $(e.target);
     const $board = $button.closest('.board');
@@ -495,7 +533,7 @@ $(document).on("click", "button.reportBt", function(e) {
 });
 
 //댓글 버튼 클릭  
-$(document).on("click", "button.comment", function(e) {
+$(document).on("click", "a.comment", function(e) {
     const $footer = $(e.target).closest('.board-footer');
     const existingDiv = $footer.next('.comment-container');
     const feedNoText = $(e.target).closest('.board').find('input.feedNo').val();
@@ -669,20 +707,18 @@ const initializeCarousel = (carousel) => {
     
     const showSlide = (idx) => {
         const slideWidth = slides.first().outerWidth();
-        if (idx >= totalSlides) idx = 0;
-        if (idx < 0) idx = totalSlides - 1;
+        if (idx >= totalSlides) idx = idx-1;
+        if (idx < 0) idx = idx+1;
         imgListBt.css('transform', 'translateX(' + (-idx * slideWidth) + 'px)');
         index = idx;
 
         updateIndicators();
     }
     
- // Update indicators
     const updateIndicators = () => {
         carousel.find('.indicator').removeClass('active').eq(index).addClass('active');
     }
 
-    // Handle click events for indicators
     carousel.on('click', '.indicator', function() {
     const idx = $(this).data('index');
     showSlide(idx);
@@ -711,31 +747,57 @@ function switchingLikes(feedNo, e) {
             "feedNo": feedNo
         },
         success: function(data) {
-            $(e.target).text("좋아요 " + data);
+        	console.log("1");
         }
     });
 }
 
-$(document).ready(function() {
-    $(document).on('click', '.likes', function(e) {
-        const feedNo = $(e.target).parent().find('input.feedNo').val();
-        switchingLikes(feedNo, e);
-    });
-}); 
-
-document.addEventListener("DOMContentLoaded", function() {
-    loadPage();
-    window.addEventListener("scroll", function() {
-        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        const windowHeight = window.innerHeight;
-        const scrollHeight = document.documentElement.scrollHeight;
-        if (scrollTop + windowHeight >= scrollHeight - 150) {
-            if (time) {
-                time = false;
-                loadPage();
-            }
-        }
-    });
+// 클릭하면 좋아요 함수 실행
+$(document).on('click', '.likes1', function(e) {
+	const feedNo = $(this).closest('.board').find('input.feedNo').val();
+    switchingLikes(feedNo, e); 
 });
+
+
+
+// 클릭하면 .heart의 css를 바꿈
+$(document).on('click', '.likes1', function(e) {
+	const $heartPath = $(this).find('.heart > path');
+	const $heart = $(this).find('.heart');
+	const $particles = $(this).find('.particle');
+    const $container = $(this);
+    if ($container.hasClass('clicked')) {
+        $heartPath.css('fill', '');
+        $particles.css('animation', '');
+        $heart.css('animation', '');
+        $container.removeClass('clicked');
+    } else {
+        $heartPath.css('fill', 'var(--color-heart)');
+        $particles.css('animation', 'particles-out calc(var(--duration) * 1.2) var(--easing) forwards');
+        $heart.css('animation', 'heart-bounce var(--duration) var(--easing)');
+
+        $container.addClass('clicked');
+    } 
+});
+
+//클릭하면 댓글 아이콘 색 변경
+$(document).on('click', '.comment', function(e) {
+	const $commentIconPath = $(this).find('path');
+	const $container = $(this);
+	if ($container.hasClass('clicked')) {
+        $commentIconPath.css('fill', '');
+        $container.removeClass('clicked');
+    } else {
+        $commentIconPath.css('fill', 'var(--color-heart)');
+
+        $container.addClass('clicked');
+    } 
+});
+
+
+
+
+
+
 </script>
 </html>
