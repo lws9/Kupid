@@ -21,5 +21,5 @@ public class Report {
 	private String reportedId;
 	private String reportingId;
 	private String reportResult;
-
+	private String penaltyDate;
 }

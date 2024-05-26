@@ -37,7 +37,8 @@
   margin: 0px auto;
   width: 100%;
   min-width: 700px;
-  padding: 30px 70px 30px 70px;
+  padding-top: 40px;
+/*   padding: 30px 70px 30px 70px; */
 }
 .myInfo .title {
   position: relative;
@@ -109,7 +110,7 @@
   border-radius: 8px 8px 8px 8px;
   outline: 1px solid #e0e0e0;
   outline-offset: -1px;
-  width: 90%;
+  width: 50%;
 }
 .myInfo .highlight_box {
   position: relative;
@@ -163,7 +164,6 @@
   position: relative;
   margin: 8px 0px 0px;
   min-width: 0px;
-
   border-radius: 8px 8px 8px 8px;
   padding: 8px 16px 8px 16px;
   outline: 1px solid #e0e0e0;
@@ -316,6 +316,11 @@
 .sidebar-container button:hover {
     background-color: #e9bcff;/* #d1ade3; 진보라 */
 }
+.main{
+	width:85%;
+	justify-content:center;
+	 align-items: center;
+} 
         
         
 </style>
