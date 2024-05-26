@@ -32,7 +32,7 @@ public class FeedCommentDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			int replyNumber = Integer.parseInt(request.getParameter("replyNumber"));
 			int result = new FeedService().deleteFeedComment(replyNumber);
-			
+			System.out.println(result+"ㄴㅁㅇㅇㄴㅁㄴㅇㅁㄴㅇㄴㅁㅇㄴㅁㄴㅁ");
 			response.setContentType("application/json;charset=utf-8");
 
 			Gson gson = new Gson();

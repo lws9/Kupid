@@ -355,6 +355,17 @@ function submitFeed() {
     return true;
 }
 
+
+
+
+
+
+
+const container = document.getElementById("container");
+$(container).css({"display": "flex", "flex-direction": "column", "justify-content": "center", "align-items": "center"});
+let page = 1; 
+const perPage = 10;
+let time = true;
 document.addEventListener("DOMContentLoaded", function() {
     loadPage();
     window.addEventListener("scroll", function() {
@@ -369,35 +380,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
-
-
-//해당 피드 페이지에 해당 유저의 좋아요가 있는지 확인
-const checkLikes = (feedNo, callback) => {
-    $.ajax({
-        type: "POST",
-        url: "<%=request.getContextPath()%>/feed/checklikes.do",
-        data: {
-            "loginMemberNo": <%=loginMember.getMemberNo()%>,
-            "feedNo": feedNo
-        },
-        success: function(data) {
-            callback(data);
-        },
-        error: function(xhr, status, error) {
-            console.error('Error checking likes:', error);
-            callback(false); // 에러 발생 시 false를 전달할 수 있습니다.
-        }
-    });
-}
-
-
-const container = document.getElementById("container");
-$(container).css({"display": "flex", "flex-direction": "column", "justify-content": "center", "align-items": "center"});
-let page = 1; 
-const perPage = 10;
-let time = true;
 //피드 페이지 불러오기
-const loadPage = () => {    
+const loadPage = () => {
     $.ajax({
         type: "POST",
         url: "<%=request.getContextPath()%>/feed/InfiniteScroll.do",
@@ -414,15 +398,21 @@ const loadPage = () => {
                     'padding-bottom': '10px'
                 }).attr("class", "board");
 
-                $div.append('<input type="hidden" class="feedNo" value='+element.feedNo+'>');
-                $div.append('<input type="hidden" class="memberNo" value='+element.feedMemberName+'>');
+                $div.append('<input type="hidden" class="feedNo" value=' + element.feedNo + '>');
+                $div.append('<input type="hidden" class="memberNo" value=' + element.feedMemberName + '>');
 
+					
                 const $header = $('<div>').addClass('board-header');
                 $header.append('<div><img style="border-radius:50%; height:32px; width:32px;" src="<%=request.getContextPath()%>/upload/member/profile/' + element.profileImgOriname + '"></div>');
                 $header.append('<div>' + element.feedWriterName + '</div>');
-                if(element.feedUpdateDate == undefined){
-                $header.append('<div>' + element.feedWriteDate + '</div>');
-                }else $header.append('<div>' + element.feedUpdateDate + '</div>');
+                if (element.feedUpdateDate == undefined) {
+                    $header.append('<div>' + element.feedWriteDate + '</div>');
+                } else {
+                    $header.append('<div>' + element.feedUpdateDate + '</div>');
+                }
+                $header.append('<div class="commentsCnt">' + "댓글수" +element.commentCnt + '</div>');
+                $header.append('<div class="likesCnt">' + "좋아요"+element.likes + '</div>');
+
                 $div.append($header);
 
                 $div.append('<div>' + element.feedContent + '</div>');
@@ -453,61 +443,65 @@ const loadPage = () => {
                 }
 
                 const $footer = $('<div>').addClass('board-footer');
+
+                    checkLikes(element.feedNo, function(data) {
+                        if (data == "true") {
+                            $footer.append(
+                                '<button class="likes1 clicked">' +
+                                '<div class="like-wrapper">' +
+                                '<div class="ripple"></div>' +
+                                '<svg class="heart" width="24" height="24" viewBox="0 0 24 24">' +
+                                '<path style="fill:var(--color-heart)" d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>' +
+                                '</svg>' +
+                                '<div class="particles" style="--total-particles: 6">' +
+                                '<div class="particle" style="--i: 1; --color: #7642F0"></div>' +
+                                '<div class="particle" style="--i: 2; --color: #AFD27F"></div>' +
+                                '<div class="particle" style="--i: 3; --color: #DE8F4F"></div>' +
+                                '<div class="particle" style="--i: 4; --color: #D0516B"></div>' +
+                                '<div class="particle" style="--i: 5; --color: #5686F2"></div>' +
+                                '<div class="particle" style="--i: 6; --color: #D53EF3"></div>' +
+                                '</div>' +
+                                '</div>' +
+                                '</button>'
+                            );
+
+                            console.log(data);
+                        } else if (data == "false") {
+                            $footer.append(
+                                '<button class="likes1">' +
+                                '<div class="like-wrapper">' +
+                                '<div class="ripple"></div>' +
+                                '<svg class="heart" viewBox="0 0 24 24">' +
+                                '<path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>' +
+                                '</svg>' +
+                                '<div class="particles" style="--total-particles: 6">' +
+                                '<div class="particle" style="--i: 1; --color: #7642F0"></div>' +
+                                '<div class="particle" style="--i: 2; --color: #AFD27F"></div>' +
+                                '<div class="particle" style="--i: 3; --color: #DE8F4F"></div>' +
+                                '<div class="particle" style="--i: 4; --color: #D0516B"></div>' +
+                                '<div class="particle" style="--i: 5; --color: #5686F2"></div>' +
+                                '<div class="particle" style="--i: 6; --color: #D53EF3"></div>' +
+                                '</div>' +
+                                '</div>' +
+                                '</button>'
+                            );
+
+                            console.log(data);
+                        }
+                    });
                 
-                checkLikes(element.feedNo, function(data) {
-					if (data=="true") {
-                    	$footer.append(
-                        		'<button class="likes1 clicked">'+
-                        	    '<div class="like-wrapper">'+
-                        	      '<div class="ripple"></div>'+
-                        	      '<svg class="heart" width="24" height="24" viewBox="0 0 24 24">'+
-                        	        '<path style="fill:var(--color-heart)" d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>'+
-                        	      '</svg>'+
-                        	      '<div class="particles" style="--total-particles: 6">'+
-                        	        '<div class="particle" style="--i: 1; --color: #7642F0"></div>'+
-                        	        '<div class="particle" style="--i: 2; --color: #AFD27F"></div>'+
-                        	        '<div class="particle" style="--i: 3; --color: #DE8F4F"></div>'+
-                        	        '<div class="particle" style="--i: 4; --color: #D0516B"></div>'+
-                        	        '<div class="particle" style="--i: 5; --color: #5686F2"></div>'+
-                        	        '<div class="particle" style="--i: 6; --color: #D53EF3"></div>'+
-                        	      '</div>'+
-                        	    '</div>'+
-                        	  '</button>');
-                    	
-                    	console.log(data);
-                    }else if(data=="false"){
-                    	$footer.append(
-                        		'<button class="likes1">'+
-                        	    '<div class="like-wrapper">'+
-                        	      '<div class="ripple"></div>'+
-                        	      '<svg class="heart" viewBox="0 0 24 24">'+
-                        	        '<path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>'+
-                        	      '</svg>'+
-                        	      '<div class="particles" style="--total-particles: 6">'+
-                        	        '<div class="particle" style="--i: 1; --color: #7642F0"></div>'+
-                        	        '<div class="particle" style="--i: 2; --color: #AFD27F"></div>'+
-                        	        '<div class="particle" style="--i: 3; --color: #DE8F4F"></div>'+
-                        	        '<div class="particle" style="--i: 4; --color: #D0516B"></div>'+
-                        	        '<div class="particle" style="--i: 5; --color: #5686F2"></div>'+
-                        	        '<div class="particle" style="--i: 6; --color: #D53EF3"></div>'+
-                        	      '</div>'+
-                        	    '</div>'+
-                        	  '</button>');
-                    	
-                    	console.log(data);
-                    }
-                });
-                
-                
-                
-                $footer.append('<a class="comment">'+
-                				'<svg viewBox="0 -13 35 55" class="commentIcon""><path d="M61.44,0a61.46,61.46,0,0,1,54.91,89l6.44,25.74a5.83,5.83,0,0,1-7.25,7L91.62,115A61.43,61.43,0,1,1,61.44,0ZM96.63,26.25a49.78,49.78,0,1,0-9,77.52A5.83,5.83,0,0,1,92.4,103L109,107.77l-4.5-18a5.86,5.86,0,0,1,.51-4.34,49.06,49.06,0,0,0,4.62-11.58,50,50,0,0,0-13-47.62Z"/></svg>'+
-                				'</a>');
+
+                $footer.append(
+                    '<a class="comment">' +
+                    '<svg viewBox="0 -13 35 55" class="commentIcon">' +
+                    '<path d="M61.44,0a61.46,61.46,0,0,1,54.91,89l6.44,25.74a5.83,5.83,0,0,1-7.25,7L91.62,115A61.43,61.43,0,1,1,61.44,0ZM96.63,26.25a49.78,49.78,0,1,0-9,77.52A5.83,5.83,0,0,1,92.4,103L109,107.77l-4.5-18a5.86,5.86,0,0,1,.51-4.34,49.06,49.06,0,0,0,4.62-11.58,50,50,0,0,0-13-47.62Z"/>' +
+                    '</svg>' +
+                    '</a>'
+                );
                 $footer.append('<button class="reportBt">신고</button>');
                 $div.append($footer);
 
                 $('.likes1.clicked .heart > path').css('fill', 'var(--color-heart)');
-
 
                 $(container).append($div);
             });
@@ -519,6 +513,7 @@ const loadPage = () => {
         }
     });
 }
+
 
 
 
@@ -550,8 +545,6 @@ $(document).on("click", "a.comment", function(e) {
         newDiv.append(innerDiv);
         $footer.after(newDiv);
 
-        // 생성된 댓글 입력창을 보이도록 설정
-        newDiv.show();
 
         selectComment(feedNoText);
     } else { // 기존에 댓글 입력창이 있으면 토글
@@ -571,14 +564,14 @@ $(document).on("click", "button.commentBt", function(e) {
     const feedNoText = $feedNo.val();
 
     if (commentText !== undefined && commentText !== "") {
-        ajaxComment(commentText, feedNoText);
+        ajaxComment(commentText, feedNoText, e);
         $textArea.val("");
     } else {
         alert("내용을 입력하세요.");
     }
 });
 
-const ajaxComment = (commentText, feedNoText) => {
+const ajaxComment = (commentText, feedNoText, e) => {
     $.ajax({
         type: "POST",
         url: "<%=request.getContextPath()%>/feed/feedcomment.do",
@@ -589,6 +582,7 @@ const ajaxComment = (commentText, feedNoText) => {
         },
         success: function(data) {
             selectComment(feedNoText);
+        	$(e.target).closest('.board').find('.commentsCnt').text("댓글수"+data);
         },
         error: function(xhr, status, error) {
             console.error('Error submitting comment:', error);
@@ -606,6 +600,8 @@ const selectComment = (feedNoText) => {
         },
         success: function(data) {
             const $commentContainer = $('input.feedNo[value="' + feedNoText + '"]').closest('.board').find('.comment-container');
+         
+            $commentContainer.find('.comment-item').remove();
 
             $.each(data, function(idx, element) {
                 const $commentDiv = $("<div>").css({
@@ -614,7 +610,7 @@ const selectComment = (feedNoText) => {
                     'overflow': 'hidden',
                     'padding-bottom': '10px'
                 }).addClass("comment-item");
-
+			
                 $commentDiv.append('<input type="hidden" class="replyNumber" value=' + element.replyNumber + '>');
                 $commentDiv.append('<input type="hidden" class="feedNo" value=' + element.feedNo + '>');
                 $commentDiv.append('<div>' + element.replyDate + '</div>');
@@ -626,9 +622,10 @@ const selectComment = (feedNoText) => {
                     $commentDiv.append('<br><a class="deleteBt">삭제</a>');
                     $commentDiv.append('<a class="updateBt">수정</a>');
                 }
-
+                
                 $commentContainer.append($commentDiv);
             });
+            $commentContainer.find('.comment-item').last().css('border-bottom', 'none');
         },
         error: function(xhr, status, error) {
             console.error('Error fetching comments:', error);
@@ -640,17 +637,19 @@ const selectComment = (feedNoText) => {
 $(document).on("click", "a.deleteBt", function(e) {    
     const replyNumber = $(e.target).parent().find('.replyNumber').val();
     const feedNo = $(e.target).parent().find('.feedNo').val();
-    
-    $.ajax({
-        type: "POST",
-        url: "<%=request.getContextPath()%>/feed/feedcommentdelete.do",
-        data: {
-            "replyNumber": replyNumber
-        },
-        success: function(data) {
-            selectComment(feedNo);
-        }
-    });
+	if(confirm("삭제하시겠습니까?")){
+	    $.ajax({
+	        type: "POST",
+	        url: "<%=request.getContextPath()%>/feed/feedcommentdelete.do",
+	        data: {
+	            "replyNumber": replyNumber
+	        },
+	        success: function(data) {
+	            selectComment(feedNo);
+	            alert("삭제되었습니다.");
+	        }
+	    });
+	}
 });
 
 // 댓글 수정 기능
@@ -736,7 +735,7 @@ const initializeCarousel = (carousel) => {
     showSlide(index);
 }
 
-
+let heartTime = true;
 // 좋아요 기능
 function switchingLikes(feedNo, e) {
     $.ajax({
@@ -747,25 +746,51 @@ function switchingLikes(feedNo, e) {
             "feedNo": feedNo
         },
         success: function(data) {
-        	console.log("1");
+        	console.log(data);
+        	$(e.target).closest('.board').find('.likesCnt').text("좋아요"+data);
         }
     });
 }
 
-// 클릭하면 좋아요 함수 실행
+
+
+//해당 피드 페이지에 해당 유저의 좋아요가 있는지 확인
+const checkLikes = (feedNo, callback) => {
+    $.ajax({
+        type: "POST",
+        url: "<%=request.getContextPath()%>/feed/checklikes.do",
+        data: {
+            "loginMemberNo": <%=loginMember.getMemberNo()%>,
+            "feedNo": feedNo
+        },
+        success: function(data) {
+            callback(data);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error checking likes:', error);
+            callback(false); // 에러 발생 시 false를 전달할 수 있습니다.
+        }
+    });
+}
+
+//클릭하면 좋아요 함수 실행
 $(document).on('click', '.likes1', function(e) {
 	const feedNo = $(this).closest('.board').find('input.feedNo').val();
-    switchingLikes(feedNo, e); 
+	if(heartTime){
+		heartTime= false;
+    	switchingLikes(feedNo, e); 
+    	heartAni($(this));
+	}
 });
 
 
 
 // 클릭하면 .heart의 css를 바꿈
-$(document).on('click', '.likes1', function(e) {
-	const $heartPath = $(this).find('.heart > path');
-	const $heart = $(this).find('.heart');
-	const $particles = $(this).find('.particle');
-    const $container = $(this);
+function heartAni(e) {
+	const $heartPath = $(e).find('.heart > path');
+	const $heart = $(e).find('.heart');
+	const $particles = $(e).find('.particle');
+    const $container = $(e);
     if ($container.hasClass('clicked')) {
         $heartPath.css('fill', '');
         $particles.css('animation', '');
@@ -778,7 +803,8 @@ $(document).on('click', '.likes1', function(e) {
 
         $container.addClass('clicked');
     } 
-});
+    heartTime=true;
+}
 
 //클릭하면 댓글 아이콘 색 변경
 $(document).on('click', '.comment', function(e) {
