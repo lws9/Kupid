@@ -42,6 +42,13 @@ public class FeedService {
 		
 	}
 	
+	public int countFeedComment(int feedNo) {
+		Connection conn = getConnection();
+		int result = dao.countFeedComment(conn,feedNo);
+		
+		return result;
+	}
+	
 	public int deleteFeedComment(int replyNumber) {
 		Connection conn = getConnection();
 		int result = dao.deleteFeedComment(conn,replyNumber);

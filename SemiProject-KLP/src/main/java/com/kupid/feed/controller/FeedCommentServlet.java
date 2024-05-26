@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kupid.feed.model.service.FeedService;
-import com.kupid.member.model.dto.MemberDto;
 
 /**
  * Servlet implementation class FeedCommentServlet
@@ -36,8 +36,11 @@ public class FeedCommentServlet extends HttpServlet {
 		String comment = request.getParameter("commentText");
 		int feedNo = Integer.parseInt(request.getParameter("feedNoText"));
 		
-		int result=new FeedService().insertFeedComment(loginMember,comment,feedNo);
+		new FeedService().insertFeedComment(loginMember,comment,feedNo);
 		
+		int result = new FeedService().countFeedComment(feedNo);
+		Gson gson = new Gson();
+		gson.toJson(result,response.getWriter());
 	}
 
 	/**

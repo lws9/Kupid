@@ -28,13 +28,32 @@ public class FeedDao {
 		}
 	}
 	
+	public int countFeedComment(Connection conn, int feedNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("countFeedComment"));
+			pstmt.setInt(1,feedNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt(1);
+				}
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+		
+		System.out.println(result);
+		
+			return result;
+	}
+	
 	public int checkLikes(Connection conn,int feedNo,int loginMemberNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		System.out.println("========");
-		System.out.println(loginMemberNo);
-		System.out.println(feedNo);
-		System.out.println("========");
 		int result = 0;
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("checkLikes"));
@@ -389,6 +408,7 @@ public class FeedDao {
 				.report(rs.getInt("REPORT"))
 				.filePath(rs.getString("FILE_PATH"))
 				.profileImgOriname(rs.getString("PROFILE_IMG_ORINAME"))
+				.commentCnt(rs.getInt("commentCnt"))
 				.build();
 	}
 	public static LikeFeed getLikeFeed(ResultSet rs) throws SQLException{
@@ -396,7 +416,6 @@ public class FeedDao {
 				.memberNo(rs.getInt("MEMBERNO"))
 				.feedNo(rs.getInt("FEED_NO"))
 				.likes(rs.getInt("LIKES"))
-				.likesSwitch(rs.getInt("LIKES_SWITCH"))
 				.build();	}
 	
 	public static Reply getReply(ResultSet rs) throws SQLException{
