@@ -19,7 +19,7 @@ import com.kupid.member.model.dto.MemberDto;
 /**
  * Servlet Filter implementation class CheckAuthenticateFilter
  */
-@WebFilter("/admin/*")
+@WebFilter("/manager/*")
 public class CheckAuthenticateFilter extends HttpFilter implements Filter {
        
     /**

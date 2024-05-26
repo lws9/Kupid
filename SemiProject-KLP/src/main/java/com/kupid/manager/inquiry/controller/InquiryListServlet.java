@@ -43,7 +43,7 @@ public class InquiryListServlet extends HttpServlet {
 		}catch(NumberFormatException e){
 			
 		}
-		int numPerpage=5;
+		int numPerpage=10;
 		try {
 			numPerpage=Integer.parseInt(request.getParameter("numPerpage"));
 		}catch(NumberFormatException e){
@@ -61,7 +61,7 @@ public class InquiryListServlet extends HttpServlet {
 		
 		if(pageNo==1) {
 			sb.append("<li class='page-item'>");
-			sb.append("<a href='#'>이전</a>");
+			sb.append("<span>이전</span>");
 			sb.append("</li>");
 		}else {
 			sb.append("<li class='page-item'>");
@@ -72,7 +72,7 @@ public class InquiryListServlet extends HttpServlet {
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(pageNo==cPage) {
 				sb.append("<li class='page-item'>");
-				sb.append("<a href='#'>"+pageNo+"</a>");
+				sb.append("<span id='nowpage'>"+pageNo+"</span>");
 				sb.append("</li>");
 			}else {
 				sb.append("<li class='page-item'>");
@@ -84,7 +84,7 @@ public class InquiryListServlet extends HttpServlet {
 		
 		if(pageNo>totalPage) {
 			sb.append("<li class='page-item'>");
-			sb.append("<a href='#'>다음</a>");
+			sb.append("<span>다음</span>");
 			sb.append("</li>");
 		}else {
 			sb.append("<li class='page-item'>");

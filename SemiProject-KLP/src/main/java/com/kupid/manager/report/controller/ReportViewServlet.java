@@ -33,6 +33,7 @@ public class ReportViewServlet extends HttpServlet {
 		int no=Integer.parseInt(request.getParameter("no"));
 		Report r=new ReportService().selectReportByNo(no);
 		request.setAttribute("report", r);
+		System.out.println(r);
 		request.getRequestDispatcher("/WEB-INF/views/manager/report/reportview.jsp").forward(request, response);
 	}
 
