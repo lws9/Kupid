@@ -12,16 +12,23 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <body>
     <div class = "textarea-container">
-        <form id="feedForm" action="<%=request.getContextPath()%>/feed/feedWrite.do" enctype="multipart/form-data" method="post" onsubmit="return submitFeed();">
+        <form id="feedForm" action="<%=request.getContextPath()%>/feed/feedWrite.do" enctype="multipart/form-data" method="post" onsubmit="return submitFeed();" >
             <input type="hidden" name="writer" value="<%=loginMember.getMemberId()%>">
-            <div>
-                <input type="file" id="upfile" multiple>
-            </div>
             <div >
-                <textarea class="form-cont" cols="40" rows="3" name="content" id="content"></textarea>
+                <textarea class="form-cont" cols="40" rows="2" name="content" id="content"></textarea>
             </div>
-            <button type="submit" >제출</button>
-            <button type="button" onclick="test()">테스트용 버튼</button>
+            <div class="textAreaIcon">
+                <input type="file" id="upfile" multiple style="display:none">
+	            <div class="upfileCount"></div>
+	            <label for="upfile">
+	            	<img class="fileIcon" src="<%=request.getContextPath()%>/image/icon/014picture_101564.png"/>
+	            </label>
+	            <label for="submit">
+	            	<img class="submitBt" src="<%=request.getContextPath()%>/image/icon/submission-3-48.png"/>
+	            </label>
+	            <button type="submit" id="submit" style="display:none">제출</button>
+	            
+            </div>
         </form>
     </div>
 
@@ -29,15 +36,113 @@
     <div class="container" id="container"></div>  
 </body>
 <style>
-          .textarea-container {
-            display: flex;
-            justify-content: center;
-            margin: 10px 0;
-        }
+.upfileCount{
+	    font-size: 14px;
+    top: 74px;
+    right: 93px;
+    text-align: center;
+    width: 142px;
+    position: absolute;
+}
+.board-header{
+    padding-left: 34px;
+    margin-bottom: 19px;
+}
+.form-cont::-webkit-scrollbar {
+   display: none;
+ }
+
+.fileIcon{
+    width: 28px;
+    right: 21px;
+    top: 68px;
+}
+.submitBt{
+    width: 28px;
+    right: 17px;
+    top: 68px;
+}
+.textAreaIcon{
+	position: absolute;
+    top: 30px;
+    right: 0;
+}
+.feedContent{
+	margin-bottom: 19px;
+    margin-top: 19px;
+    padding-left: 46px;
+}
+#dropdown-menu{
+	right: 12px;
+	display : none;
+}
+#dropdown-menu.clicked{
+	right: 12px;
+	display : block;
+}
+.more-contianer{
+    position: absolute;
+    right: 0;
+    top: 7px;
+}
+/* 피드 더보기 아이콘  */
+.reportBt{
+	
+}
+.menu-icon {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  
+    margin-right: 20px;
+}
+
+.menu-icon span {
+  display: block;
+  width: 24px;
+  height: 3px;
+  background-color: #0000008c;
+  margin-bottom: 5px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu-icon.clicked span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);background-color: black;
+}
+
+.menu-icon.clicked span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-icon.clicked span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);background-color: black;
+}
+
+  .textarea-container {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
 
         #content {
             width: 40vw;
         }
+a.next, a.prev {
+    background-color: transparent;
+    transition: background-color 0.5s ease;
+}
+
+a.next{
+    margin-right: 10px;
+}
+
+a.prev{
+	margin-left: 10px;
+}
+
+a.next:hover, a.prev:hover {
+    background-color: rgb(0 0 0 / 92%);
+}
 .comment svg {
     display: flex;
     justify-content: center; /* 수평 중앙 정렬 */
@@ -54,6 +159,9 @@
 .commentIcon{
 	width: 41px;
     height: 47px;
+    
+    top: 2px;
+    left: 9px;
 }
         
 .form-cont{
@@ -62,7 +170,10 @@
   color: black;
   border: none;
   border-bottom: 2px solid #0000007e;
-  outline: none;}
+  outline: none;
+      top: 30px;
+    margin-bottom: 54px;
+  }
 
 .indicators {
     position: absolute;
@@ -315,6 +426,8 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        margin-top: 13px;
+        
     }
 
     .board-footer {
@@ -341,19 +454,26 @@ const test = () => {
 }
 
 function submitFeed() {
-	 var textareaContent = document.getElementById("content").value;
+    var textareaContent = document.getElementById("content").value;
 
-	    if (textareaContent.trim() === '') {
-	        alert("내용을 입력하세요.");
-	        return false;
-	    }else{
-    $.each($('#upfile')[0].files, function(idx, file) {
-        var fileInput = $('<input>').attr('type', "file").attr('name', "upfile"+idx).css({'display':'none'});
-        fileInput[0].file = file;
-        $('#feedForm').append(fileInput);
-    })}
+    if (textareaContent.trim() === '') {
+        alert("내용을 입력하세요.");
+        return false;
+    } else {
+        $.each($("#upfile")[0].files, (i, f) => {
+            console.log(f);
+            const fileInput = $("<input>")
+                .attr({ type: "file", name: "upfile" + i })
+                .css({ display: "none" });
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(f);
+            fileInput[0].files = dataTransfer.files;
+            fileInput.appendTo($("#feedForm"));
+        });
+    }
     return true;
 }
+
 
 
 
@@ -403,6 +523,7 @@ const loadPage = () => {
 
 					
                 const $header = $('<div>').addClass('board-header');
+                const $moreContainer = $('<div>').addClass('more-contianer');
                 $header.append('<div><img style="border-radius:50%; height:32px; width:32px;" src="<%=request.getContextPath()%>/upload/member/profile/' + element.profileImgOriname + '"></div>');
                 $header.append('<div>' + element.feedWriterName + '</div>');
                 if (element.feedUpdateDate == undefined) {
@@ -412,10 +533,13 @@ const loadPage = () => {
                 }
                 $header.append('<div class="commentsCnt">' + "댓글수" +element.commentCnt + '</div>');
                 $header.append('<div class="likesCnt">' + "좋아요"+element.likes + '</div>');
+                $moreContainer.append('<div class="menu-icon">'+'<span></span>'+'<span></span>'+'<span></span>'+'</div>');
+                $moreContainer.append('<div id="dropdown-menu" class="dropdown-content"><button class="reportBt">신고</button></div>');
+                $header.append($moreContainer);
 
                 $div.append($header);
 
-                $div.append('<div>' + element.feedContent + '</div>');
+                $div.append('<div class="feedContent">' + element.feedContent + '</div>');
 
                 if (element.filePath !== undefined) {
                     const fileArr = element.filePath.split(",");
@@ -498,7 +622,6 @@ const loadPage = () => {
                     '</svg>' +
                     '</a>'
                 );
-                $footer.append('<button class="reportBt">신고</button>');
                 $div.append($footer);
 
                 $('.likes1.clicked .heart > path').css('fill', 'var(--color-heart)');
@@ -610,14 +733,21 @@ const selectComment = (feedNoText) => {
                     'overflow': 'hidden',
                     'padding-bottom': '10px'
                 }).addClass("comment-item");
+                const $commentInfoContainer = $("<div>").css({
+                    "display": "flex",
+                    "align-items": "center"
+                }).addClass("commentInfo");
 			
                 $commentDiv.append('<input type="hidden" class="replyNumber" value=' + element.replyNumber + '>');
                 $commentDiv.append('<input type="hidden" class="feedNo" value=' + element.feedNo + '>');
-                $commentDiv.append('<div>' + element.replyDate + '</div>');
-                $commentDiv.append('<div>' + element.likes + '</div>');
-                $commentDiv.append('<div>' + element.memberNo + '</div>');
+                $commentDiv.append('<input type="hidden" class="likes" value=' + element.likes + '>');
+                $commentDiv.append('<input type="hidden" class="memberNo" value=' + element.memberNo + '>');                
+                $commentInfoContainer.append('<div style="margin-right: 10px;"><img style="border-radius:50%; height:32px; width:32px;" src="<%=request.getContextPath()%>/upload/member/profile/' + element.profileImgOriname + '"></div>');
+                $commentInfoContainer.append('<div style="margin-right: 10px;">' + element.memberId + '</div>');
+                $commentInfoContainer.append('<div>' + element.replyDate + '</div>');
+                $commentDiv.append($commentInfoContainer);
                 $commentDiv.append('<div class="replyContent">' + element.replyContent + '</div>');
-
+				
                 if (<%=loginMember.getMemberNo()%> == element.memberNo) {
                     $commentDiv.append('<br><a class="deleteBt">삭제</a>');
                     $commentDiv.append('<a class="updateBt">수정</a>');
@@ -808,22 +938,35 @@ function heartAni(e) {
 
 //클릭하면 댓글 아이콘 색 변경
 $(document).on('click', '.comment', function(e) {
-	const $commentIconPath = $(this).find('path');
-	const $container = $(this);
-	if ($container.hasClass('clicked')) {
+    const $commentIconPath = $(this).find('path');
+    const $container = $(this);
+    if ($container.hasClass('clicked')) {
+        // 클릭되었을 때
+        $commentIconPath.css('transition', 'fill 0.5s ease');
         $commentIconPath.css('fill', '');
         $container.removeClass('clicked');
     } else {
-        $commentIconPath.css('fill', 'var(--color-heart)');
-
-        $container.addClass('clicked');
+        // 클릭되지 않았을 때
+        setTimeout(function() {
+            $commentIconPath.css('transition', 'fill 0.5s ease');
+            $commentIconPath.css('fill', 'var(--color-heart)');
+            $container.addClass('clicked');
+        }, 10);
     } 
 });
 
+$(document).on("click", ".menu-icon", function() {
+    $(this).toggleClass('clicked'); 
+    $(this).parent().find('.dropdown-content').toggleClass('clicked'); 
+});
 
+//파일 선택시 선택한 갯수 표시
 
-
-
-
+$('#upfile').on('change', function() {
+    if (this.files.length > 0) {
+        const numberOfFiles = this.files.length;
+        $(this).parent().find('.upfileCount').text("선택한 파일 : "+numberOfFiles+"개");
+    }
+});
 </script>
 </html>

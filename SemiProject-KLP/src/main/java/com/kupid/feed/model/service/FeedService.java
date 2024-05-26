@@ -13,12 +13,13 @@ import java.util.List;
 import com.kupid.feed.model.dao.FeedDao;
 import com.kupid.feed.model.dto.Feed;
 import com.kupid.feed.model.dto.Reply;
+import com.kupid.member.model.dto.MemberDto;
 public class FeedService {
 	private FeedDao dao = new FeedDao();
 	
-	public List<Reply> selectFeedComment(int feedNo) {
+	public List<MemberDto> selectFeedComment(int feedNo) {
 		Connection conn = getConnection();
-		List<Reply> fc = dao.selectFeedComment(conn,feedNo);
+		List<MemberDto> fc = dao.selectFeedComment(conn,feedNo);
 		close(conn);
 		return fc;
 	}

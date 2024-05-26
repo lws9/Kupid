@@ -1,6 +1,7 @@
 package com.kupid.feed.model.dao;
 
 import static com.kupid.common.JDBCTemplate.close;
+import static com.kupid.member.model.dao.MemberDao.memberBuilder;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.util.Properties;
 import com.kupid.feed.model.dto.Feed;
 import com.kupid.feed.model.dto.LikeFeed;
 import com.kupid.feed.model.dto.Reply;
+import com.kupid.member.model.dto.MemberDto;
 
 public class FeedDao {
 	
@@ -168,16 +170,16 @@ public class FeedDao {
 			return result;
 		}
 
-		public List<Reply> selectFeedComment(Connection conn,int feedNo){
+		public List<MemberDto> selectFeedComment(Connection conn,int feedNo){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		List<Reply> result = new ArrayList<>();
+		List<MemberDto> result = new ArrayList<>();
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("selectFeedComment"));
 			pstmt.setInt(1, feedNo);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
-				Reply r=getReply(rs);
+				MemberDto r=getMember(rs);
 				result.add(r);
 
 			}
@@ -421,6 +423,32 @@ public class FeedDao {
 	public static Reply getReply(ResultSet rs) throws SQLException{
 		return Reply.builder()
 				.replyNumber(rs.getInt("reply_number"))
+				.feedNo(rs.getInt("feed_no"))
+				.replyDate(rs.getDate("reply_date"))
+				.likes(rs.getInt("likes"))
+				.memberNo(rs.getInt("memberno"))
+				.replyContent(rs.getString("reply_content"))
+				.build();
+	}
+	public static MemberDto getMember(ResultSet rs) throws SQLException{
+		return MemberDto.builder()
+				.memberNo(rs.getInt("member_no"))
+				.memberId(rs.getString("member_id"))
+				.memberPw(rs.getString("member_pw"))
+				.memberName(rs.getString("member_name"))
+				.gender(rs.getString("gender"))
+				.phone(rs.getString("phone"))
+				.address(rs.getString("address"))
+				.addressDetail(rs.getString("address_detail"))
+				.email(rs.getString("email"))
+				.birth(rs.getDate("birth"))
+				.introduce(rs.getString("introduce"))
+				.nickname(rs.getString("nickname"))
+				.profileImgOriname(rs.getString("profile_img_oriname"))
+//				.profileImgRenamed(rs.getString("profile_img_renamed"))
+				.memberGrade(rs.getString("member_grade"))
+				.enrollDate(rs.getDate("enroll_date"))
+				.replyNumber(rs.getInt("REPLY_NUMBER"))
 				.feedNo(rs.getInt("feed_no"))
 				.replyDate(rs.getDate("reply_date"))
 				.likes(rs.getInt("likes"))

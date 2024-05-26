@@ -169,7 +169,7 @@ public class MemberDao {
 						.introduce(rs.getString("introduce"))
 						.nickname(rs.getString("nickname"))
 						.profileImgOriname(rs.getString("profile_img_oriname"))
-						//.profileImgRenamed(rs.getString("profile_img_renamed"))
+//						.profileImgRenamed(rs.getString("profile_img_renamed"))
 						.memberGrade(rs.getString("member_grade"))
 						.enrollDate(rs.getDate("enroll_date"))
 						.build();

@@ -27,7 +27,7 @@ public class MemberDto {
 	private String nickname;
 	private String introduce;
 	private String profileImgOriname;
-	private String profileImgRenamed; //재정의 이름 일단 만들어둠(수업에서 배운 내용 활용)
+	//private String profileImgRenamed; //재정의 이름 일단 만들어둠(수업에서 배운 내용 활용)
 	private String memberGrade;
 	private Date enrollDate; //sql date 사용
 	private int groupNo;//그룹 foreignkey
@@ -40,4 +40,9 @@ public class MemberDto {
 	private Date startday;//membership 시작일
 	private Date endday;//membership 종료일
 	private int subscribeNo; //구독테이블 pk번호(메인 인기순 아티스트 출력에 사용)
+	private int replyNumber;
+	private int feedNo;
+	private Date replyDate;
+	private int likes;
+	private String replyContent;
 }

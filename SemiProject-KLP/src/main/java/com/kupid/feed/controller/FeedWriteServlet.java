@@ -77,8 +77,9 @@ public class FeedWriteServlet extends HttpServlet {
 					
 					
 					String name = formNames.nextElement();
-					String fileSavePath = request.getContextPath()+ "/upload/feed" + File.separator + name;
-					
+					String refileName=mr.getFilesystemName(name);
+					String oriFileName=mr.getFilesystemName(name);
+					String fileSavePath = request.getContextPath()+ "/upload/feed" + File.separator + refileName;
 					
 					System.out.println(name + "name");
 					System.out.println(fileSavePath + "fileSavePath");
