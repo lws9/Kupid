@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List,com.kupid.faq.model.dto.FaqDto,java.text.SimpleDateFormat" %>
-<% List<FaqDto> faqs = (List<FaqDto>) request.getAttribute("faqs"); %>
+<%@ page import="com.kupid.faq.model.dto.FaqDto" %>
+
+<% List<FaqDto> faqs = (List<FaqDto>) request.getAttribute("faq");
+  StringBuffer pagebar=(StringBuffer)request.getAttribute("pageBar");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -48,6 +52,16 @@
             text-align: center;
             margin: 20px 0;
         }
+        .pagination ul {
+	    list-style: none; /* 리스트 스타일 제거 */
+	    padding: 0;
+		}
+	
+		.pagination li {
+		    display: inline; /* 페이지 번호를 가로로 정렬 */
+		    margin-right: 5px; /* 페이지 번호 사이의 간격 조절 */
+		}
+	        
     </style>
 </head>
 <body>
@@ -57,10 +71,10 @@
     <div class="search-container">
         <label for="category">카테고리:</label>
         <select id="category" name="category">
-            <option value="all">전체</option>
-            <option value="category1">회원</option>
-            <option value="category2">상점</option>
-            <option value="category3">커뮤니티</option>
+            <option value="all" onclick="location.assign('<%=request.getContextPath()%>/faq/faq.do')">전체</option>
+        <%--     <option value="category1"<%=category!=null&&category.equals("회원")?"selected:":"" %>>회원</option>
+            <option value="category2"<%=category!=null&&category.equals("상점")?"selected:":"" %>>상점</option>
+            <option value="category3"<%=category!=null&&category.equals("커뮤니티")?"selected:":"" %>>>커뮤니티</option> --%>
         </select>
         
         <input type="text" id="search" name="search" placeholder="검색어 입력">
@@ -77,8 +91,8 @@
             </tr>
         </thead>
         <tbody>
-    <% if(faqs!=null) { %>
-        <% for(FaqDto f:faqs) { %>
+    <% if(faqs != null) { %>
+        <% for(FaqDto f : faqs) { %>
             <tr>
                 <td><%= f.getFaqNo() %></td>
                 <td><%= f.getFaqCategory() %></td>
@@ -95,32 +109,12 @@
         </tbody>
     </table>
     <div class="pagination">
-        <button type="button" onclick="prevPage()">이전</button>
-     <!--  페이지 설정해주는거 추가해야됨 -->
-        <button type="button" onclick="nextPage()">다음</button>
+        <%=pagebar.toString()%>
     </div>
     <div class="footer">
         <button type="button" onclick="location.assign('<%=request.getContextPath()%>/customer/customermain.do')">고객센터 바로가기</button>
         <button type="button" onclick="location.assign('<%=request.getContextPath()%>/inquiry/inquiry.do')">1:1 문의하기</button>
     </div>
-    <script>
-        function searchFAQ() {
-            var category =document.getElementById('category').value;
-            var search = document.getElementById('search').value;
-            
-            alert('검색어: ' + search + ', 카테고리: ' + category);
-        }
-
-        // 페이지 이동 함수
-        function prevPage() {
-            // 이전 페이지로 이동하는 로직 구현
-            alert('이전 페이지로 이동');
-        }
-
-        function nextPage() {
-            // 다음 페이지로 이동하는 로직 구현
-            alert('다음 페이지로 이동');
-        }
-    </script>
 </body>
 </html>
+

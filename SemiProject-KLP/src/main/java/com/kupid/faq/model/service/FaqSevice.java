@@ -22,5 +22,12 @@ public class FaqSevice {
 		close(conn);
 		return faq;
 		}
+	public int selectAllCount() {
+        Connection conn = getConnection();
+        int result = faqDao.selectFaqAllCount(conn); 
+        close(conn);
+        return result;
+    
+	}
 	}
 
