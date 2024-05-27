@@ -46,4 +46,8 @@ public class MemberDto {
 	private int likes;
 	private String replyContent;
 	private String penaltyDay;
+	private String kakaoId;
+	private String kakaoPw;
+	private String penaltyDate;
+	private String penaltyCate;
 }

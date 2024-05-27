@@ -22,4 +22,5 @@ public class Report {
 	private String reportingId;
 	private String reportResult;
 	private String penaltyDate;
+	private Date reportEndDate;
 }

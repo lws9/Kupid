@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kupid.member.model.dto.MemberDto;
 import com.kupid.member.model.service.MemberService;
@@ -34,6 +35,9 @@ public class EnrollMemberEnd extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+
+		
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		String name = request.getParameter("name"); 
@@ -44,6 +48,20 @@ public class EnrollMemberEnd extends HttpServlet {
 		String gender = request.getParameter("gender");
 		gender = gender.equals("male")?"M":"F";
 		String birth = request.getParameter("birth");
+		MemberDto kakaoMember = (MemberDto)session.getAttribute("kakaoMember");
+		System.out.println(kakaoMember+"ㅇㄴㅁ");
+		String kakaoId = null;
+		String kakaoPw = null;
+		if(kakaoMember!=null) {
+			email = kakaoMember.getEmail();
+			System.out.println(email+"email");
+			kakaoId = kakaoMember.getKakaoId();
+			System.out.println(kakaoId+"kakaoId");
+			kakaoPw = kakaoMember.getKakaoPw();
+			System.out.println(kakaoPw+"kakaoPw");
+		}
+		
+		
 		//임의 닉네임 생성
 		SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMddHHmmssSSS");
 		String nickname = name + (1000+new Random().nextInt(90000)) + sdf.format(System.currentTimeMillis());
@@ -70,9 +88,17 @@ public class EnrollMemberEnd extends HttpServlet {
 //		}
 		MemberDto m = MemberDto.builder()
 				.memberId(id)
-				.memberPw(pw).memberName(name).gender(gender)
-				.email(email).phone(phone).address(address).addressDetail(addressDetail)
-				.birth(sqlDate).nickname(nickname)
+				.memberPw(pw)
+				.memberName(name)
+				.gender(gender)
+				.email(email)
+				.phone(phone)
+				.address(address)
+				.addressDetail(addressDetail)
+				.birth(sqlDate)
+				.nickname(nickname)
+				.kakaoId(kakaoId)
+				.kakaoPw(kakaoPw)
 				.build();
 		int result = new MemberService().insertMember(m);
 		System.out.println(result);

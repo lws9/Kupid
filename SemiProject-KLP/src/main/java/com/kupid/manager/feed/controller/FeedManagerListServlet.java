@@ -1,4 +1,4 @@
-package com.kupid.manager.member.controller;
+package com.kupid.manager.feed.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kupid.manager.member.service.MemberService;
-import com.kupid.member.model.dto.MemberDto;
+import com.kupid.feed.model.dto.Feed;
+import com.kupid.manager.feed.service.FeedManagerService;
 
 /**
- * Servlet implementation class UnactiveMemberListServlet
+ * Servlet implementation class FanFeedListServlet
  */
-@WebServlet("/manager/unactivememberlist.do")
-public class UnactiveMemberListServlet extends HttpServlet {
+@WebServlet("/manager/feedlist.do")
+public class FeedManagerListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UnactiveMemberListServlet() {
+    public FeedManagerListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,9 +31,7 @@ public class UnactiveMemberListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("pagenum", 9);
-		
-		
+		request.setAttribute("pagenum", 11);
 		int cPage=1;
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
@@ -47,7 +45,7 @@ public class UnactiveMemberListServlet extends HttpServlet {
 			
 		}
 		
-		int totalData=new MemberService().selectPenaltyAllCount();
+		int totalData=new FeedManagerService().selectFeedAllCount();
 		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
 		int pageBarSize=5;
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
@@ -92,12 +90,11 @@ public class UnactiveMemberListServlet extends HttpServlet {
 		request.setAttribute("pageBar", sb);
 		
 		
-		List<MemberDto> member=new MemberService().selectPenaltyAll(cPage,numPerpage);
-		request.setAttribute("member", member);
-//		System.out.println("member : "+member);
+		List<Feed> feed=new FeedManagerService().selectFeedAll(cPage,numPerpage);
+		request.setAttribute("feed", feed);
+
 		
-		request.getRequestDispatcher("/WEB-INF/views/manager/member/managerunmemberlist.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("/WEB-INF/views/manager/feed/feedlist.jsp").forward(request, response);
 	}
 
 	/**
