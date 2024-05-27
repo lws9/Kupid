@@ -33,7 +33,7 @@ public class UnactiveMemberListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("pagenum", 9);
 		
-		String grade="탈퇴";
+		
 		int cPage=1;
 		try {
 			cPage=Integer.parseInt(request.getParameter("cPage"));
@@ -47,7 +47,7 @@ public class UnactiveMemberListServlet extends HttpServlet {
 			
 		}
 		
-		int totalData=new MemberService().selectMemberAllCount(grade);
+		int totalData=new MemberService().selectPenaltyAllCount();
 		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
 		int pageBarSize=5;
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
@@ -92,7 +92,7 @@ public class UnactiveMemberListServlet extends HttpServlet {
 		request.setAttribute("pageBar", sb);
 		
 		
-		List<MemberDto> member=new MemberService().selectMemberAll(cPage,numPerpage,grade);
+		List<MemberDto> member=new MemberService().selectPenaltyAll(cPage,numPerpage);
 		request.setAttribute("member", member);
 //		System.out.println("member : "+member);
 		

@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<% 
+	MemberDto kakaoMember = (MemberDto)session.getAttribute("kakaoMember"); 
+	
+%>
 <style>
 	.join{
 		width: 90vw;
@@ -150,6 +154,9 @@
 		<div class="join_container">
 	    <h1 class="title">회원가입</h1>
 			<form action="<%=request.getContextPath() %>/member/enrollmemberend.do" method="post" style="margin-bottom: 0px" onsubmit='fnSignupCk(event);'>
+				<%if(kakaoMember!=null){
+				 session.setAttribute("kakaoMember", kakaoMember);
+				} %>
 				<div class="part">
 					<div class="result-container">
 					<h3>아이디</h3>
@@ -233,7 +240,7 @@
 			       	<button class="btn2" type="button" id="searchAddress" onclick="addressSearch();">주소 검색</button>
 		      	</div>
 		        <div class="input_box readonly_box">
-		      		<input type="text" id="inputAddress" class="inputTag" placeholder="주소검색"  name="address" readOnly value="">
+		      		<input type="text" id="inputAddress" class="inputTag" placeholder="주소검색"  name="address" value="">
 		      	</div>
 		      	<div class="input_box">
 		      		<input type="text" id="inputAddressDetail" class="inputTag" name="addressDetail" placeholder="상세주소 입력"  value="">
@@ -270,6 +277,19 @@
      </div>
  </section>
 <script>
+
+
+$(document).ready(function() {
+    <%if (kakaoMember != null) {%>
+        var email = "<%= kakaoMember.getEmail() %>";
+        $('#inputEmail').attr('placeholder', email).val(email).prop('readonly', true);
+        $("button.btn2").css('display','none');
+    <%}%>
+});
+
+
+
+	
 	$("#name").keyup(e=>{
 		let target = e.target.value;
 		target = target.replace(/[^가-힣]/g, '');
@@ -440,6 +460,8 @@
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+
+
 	const addressSearch=()=>{
 		let width= 500;
 		let height= 772;

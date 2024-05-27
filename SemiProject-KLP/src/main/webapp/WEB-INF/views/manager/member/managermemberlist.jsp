@@ -217,28 +217,28 @@ ul li:hover > a{
 		<h1>
 			<div>
 				<select id="searchType">
-		       		<option value="member_name" <%=searchType!=null&&searchType.equals("member_name")?"selected":"" %>>이름</option>
-		        	<option value="member_id" <%=searchType!=null&&searchType.equals("member_id")?"selected":"" %>>아이디</option>
-		        	<option value="nickname" <%=searchType!=null&&searchType.equals("nickname")?"selected":"" %>>닉네임</option>
+		       		<option value="회원" <%=searchType!=null&&searchType.equals("회원")?"selected":"" %>>일반회원</option>
+		        	<option value="정지" <%=searchType!=null&&searchType.equals("정지")?"selected":"" %>>정지회원</option>
+		        	<option value="탈퇴" <%=searchType!=null&&searchType.equals("탈퇴")?"selected":"" %>>탈퇴회원</option>
 	        	</select>
-	        	<div id="search-member_name">
+	        	<div id="search-회원">
 					<form action="<%=request.getContextPath()%>/manager/searchMember.do">
-						<input type="hidden" name="searchType" value="member_name">
-						<input type="text" name="searchKeyword" placeholder="검색할 이름을 입력하세요" style="width:300px">
-						<button type="submit">검색</button>
-					</form>
-				</div>
-				<div id="search-member_id">
-					<form action="<%=request.getContextPath()%>/manager/searchMember.do">
-						<input type="hidden" name="searchType" value="member_id">
+						<input type="hidden" name="searchType" value="회원">
 						<input type="text" name="searchKeyword" placeholder="검색할 아이디를 입력하세요" style="width:300px">
 						<button type="submit">검색</button>
 					</form>
 				</div>
-				<div id="search-nickname">
+				<div id="search-정지">
 					<form action="<%=request.getContextPath()%>/manager/searchMember.do">
-						<input type="hidden" name="searchType" value="nickname">
-						<input type="text" name="searchKeyword" placeholder="검색할 닉네임을 입력하세요" style="width:300px">
+						<input type="hidden" name="searchType" value="정지">
+						<input type="text" name="searchKeyword" placeholder="검색할 아이디를 입력하세요" style="width:300px">
+						<button type="submit">검색</button>
+					</form>
+				</div>
+				<div id="search-탈퇴">
+					<form action="<%=request.getContextPath()%>/manager/searchMember.do">
+						<input type="hidden" name="searchType" value="탈퇴">
+						<input type="text" name="searchKeyword" placeholder="검색할 아이디를 입력하세요" style="width:300px">
 						<button type="submit">검색</button>
 					</form>
 				</div>
@@ -252,6 +252,7 @@ ul li:hover > a{
 				<th>아이디</th>
 				<th>닉네임</th>
 				<th>가입일</th>
+				<th>등급</th>
 				<th colspan="2"></th>
 				
 				
@@ -264,6 +265,7 @@ ul li:hover > a{
 					<td style="text-align:center;"><%=m.getMemberId()%></td>
 					<td style="text-align:center;"><%=m.getNickname() %></td>
 					<td style="text-align:center;"><%=m.getEnrollDate() %></td>
+					<td style="text-align:center;"><%=m.getMemberGrade() %></td>
 					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/memberview.do?no=<%=m.getMemberNo()%>')">상세정보</button></td>
 					<td><button onclick="deleteMember(<%=m.getMemberNo()%>);">회원삭제</button></td>
 				</tr>

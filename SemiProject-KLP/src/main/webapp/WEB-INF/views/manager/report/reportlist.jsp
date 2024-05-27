@@ -244,6 +244,7 @@ ul li:hover > a{
 			<th>신고한회원</th>
 			<th>신고받은회원</th>
 			<th>신고날짜</th>
+			<th>처리날짜</th>
 			<th>처리결과</th>
 			<th></th>
 		</tr>
@@ -257,11 +258,19 @@ ul li:hover > a{
 				<td style="text-align:center;"><%=rp.getReportedId() %></td>
 				<td style="text-align:center;"><%=rp.getReportDate() %></td>	
 				<td style="text-align:center;">
-				<%if(rp.getReportResult()!=null){ %>
-					<%=rp.getReportResult() %>
-				<%}else{ %>
-					<p>처리중...</p>
-				<%} %>
+					<%if(rp.getReportEndDate()!=null){ %>
+						<%=rp.getReportEndDate() %>
+					<%}else{ %>
+						<p>처리중...</p>
+					<%} %>
+					
+				</td>	
+				<td style="text-align:center;">
+					<%if(rp.getReportResult()!=null){ %>
+						<%=rp.getReportResult() %>
+					<%}else{ %>
+						<p>처리중...</p>
+					<%} %>
 				
 				</td>	
 				<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/reportview.do?no=<%=rp.getReportNo()%>')">(상세내용)처리</button></td>

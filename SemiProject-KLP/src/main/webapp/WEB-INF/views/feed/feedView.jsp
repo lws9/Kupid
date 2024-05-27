@@ -72,11 +72,11 @@
     margin-top: 19px;
     padding-left: 46px;
 }
-#dropdown-menu{
+.dropdown-content{
 	right: 12px;
 	display : none;
 }
-#dropdown-menu.clicked{
+.dropdown-content.clicked{
 	right: 12px;
 	display : block;
 }
@@ -470,8 +470,8 @@ function submitFeed() {
             fileInput[0].files = dataTransfer.files;
             fileInput.appendTo($("#feedForm"));
         });
-    }
     return true;
+    }
 }
 
 
@@ -535,6 +535,9 @@ const loadPage = () => {
                 $header.append('<div class="likesCnt">' + "좋아요"+element.likes + '</div>');
                 $moreContainer.append('<div class="menu-icon">'+'<span></span>'+'<span></span>'+'<span></span>'+'</div>');
                 $moreContainer.append('<div id="dropdown-menu" class="dropdown-content"><button class="reportBt">신고</button></div>');
+                $moreContainer.append('<div class="dropdown-content"><button class="feedUpdateBt">수정</button></div>');
+                $moreContainer.append('<div class="dropdown-content"><button class="feedDeleteBt" style="z-index:1">삭제</button></div>');
+
                 $header.append($moreContainer);
 
                 $div.append($header);
@@ -639,7 +642,7 @@ const loadPage = () => {
 
 
 
-
+//신고버튼 클릭
 $(document).on("click", "button.reportBt", function(e) {
     const $button = $(e.target);
     const $board = $button.closest('.board');
@@ -648,6 +651,41 @@ $(document).on("click", "button.reportBt", function(e) {
 
     let url = '<%=request.getContextPath()%>/feed/feedreportview.do?feedno=' + feedNoText;
     let popup = window.open(url, "popup", "width=400, height=300, left=100, top=50");
+});
+
+//삭제버튼 클릭 
+$(document).on("click", "button.feedDeleteBt", function(e) {
+    const $button = $(e.target);
+    const $board = $button.closest('.board');
+    const $feedNo = $board.find('.feedNo');
+    const feedNoText = $feedNo.val();
+    console.log("ssss");
+    if(confirm("게시글을 삭제하시겠습니까?")){
+    	
+	    $.ajax({
+	    	type:"POST",
+	    	url:"<%=request.getContextPath()%>/feed/feeddelete.do",
+	    	data: {
+	    		"feedNo":feedNoText
+	    		},
+	    	async: false, // 동기처리하면 어케되나 궁금해서 해봄
+	    	success:function(data){	    	
+	    			console.log(data);
+	    			if(data>0){	    				
+	    			alert("삭제되었습니다.");
+	    			loadPage();
+	    			}else{
+	    				alert("삭제실패.");
+	    			}
+	    		}
+	    	,
+    		 error: function(xhr, status, error) {
+	    	            console.error('Error submitting comment:', error);
+	    	        }
+	    	
+	    })
+	    
+    }
 });
 
 //댓글 버튼 클릭  

@@ -57,4 +57,10 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+	public MemberDto checkkakaoId(String userid) {
+		Connection conn = getConnection();
+		MemberDto result = dao.checkkakaoId(conn, userid);
+		close(conn);
+		return result;
+	}
 }
