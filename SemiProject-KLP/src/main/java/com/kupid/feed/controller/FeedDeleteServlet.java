@@ -33,8 +33,9 @@ public class FeedDeleteServlet extends HttpServlet {
 		int feedNo = Integer.parseInt(request.getParameter("feedNo"));
 		int result = new FeedService().deleteFeed(feedNo);
 
-		request.getRequestDispatcher("/WEB-INF/views/feed/feedView.jsp").forward(request, response);
-
+//		request.getRequestDispatcher("/WEB-INF/views/feed/feedView.jsp").forward(request, response);
+		Gson gson = new Gson();
+		gson.toJson(result,response.getWriter());
 		
 	}
 
