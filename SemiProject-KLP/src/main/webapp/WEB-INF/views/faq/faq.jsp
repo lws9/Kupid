@@ -72,15 +72,16 @@
 	    </div>
 	   <div class="search-container">
 	        <label for="category">카테고리:</label>
-	        <select id="category" name="category">
-	            <option value="all">전체</option>
-				<option value="category1"<%=category!=null&&category.equals("회원")?"selected:":"" %>>회원</option>
-	            <option value="category2"<%=category!=null&&category.equals("상점")?"selected:":"" %>>상점</option>
-	            <option value="category3"<%=category!=null&&category.equals("커뮤니티")?"selected:":"" %>>커뮤니티</option>
-	        </select>
-	        <input type="text" id="search" name="searchKeyword" placeholder="검색어 입력">
-	        <button type="button"  onclick="location.assign('<%=request.getContextPath()%>/faq/faqserch.do')" >검색</button>
-	  
+	        <form action="<%=request.getContextPath()%>/faq/faqserch.do" method="get">
+		        <select id="category" name="category">
+		            <option value="all">전체</option>
+					<option value="회원" <%=category!=null&&category.equals("회원")?"selected:":"" %>>회원</option>
+		            <option value="상점" <%=category!=null&&category.equals("상점")?"selected:":"" %>>상점</option>
+		            <option value="커뮤니티" <%=category!=null&&category.equals("커뮤니티")?"selected:":"" %>>커뮤니티</option>
+		        </select>
+		        <input type="text" id="search" name="searchKeyword" placeholder="검색어 입력">
+		        <button type="submit" >검색</button>
+	  		</form>
     	</div>
 	    <table>
 	        <thead>
