@@ -61,7 +61,7 @@
 
  .prev, .next {
      position: absolute;
-     top: 33%;
+     top: 35%;
      transform: translateY(-50%);
      background-color: rgba(255, 255, 255, 0.5);
      color: #333;
@@ -77,13 +77,13 @@
  }
  
  .prev {
-     left: 10px;
-/*      left: 45px; */
+     /* left: 10px; */
+     left: 45px; 
  }
 
  .next {
-     right: 10px;
-/*      right: 45px; */
+     /* right: 10px; */
+     right: 45px; 
  }
  .banner{
  	margin: 35px auto;
@@ -127,7 +127,7 @@
 	    left: 30%;
 	    position: absolute;
 	    z-index: 1000;
-	    top: 88%;
+	    top: 67%;
 	    width: 40%;
 	 }
 	 .searchUl{
@@ -201,7 +201,7 @@
             <div class="slide"><img src="<%=request.getContextPath() %>/image/banner/banner1.png" alt="Slide 1"></div>
             <div class="slide"><img src="<%=request.getContextPath() %>/image/banner/banner2.png" alt="Slide 2"></div>
             <div class="slide"><img src="<%=request.getContextPath() %>/image/banner/banner3.png" alt="Slide 3"></div>
-            <div class="slide"><img src="<%=request.getContextPath() %>/image/banner/banner4.jpeg" alt="Slide 4"></div>
+            <div class="slide"><img src="<%=request.getContextPath() %>/image/banner/banner4.png" alt="Slide 4"></div>
 	    </div>
     </div>
         <div class="prev">❮</div>
@@ -268,6 +268,23 @@
 			</div>
 	    </div>
     
+    <div class="container mb-5">
+		<h2 class="main_title">인기 아티스트</h2>
+	    <div class="row mt-4 text-center">
+	<%for(int i=0; i<4;i++){ %>
+	    	<div class="col-md-3 pb-2">
+		        <svg class="mt-4 bd-placeholder-img img_outline rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=groupList.get(i).getGroupImg() %>" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/></svg>
+		        <h4 class="fw-normal mt-4"><%= groupList.get(i).getGroupName()%></h4>
+	      	</div><!-- /.col-lg-4 -->
+		<%} %>
+		</div>
+		<a class="icon-link" style="color: $purple-300" href="#">
+		  더보기
+		  <svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg>
+		</a>
+	</div>
+    
+    
     <%if(loginMember != null && favorite.size()>0){ %>
     <div class="container mb-5">
 		<h2 class="main_title">구독 아티스트</h2>
@@ -282,7 +299,6 @@
 		<%} %>
       </div>
       </div>
-	     <%-- <%}else if(loginMember != null && favorite.size()<=0){ %> --%>
 	    <!-- 비회원이거나 회원중에 아무도 구독하지 않은 회원 -->
 		<%}else if(loginMember != null && subscribeCk==false){ %>
 	        <%for(int i=0; i<4;i++){ %>
@@ -300,22 +316,7 @@
 			</div>
 				<%} %>
 		<%}/* else if(loginMember == null){ */ %>
-            <div class="container mb-5">
-				<h2 class="main_title">인기 아티스트</h2>
-			    <div class="row mt-4 text-center">
-			<%for(int i=0; i<4;i++){ %>
-			    	<div class="col-md-3 pb-2">
-				        <svg class="mt-4 bd-placeholder-img img_outline rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=groupList.get(i).getGroupImg() %>" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/></svg>
-				        <h4 class="fw-normal mt-4"><%= groupList.get(i).getGroupName()%></h4>
-			      	</div><!-- /.col-lg-4 -->
-				<%} %>
-				</div>
-				<a class="icon-link" style="color: $purple-300" href="#">
-				  더보기
-				  <svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg>
-				</a>
-			</div>
-		<%-- <%} %> --%>
+      
 
 
 	
