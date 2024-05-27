@@ -1,19 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "com.kupid.member.model.dto.MemberDto" %>
 <%
-	MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
-	Cookie[] cookies = request.getCookies();
-	String saveId = null;
-	for(Cookie c : cookies) {
-		//쿠키에 저장된 네임과 밸류 가져오기
-		if(c.getName().equals("saveid")){
-			saveId = c.getValue();
-		}
-	}
-	String servletHistory=request.getParameter("return");
+    MemberDto loginMember = (MemberDto) session.getAttribute("loginMember");
+    Cookie[] cookies = request.getCookies();
+    String saveId = null;
+    for(Cookie c : cookies) {
+        if(c.getName().equals("saveid")){
+            saveId = c.getValue();
+        }
+    }
+    String servletHistory=request.getParameter("return");
 %>
-<script src = "<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
+
+<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 <style>
 
 .flex_col {
@@ -228,41 +228,90 @@
     width: 400px;
 }
 </style>
-  <div class="flex_col">
-	<div class="login_container">
-    <h1 class="big_title">로그인</h1>
-    
-	<form action="<%=request.getContextPath() %>/loginEnd.do" method="post" style="margin-bottom: 0px">
-	    <div class="input_box">
-	    	<input type="text" name="userId" id="userId" class="inputTag" value="<%=saveId!=null?saveId:"" %>" placeholder="아이디입력">
-	    </div>
-	    <div class="input_box">
-	    	<input type="password" name="password" id="password" class="inputTag" placeholder="패스워드입력">
-	    </div>
-	    
-	    <div class="flex_row">
-	      	<input type="checkbox" name="saveId" id="saveId" class="highlight" <%=saveId!=null?"checked":"" %>>
-				<label for="saveId">아이디저장</label>
-	    </div>
-	    
-	    <button class="login_btn">로그인</button>
-    </form>
-    <div class="line">
-      <hr class="line1" size="1" />
-      <h5 class="highlight11">소셜 로그인</h5>
-      <hr class="line11" size="1" />
+
+<div class="flex_col">
+    <div class="login_container">
+        <h1 class="big_title">로그인</h1>
+        <form action="<%=request.getContextPath() %>/loginEnd.do" method="post" style="margin-bottom: 0px">
+            <div class="input_box">
+                <input type="text" name="userId" id="userId" class="inputTag" value="<%=saveId!=null?saveId:"" %>" placeholder="아이디입력">
+            </div>
+            <div class="input_box">
+                <input type="password" name="password" id="password" class="inputTag" placeholder="패스워드입력">
+            </div>
+            <div class="flex_row">
+                <input type="checkbox" name="saveId" id="saveId" class="highlight" <%=saveId!=null?"checked":"" %>>
+                <label for="saveId">아이디저장</label>
+            </div>
+            <button class="login_btn">로그인</button>
+        </form>
+        <div class="line">
+            <hr class="line1" size="1" />
+            <a href="https://kauth.kakao.com/oauth/authorize?client_id=483bf9a98ad4edfd5c3b00bb569518bd&redirect_uri=http://localhost:9090/SemiProject-KLP/kakao/kakaologinservlet.do&response_type=code">로그인</a>
+            <h5 class="highlight11">소셜 로그인</h5>
+            <hr class="line11" size="1" />
+        </div>
+        <button class="social_login">kakao</button>
+        <h5 class="highlight3_box">
+            <span class="highlight3"><span class="highlight3_span0">By clicking continue, you agree to our </span><br><span class="highlight3_span1">Terms of Service</span><span class="highlight3_span2"> and </span><span class="highlight3_span3">Privacy Policy</span></span>
+        </h5>
+        <div class="flex_row1">
+            <a href='<%=request.getContextPath()%>/member/enrollmember.do' class="subtitle1">비밀번호 찾기</a>
+            <h3 class="subtitle11">|</h3>
+            <a href='<%=request.getContextPath()%>/member/enrollmember.do' class="subtitle1">아이디 찾기</a>
+            <h3 class="subtitle11">|</h3>
+            <a href='<%=request.getContextPath()%>/member/enrollmember.do' class="subtitle1">회원가입</a>
+        </div>
     </div>
-    
-    <button class="social_login">kakao</button>
-    <h5 class="highlight3_box">
-      <span class="highlight3"><span class="highlight3_span0">By clicking continue, you agree to our </span><br><span class="highlight3_span1">Terms of Service</span><span class="highlight3_span2"> and </span><span class="highlight3_span3">Privacy Policy</span></span>
-    </h5>
-    <div class="flex_row1">
-      <a href='<%=request.getContextPath()%>/member/enrollmember.do' class="subtitle1">비밀번호 찾기</a>
-      <h3 class="subtitle11">|</h3>
-      <a href='<%=request.getContextPath()%>/member/enrollmember.do' class="subtitle1">아이디 찾기</a>
-      <h3 class="subtitle11">|</h3>
-      <a href='<%=request.getContextPath()%>/member/enrollmember.do' class="subtitle1">회원가입</a>
-    </div>
-  </div>
 </div>
+
+<script>
+
+<%-- $(document).ready(function() {
+    if (!Kakao.isInitialized()) {
+        Kakao.init('dce940cde51988e6775848268d95d186');
+    }
+    
+    $(document).on("click", "button.social_login", function(e) {
+        function kakaoLogin() {
+            Kakao.Auth.login({
+                success: function(response) {
+                    Kakao.API.request({
+                        url: '/v2/user/me',
+                        success: function(response) {
+                            $.ajax({
+                                type: "POST",
+                                url: "<%=request.getContextPath()%>/kakao/kakaologinservlet.do",
+                                data: {
+                                    kakaoId: response.id,
+                                    nickname: response.properties.nickname,
+                                    email: response.kakao_account.email
+                                },
+                                success: function(result) {
+                                    if (result.success) {
+                                        alert("로그인 성공");
+                                        window.location.href = "<%=request.getContextPath()%>";
+                                    } else {
+                                        alert("로그인 실패: " + result.message);
+                                    }
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error('Error:', error);
+                                }
+                            });
+                        },
+                        fail: function(error) {
+                            alert("사용자 정보 요청 실패: " + JSON.stringify(error));
+                        }
+                    });
+                },
+                fail: function(error) {
+                    alert("로그인 실패: " + JSON.stringify(error));
+                }
+            });
+        }
+        
+        kakaoLogin();
+    });
+}); --%>
+</script>

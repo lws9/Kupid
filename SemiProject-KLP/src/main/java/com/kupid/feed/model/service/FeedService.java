@@ -17,6 +17,14 @@ import com.kupid.member.model.dto.MemberDto;
 public class FeedService {
 	private FeedDao dao = new FeedDao();
 	
+	public int deleteFeed(int feedNo) {
+		Connection conn = getConnection();
+		int result = dao.deleteFeed(conn,feedNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+	
 	public List<MemberDto> selectFeedComment(int feedNo) {
 		Connection conn = getConnection();
 		List<MemberDto> fc = dao.selectFeedComment(conn,feedNo);
@@ -33,7 +41,6 @@ public class FeedService {
 	
 	public int insertFeedReport(String category, String content, int reportMemberNo, int reportedfeedNo) {
 		Connection conn = getConnection();
-		System.out.println(reportedfeedNo);
 		int reportedMemberNo = dao.selectMemberByFeedNo(conn, reportedfeedNo);
 		System.out.println(reportedMemberNo);
 		int result = dao.insertFeedReport(conn,category,content,reportMemberNo,reportedMemberNo);
