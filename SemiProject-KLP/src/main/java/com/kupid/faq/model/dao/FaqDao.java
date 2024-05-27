@@ -76,8 +76,9 @@ public class FaqDao {
 	    			pstmt=conn.prepareStatement(sql.getProperty("selectAllCategories"));
 	    			pstmt.setString(1,category);
 	    			pstmt.setString(2,"%"+keyword+"%");
-	    			pstmt.setInt(3, (cPage-1)*numBerpage+1);
-	    			pstmt.setInt(4, cPage*numBerpage);
+	    			pstmt.setString(3,"%"+keyword+"%");
+	    			pstmt.setInt(4, (cPage-1)*numBerpage+1);
+	    			pstmt.setInt(5, cPage*numBerpage);
 	    			rs=pstmt.executeQuery();
 	    			while(rs.next()) {
 	    				faq.add(getFaq(rs));

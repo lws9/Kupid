@@ -47,7 +47,7 @@ public class FaqSerchServlet extends HttpServlet {
 		}
 		
 		String category=request.getParameter("category");
-		String keyword=request.getParameter("searchkeyword");
+		String keyword=request.getParameter("searchKeyword");
 		System.out.println(category);
 		System.out.println(keyword);
 		
