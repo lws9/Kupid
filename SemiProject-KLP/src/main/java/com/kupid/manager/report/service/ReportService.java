@@ -45,6 +45,10 @@ public class ReportService {
 		if(result>0) {
 			dao.updateReportResult(conn,p);
 			commit(conn);
+			if(!p.getPenaltyCategory().equals("pass")) {
+				dao.memberGradeUpdate(conn,p);
+			}
+			
 		}
 		else rollback(conn);
 		close(conn);
@@ -64,5 +68,12 @@ public class ReportService {
 		close(conn);
 		return count;
 	}
+	
+//	public String selectPenaltyDate(int no) {
+//		Connection conn=getConnection();
+//		String date=dao.selectPenaltyDate(conn, no);
+//		close(conn);
+//		return date;
+//	}
 	
 }

@@ -213,7 +213,7 @@ ul li:hover > a{
 <div class="member-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
 	<div class="member-sec">
-		<h1>MEMBER</h1>
+		<h1>제재내역</h1>
 		<h1>
 			<div>
 				<select id="searchType">
@@ -222,21 +222,21 @@ ul li:hover > a{
 		        	<option value="nickname" <%=searchType!=null&&searchType.equals("nickname")?"selected":"" %>>닉네임</option>
 	        	</select>
 	        	<div id="search-member_name">
-					<form action="<%=request.getContextPath()%>/manager/searchMember.do">
+					<form action="<%=request.getContextPath()%>/manager/searchPenalty.do">
 						<input type="hidden" name="searchType" value="member_name">
 						<input type="text" name="searchKeyword" placeholder="검색할 이름을 입력하세요" style="width:300px">
 						<button type="submit">검색</button>
 					</form>
 				</div>
 				<div id="search-member_id">
-					<form action="<%=request.getContextPath()%>/manager/searchMember.do">
+					<form action="<%=request.getContextPath()%>/manager/searchPenalty.do">
 						<input type="hidden" name="searchType" value="member_id">
 						<input type="text" name="searchKeyword" placeholder="검색할 아이디를 입력하세요" style="width:300px">
 						<button type="submit">검색</button>
 					</form>
 				</div>
 				<div id="search-nickname">
-					<form action="<%=request.getContextPath()%>/manager/searchMember.do">
+					<form action="<%=request.getContextPath()%>/manager/searchPenalty.do">
 						<input type="hidden" name="searchType" value="nickname">
 						<input type="text" name="searchKeyword" placeholder="검색할 닉네임을 입력하세요" style="width:300px">
 						<button type="submit">검색</button>
@@ -252,7 +252,8 @@ ul li:hover > a{
 				<th>아이디</th>
 				<th>닉네임</th>
 				<th>가입일</th>
-				<th>탈퇴일</th>
+				<th>제재일</th>
+				<th>제재내용</th>
 				<th colspan="2"></th>
 				
 				
@@ -265,7 +266,8 @@ ul li:hover > a{
 					<td style="text-align:center;"><%=m.getMemberId()%></td>
 					<td style="text-align:center;"><%=m.getNickname() %></td>
 					<td style="text-align:center;"><%=m.getEnrollDate() %></td>
-					<td style="text-align:center;"><%=m.getPenaltyDay() %></td>
+					<td style="text-align:center;"><%=m.getPenaltyDate() %></td>
+					<td style="text-align:center;"><%=m.getPenaltyCate() %></td>
 					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/memberview.do?no=<%=m.getMemberNo()%>')">상세정보</button></td>
 					<td><button onclick="deleteMember(<%=m.getMemberNo()%>);">회원삭제</button></td>
 				</tr>

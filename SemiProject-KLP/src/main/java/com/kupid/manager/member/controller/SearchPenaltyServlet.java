@@ -13,16 +13,16 @@ import com.kupid.manager.member.service.MemberService;
 import com.kupid.member.model.dto.MemberDto;
 
 /**
- * Servlet implementation class SearchMemberServlet
+ * Servlet implementation class SearchPenaltyServlet
  */
-@WebServlet("/manager/searchMember.do")
-public class SearchMemberServlet extends HttpServlet {
+@WebServlet("/manager/searchPenalty.do")
+public class SearchPenaltyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchMemberServlet() {
+    public SearchPenaltyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -47,11 +47,11 @@ public class SearchMemberServlet extends HttpServlet {
 		String type=request.getParameter("searchType");
 		String keyword=request.getParameter("searchKeyword");
 		
-		List<MemberDto> searchMembers=new MemberService().searchMember(type,keyword,cPage,numPerpage);
+		List<MemberDto> searchMembers=new MemberService().searchPenalty(type,keyword,cPage,numPerpage);
 		
 		request.setAttribute("member", searchMembers);
 		
-		int totalData=new MemberService().searchMemberCount(type, keyword);
+		int totalData=new MemberService().searchPenaltyCount(type, keyword);
 		int totalPage=(int)Math.ceil(((double)totalData/numPerpage));
 		int pageBarSize=5;
 		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
@@ -109,7 +109,7 @@ public class SearchMemberServlet extends HttpServlet {
 		
 		request.setAttribute("pageBar", sb);
 		
-		request.getRequestDispatcher("/WEB-INF/views/manager/member/managermemberlist.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/manager/member/managerunmemberlist.jsp").forward(request, response);
 	}
 
 	/**

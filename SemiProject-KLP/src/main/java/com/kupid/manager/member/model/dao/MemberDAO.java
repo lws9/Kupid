@@ -34,9 +34,8 @@ public class MemberDAO {
 		List<MemberDto> mg=new ArrayList<>();
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("selectMemberAll"));
-			pstmt.setString(1,grade);
-			pstmt.setInt(2,(cPage-1)*numPerpage+1);
-			pstmt.setInt(3, cPage*numPerpage);
+			pstmt.setInt(1,(cPage-1)*numPerpage+1);
+			pstmt.setInt(2, cPage*numPerpage);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				mg.add(getMember(rs));
@@ -50,13 +49,54 @@ public class MemberDAO {
 		return mg;
 	}
 	
+	public List<MemberDto> selectPenaltyAll(Connection conn,int cPage,int numPerpage){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<MemberDto> mg=new ArrayList<>();
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectPenaltyAll"));
+			pstmt.setString(1,"탈퇴");
+			pstmt.setString(2,"정지");
+			pstmt.setInt(3,(cPage-1)*numPerpage+1);
+			pstmt.setInt(4, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				mg.add(getPenalty(rs));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return mg;
+	}
+	
+	public int selectPenaltyAllCount(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectPenaltyAllCount"));
+			pstmt.setString(1,"탈퇴");
+			pstmt.setString(2,"정지");
+			rs=pstmt.executeQuery();
+			if(rs.next()) result=rs.getInt(1);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public int selectMemberAllCount(Connection conn,String grade) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		int result=0;
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("selectMemberAllCount"));
-			pstmt.setString(1,grade);
 			rs=pstmt.executeQuery();
 			if(rs.next()) result=rs.getInt(1);
 		}catch(SQLException e) {
@@ -109,12 +149,13 @@ public class MemberDAO {
 		ResultSet rs=null;
 		List<MemberDto> members=new ArrayList<>();
 		try {
-			String sql=this.sql.getProperty("selectSearchMember");
-			sql=sql.replace("#COL", type);//컬럼값은 ?로 받을 수 없기때문에 문자열로 받아서 replace로 문자자체를 바꿈 
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,"%"+keyword+"%");
-			pstmt.setInt(2, (cPage-1)*numPerpage+1);
-			pstmt.setInt(3, cPage*numPerpage);
+			//String sql=this.sql.getProperty("selectSearchMember");
+			//sql=sql.replace("#COL", type);//컬럼값은 ?로 받을 수 없기때문에 문자열로 받아서 replace로 문자자체를 바꿈 
+			pstmt=conn.prepareStatement(sql.getProperty("selectSearchMember"));
+			pstmt.setString(1,type);
+			pstmt.setString(2,"%"+keyword+"%");
+			pstmt.setInt(3, (cPage-1)*numPerpage+1);
+			pstmt.setInt(4, cPage*numPerpage);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				members.add(getMember(rs));
@@ -129,6 +170,35 @@ public class MemberDAO {
 		
 		return members;
 	}
+	
+	public List<MemberDto> searchPenalty(Connection conn,String type,String keyword, int cPage,int numPerpage) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<MemberDto> members=new ArrayList<>();
+		try {
+			String sql=this.sql.getProperty("selectSearchPenalty");
+			sql=sql.replace("#COL", type);//컬럼값은 ?로 받을 수 없기때문에 문자열로 받아서 replace로 문자자체를 바꿈 
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,"탈퇴");
+			pstmt.setString(2,"정지");
+			pstmt.setString(3,"%"+keyword+"%");
+			pstmt.setInt(4, (cPage-1)*numPerpage+1);
+			pstmt.setInt(5, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				members.add(getPenalty(rs));
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return members;
+	}
+	
 	
 	public int searchMemberCount(Connection conn,String type,String keyword) {
 		PreparedStatement pstmt=null;
@@ -150,6 +220,30 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
+	public int searchPenaltyCount(Connection conn,String type,String keyword) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		String sql=this.sql.getProperty("searchPenaltyCount");
+		sql=sql.replace("#COL", type);
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,"탈퇴");
+			pstmt.setString(2,"정지");
+			pstmt.setString(3,"%"+keyword+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next()) result=rs.getInt(1);
+			
+		}catch(SQLException e) {
+			
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public List<MemberDto> selectSubscribeByNo(Connection conn,int no){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -225,7 +319,30 @@ public class MemberDAO {
 						//.profileImgRenamed(rs.getString("profile_img_renamed"))
 						.memberGrade(rs.getString("member_grade"))
 						.enrollDate(rs.getDate("enroll_date"))
-						.penaltyDay(rs.getString("penalty_start_date")!=null?rs.getString("penalty_start_date"):"")
+						//.penaltyDay(rs.getString("penalty_start_date")!=null?rs.getString("penalty_start_date"):"")
+						.build();
+	}
+	
+	public MemberDto getPenalty(ResultSet rs) throws SQLException {
+		return MemberDto.builder()
+						.memberNo(rs.getInt("member_no"))
+						.memberId(rs.getString("member_id"))
+						.memberPw(rs.getString("member_pw"))
+						.memberName(rs.getString("member_name"))
+						.gender(rs.getString("gender"))
+						.phone(rs.getString("phone"))
+						.address(rs.getString("address"))
+						.addressDetail(rs.getString("address_detail"))
+						.email(rs.getString("email"))
+						.birth(rs.getDate("birth"))
+						.introduce(rs.getString("introduce"))
+						.nickname(rs.getString("nickname"))
+						.profileImgOriname(rs.getString("profile_img_oriname"))
+						//.profileImgRenamed(rs.getString("profile_img_renamed"))
+						.memberGrade(rs.getString("member_grade"))
+						.enrollDate(rs.getDate("enroll_date"))
+						.penaltyDate(rs.getString("penalty_start_date")!=null?rs.getString("penalty_start_date"):"")
+						.penaltyCate(rs.getString("penalty_category"))
 						.build();
 	}
 	

@@ -45,5 +45,6 @@ public class MemberDto {
 	private Date replyDate;
 	private int likes;
 	private String replyContent;
-	private String penaltyDay;
+	private String penaltyDate;
+	private String penaltyCate;
 }
