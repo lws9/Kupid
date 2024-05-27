@@ -35,10 +35,8 @@ public class SearchGroupServlet extends HttpServlet {
 		String keyword=request.getParameter("searchKeyword");
 		System.out.println(keyword);
 		
-		
 		List<GroupDto> result=new GroupService().searchGroup(keyword,1,100);
 		new Gson().toJson(result, response.getWriter());
-		
 	}
 
 	/**

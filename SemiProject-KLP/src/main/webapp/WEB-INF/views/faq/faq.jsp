@@ -71,7 +71,7 @@
 	        <h1>FAQ</h1>
 	    </div>
 	   <div class="search-container">
-	        <label for="category">카테고리:</label>
+	        <label for="category"></label>
 	        <form action="<%=request.getContextPath()%>/faq/faqserch.do" method="get">
 		        <select id="category" name="category">
 		            <option value="all">전체</option>

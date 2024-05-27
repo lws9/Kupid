@@ -21,9 +21,9 @@
         .header iframe {
          position:relative;
          left:0;
-         top: -60px;
+         top: -70px;
    		 bottom: -60px;
-         width: 1100px;
+         width: 1400px;
          height: 600px;
          margin-bottom: 10px; 
         }
@@ -59,7 +59,7 @@
 
         .icons {
             text-align: center;
-            margin-bottom: 70px;
+            margin-bottom: 100px;
         }
         .icons img {
 		    width: 50px; 
@@ -68,6 +68,7 @@
 		}
         .social-icons {
             display: flex;
+            justify-content:center;
             gap: 10px;
         }
         .social-icons a {
@@ -96,6 +97,9 @@
 		    vertical-align: top;
 		    
             
+        }
+        .pre {
+        	margin-top: 0px;
         }
         .membership-button button:hover {
             background-color: rgb(226, 196, 239);
@@ -133,6 +137,9 @@
             higth: 40%;
             
         }
+        .shop-item img:hover {
+  		 transform: scale(1.1);
+		}
         .shop-items{
             display: flex;
             justify-content: flex-start;
@@ -147,17 +154,40 @@
             filter: blur(5px);
             margin-bottom: 40px;
             text-aline:center;
+            margin-bottom:70px
         }
+        .social-icons img.youtube {
+			 margin-top: 10px; /* 원하는 여백 크기로 조정 */
+		}
+/*         .logo {
+            position: absolute;
+            top: 10px; /* 로고의 위치 조정 */
+            left: 10px; /* 로고의 위치 조정 */
+            width: 150px; /* 로고의 너비 조정 */
+            z-index: 1000; /* 다른 요소 위에 로고가 보이도록 설정 */
+        }
+         */
     </style>
 </head>
+<!-- 	<div>
+	   <img src="/image/artist/ArtistLogo" alt="로고" class="logo">
+	</div> -->
 <body>
+
     <div class="container">
-    	
-    		
         <div class="header">
             <!-- 대표 영상 -->
             <iframe src="https://www.youtube.com/embed/Ey53EQhkLY8?autoplay=1&mute=1&controls=0&start=22" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             	<img src="data:image/png;base64,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">
+            	<pre class="pre">
+RIIZE(라이즈)는 ‘Rise & Realize’를 더해 만든 이름으로, 함께 성장하고
+            꿈을 실현해 나아가는 팀이라는 의미다.
+
+   각자의 개성을 지닌 일곱 명의 멤버가 하나의 팀으로서 쌓아가는 리얼타임 오디세이(성장사)를
+  바탕으로, RIIZE만의 감정을 표현하는 독자적 음악 스타일인 Emotional Pop을 선사한다.
+    RIIZE는 일상의 모든 경험에서 영감을 얻는 Emotional Pop Rookie가 성장해, 
+세상 모두의 공감을 불러일으키는 Emotional Pop Artist로서의 꿈을 실현하겠다는 포부를 가지고 있다.
+            	</pre>
         </div>
           <div class="media-section">
             <div class="section-title">Profile</div>
@@ -226,7 +256,7 @@
             <div class="section-title">Calendar</div>
             <!-- 블러 처리된 캘린더 -->
                <div class="calendar">
-    		    <img src="https://blog.kakaocdn.net/dn/yBMRy/btrRvcufQI4/smYyR8LB9KZhNwyeKychxk/2023%EB%85%84%206%EC%9B%94%20%EB%8B%AC%EB%A0%A5.jpg?attach=1&knm=img.jpg" alt="Calendar" style="width: 60%; display: block; margin: 0 auto;">
+    		    <img src="https://blog.kakaocdn.net/dn/yBMRy/btrRvcufQI4/smYyR8LB9KZhNwyeKychxk/2023%EB%85%84%206%EC%9B%94%20%EB%8B%AC%EB%A0%A5.jpg?attach=1&knm=img.jpg" alt="Calendar" style="width: 40%; display: block; margin: 0 auto;">
   		    </div>
 
         </div>
@@ -235,7 +265,8 @@
                 <!-- 페이스북, 유튜브, 인스타그램 아이콘 -->
                 <a href="https://www.instagram.com/riize_official/" target="_blank"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZF4DTH7F_qryjx-dGzUr5Nk3HfaZ8DVd1qw&usqp=CAU" alt="Instagram"></a>
                 <a href="https://twitter.com/riize_official" target="_blank"><img src="https://img.freepik.com/free-vector/new-2023-twitter-logo-x-icon-design_1017-45418.jpg?size=338&ext=jpg&ga=GA1.1.44546679.1716422400&semt=ais_user"></a>
-                <a href="https://www.youtube.com/channel/UCdVD0MsYecQaIE5Ru-pOIQQ" target="_blank"><img src="data:image/jpeg;base64,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" alt="Twitter"></a>
+                <a href="https://www.youtube.com/channel/UCdVD0MsYecQaIE5Ru-pOIQQ" target="_blank">
+                <img class="youtube"  src="https://cdn.xsd.cz/resize/f0dc0d87befc36faa8bbcee4d1022615_resize=1454,1026_.jpg?hash=d0ce1554e3114442918b017dd230c7b2" alt="Twitter"></a>
             </div>
         </div>
         <div class="membership-button">
@@ -249,7 +280,7 @@
                 showMembershipPopup();
             });
         });
-
+ 
         
         document.querySelector('.calendar').addEventListener('click', function() {
             showMembershipPopup();
