@@ -3,183 +3,222 @@
 <%@ page import="java.util.List,com.kupid.faq.model.dto.FaqDto,java.text.SimpleDateFormat"%>     
 <%@ include file="/WEB-INF/views/common/header.jsp" %>  
 
-    <title>kupid 고객센터</title>
+    <title>고객센터</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-       
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
         }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
         .center-header {
             text-align: center;
-            margin: 20px 0;
+            margin-bottom: 50px;
         }
-        .search-container {
-            text-align: center;
-            margin: 20px 0;
+
+        .center-header h1 {
+            font-size: 38px;
+            color: #4a4a4a;
+            margin-top: 40px; /* 간격 추가 */
         }
-        .search-container input[type="text"] {
-            padding: 5px;
-            width: 300px;
-        }
-        .search-container button {
-            padding: 5px 10px;
-        }
+
         .button-container {
-            text-align: center;
-            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
         }
+
+        .button-container h3 {
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
         .button-container button {
-            padding: 15px 30px;
-            margin: 10px;
-            font-size: 16px;
+            background-color: #fff;
+            color: #6c5ce7;
+            border: 2px solid #6c5ce7;
+            padding: 23px 10px;
+            border-radius: 10px;
             cursor: pointer;
-        }
-        .pagination {
+            margin: 10px;
+            font-size: 18px;
+            width: 100px;
+            height: 100px;
             text-align: center;
-            margin: 20px 0;
+            transition: background-color 0.3s, color 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .pagination button {
-            padding: 5px 10px;
-            margin: 0 5px;
+
+        .button-container button:hover {
+            background-color: #d3adf7;
+            color: #fff;
         }
-        .faq-section {
+
+        .button-container button i {
+            margin-bottom: 10px;
+            color: #6c5ce7;
+            font-size: 24px;
+        }
+
+        .faq-link {
+            color: #6c5ce7;
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-flex;
+            margin-bottom: 30px;
+            margin-top: 10px;
+            float: right;
+        }
+
+        .faq-link:hover {
+            text-decoration: underline;
+        }
+
+        .faq-link i {
+            margin-right: 5px;
+            color: #6c5ce7;
+        }
+		.help-section p {
+		    margin-top: 20px; 
+		}
+
+        .faq-section,
+        .contact-section,
+        .help-section {
+            background-color: #fff;
+            padding: 30px;
+            margin-bottom: 50px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid #d3adf7; /* 연보라색 테두리 추가 */
+        }
+
+        .faq-section h1,
+        .contact-section h1,
+        .help-section h2 {
+            color: #4a4a4a;
+            margin-bottom: 20px;
+            font-size: 26px;
+        }
+
+        .faq-section h1 i,
+        .contact-section h1 i,
+        .help-section h2 i {
+            color: #d3adf7;
+        }
+
+        .faq-section h4,
+        .contact-section p,
+        .help-section p {
+            color: #888;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .faq_button {
+            margin-top: 50px;
+            margin-bottom: 20px;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .faq_button a {
+            color: #6c5ce7; /* 보라색으로 설정 */
+        }
+
+        .faq_button a:hover {
+            text-decoration: underline;
+        }
+
+        .faq_button a i {
+            margin-right: 5px;
+            color: #6c5ce7; /* 보라색으로 설정 */
+        }
+
+        .faq-section button {
+            background-color: #fff;
+            color: #6c5ce7;
+            border: 2px solid #6c5ce7;
+            padding: 15px 20px;
+            border-radius: 20px; /* 둥근 모서리 추가 */
+            cursor: pointer;
+            font-size: 16px;
             text-align: center;
-  		    padding: 20px;
-		}
-		
-		.faq-section h1 {
-		    text-align: left;
-            text-align: center;
-		}
-		
-		.faq-buttons {
-		    margin-bottom: 20px;
-		}
-		
-		.faq-buttons button {
-		    margin-right: 10px;
-		    padding: 10px 20px;
-		    cursor: pointer;
-		}
-		
-		.faq-list {
-		    margin-top: 20px;
-		}
-		
-		.help-section {
-		    margin-top: 40px;
-		    padding: 20px;
-		    background-color: #f9f9f9;
-		    text-align: center;
-		}
-		
-		.help-section h2 {
-		    font-weight: bold;
-		}
-		
-		.help-section p a {
-		    text-decoration: none;
-		    color: blue;
-		}
+            transition: background-color 0.3s, color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .faq-section button:hover {
+            background-color: #d3adf7;
+            color: #fff;
+        }
+
+        .faq-section button i {
+            margin-right: 10px;
+            color: #6c5ce7;
+        }
+
     </style>
 </head>
 <body>
-    <div class="center-header">
-        <h1>kupid 고객센터</h1>
-    </div>
-    <div class="search-container">
-        <label for="problem-description">문제를 설명해주세요:</label>
-        <input type="text" id="problem-description" name="problem-description" placeholder="질문 또는 키워드를 입력하세요">
-        <button type="button" onclick="searchimgbutton">
-  		<img src="C:\Users\user\Downloads\free-icon-magnifying-glass-4475396.png"/>
-		</button>
-    </div>
-    <div class="button-container">
-        <button type="button" onclick="handlePayment()">회원</button>
-        <button type="button" onclick="handleAccount()">상점</button>
-        <button type="button" onclick="handleCommunity()">커뮤니티</button>
-    </div>
-	<div class="faq-section">
-        <h1>대표 FAQ</h1>
-        <div class="faq-buttons">
-            <button onclick="showFAQ('member')">회원</button>
-            <button onclick="showFAQ('store')">상점</button>
-            <button onclick="showFAQ('community')">커뮤니티</button>
+    <div class="container">
+        <div class="center-header">
+            <h1>무엇을 도와드릴까요?</h1>
         </div>
-        <div>
-        	<button class="btn btn-outline-primary" 
-        	onclick="location.assign('<%=request.getContextPath()%>/faq/faq.do')">FAQ 바로가기</button>
+        <div class="center-header">
+            <h4>고객님들이 자주하는 질문이에요!</h4>
         </div>
-        <div id="faq-list" class="faq-list"></div>
+
+        <div class="button-container">
+            <button type="button" onclick="handlePayment()">
+                <i class="fas fa-user"></i>
+                회원
+            </button>
+            <button type="button" onclick="handleAccount()">
+                <i class="fas fa-store"></i>
+                상점
+            </button>
+            <button type="button" onclick="handleCommunity()">
+                <i class="fas fa-users"></i>
+                커뮤니티
+            </button>
+        </div>
+        <div class="faq_button"><a href="/faq/faq.do"><i class="fas fa-question-circle"></i> FAQ 바로가기</a></div>
+
+        <div class="faq-section">
+            <h1>1:1 정확한 채팅문의 <i class="fas fa-comment"></i></h1>
+            <h4>KUPID 담당 상담원에게 자세하고 확실하게 해결해 보세요</h4>
+            <button onclick="showFAQ('member')"><i class="fas fa-comments"></i> 문의하기</button>
+        </div>
+
+        <div class="contact-section">
+            <h1>KUPID 고객센터 <i class="fas fa-headset"></i></h1>
+            <p>전화번호: 유료</p>
+            <p>월~금요일 09:00 ~ 18:00</p>
+            <p>주말, 공휴일 휴무</p>
+        </div>
+
+        <div class="help-section">
+            <h2>음성메시지 상담 안내 <i class="fas fa-microphone"></i></h2>
+            <p>KUPID 고객센터에서는 고객님의 문의를 녹음으로 접수받고 <br>답변 드리는 음성메시지 서비스를 운영하고 있습니다. <br>음성메시지를 남겨주시면 빠르게 확인하여 답변드리겠습니다.</p>
+        </div>
     </div>
-
-    <div class="help-section">
-        <h2>도움이 필요하신가요?</h2>
-        <button class="btn btn-outline-primary"
-        onclick="location.assign('<%=request.getContextPath()%>/inquiry/inquiry.do')">문의하기</button>
-    </div>
-
-    <script src="scripts.js"></script>
- 
-    <script>
-        // 검색 기능 구현 
-        function searchProblem() {
-            var description = document.getElementById('problem-description').value;
-            // 검색 로직 구현
-            alert('검색어: ' + description);
-        }
-
-        // 버튼 클릭 이벤트
-        function handlePayment() {
-            alert('회원관련 도움말로 이동');
-        }
-
-        function handleAccount() {
-            alert('상점관련 도움말로 이동');
-        }
-
-        function handleCommunity() {
-            alert('커뮤니티 관련 도움말로 이동');
-        }
-
-        const faqData = {
-        	    member: [
-        	        "회원 가입 방법",
-        	        "회원 정보 수정",
-        	        "비밀번호 재설정",
-        	        "회원 탈퇴 방법",
-        	        "계정 복구 방법"
-        	    ],
-        	    store: [
-        	        "상점 등록 방법",
-        	        "상품 등록 방법",
-        	        "상점 정보 수정",
-        	        "판매 내역 확인",
-        	        "상점 탈퇴 방법"
-        	    ],
-        	    community: [
-        	        "커뮤니티 참여 방법",
-        	        "게시글 작성 방법",
-        	        "댓글 작성 방법",
-        	        "커뮤니티 규칙",
-        	        "게시글 삭제 방법"
-        	    ]
-        	};
-
-        	function showFAQ(category) {
-        	    const faqListDiv = document.getElementById('faq-list');
-        	    faqListDiv.innerHTML = ''; 
-
-        	    const faqItems = faqData[category];
-        	    faqItems.forEach((faq, index) => {
-        	        if (index < 5) { // 
-        	            const faqItem = document.createElement('div');
-        	            faqItem.textContent = faq;
-        	            faqListDiv.appendChild(faqItem);
-        	        }
-        	    });
-        	}
-
-    </script>
 </body>
 </html>

@@ -26,4 +26,5 @@ public class Feed {
 	private int memberNo;
 	private String profileImgOriname;
 	private int commentCnt;
+	private String memberGrade;
 }

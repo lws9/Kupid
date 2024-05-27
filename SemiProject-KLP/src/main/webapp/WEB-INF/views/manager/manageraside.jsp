@@ -306,7 +306,7 @@
   color: black;
 }
 .aside{
-        width: 15%;
+        width: 16%;
         height: 1150px;
         border: 1px solid black; 
         display: flex;
@@ -317,7 +317,7 @@
     background-color: #e9bcff;/* #d1ade3; 진보라 */
 }
 .main{
-	width:85%;
+	width:84%;
 	justify-content:center;
 	 align-items: center;
 } 
@@ -334,7 +334,7 @@
         <div class="flex_col">
             <div class="flex_col1">
                 <div class="flex_row">
-                    <h4 class="subtitle">관리자 메뉴&nbsp;&nbsp;&nbsp;
+                    <h4 class="subtitle">관리자&nbsp;&nbsp;&nbsp;
 	                 <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/')"><h4>main</h4></button>&nbsp;
 	                 <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/logout.do')"><h4>logout</h4></button></h4>
                 </div>
@@ -383,11 +383,8 @@
                 </div>
             </div>
             <div class="flex_col2">
-                <button class="<%=pagenum==10?"btn1":"btn2" %>">
-                    <h4>아티스트</h4>
-                </button>
-                <button class="<%=pagenum==11?"btn1":"btn2" %>" onclick="">
-                    <h4>팬</h4>
+                <button class="<%=pagenum==10?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/feedlist.do?pagenum=10')">
+                    <h4>피드</h4>
                 </button>
            </div>
            <br>
