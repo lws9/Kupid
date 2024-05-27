@@ -46,7 +46,7 @@ public class GetgroupListFilter extends HttpFilter implements Filter {
 			//아티스트그룹의 구독자 정보 가져오기(전체 아티스트)
 //			List<MemberDto> result = new MemberService().selectGroupSubscribe();
 			List<GroupDto> result = new MainService().selectAllGroup();
-			System.out.println(result.toString());
+			
 			request.setAttribute("GroupList", result);
 			request.setAttribute("subscribeCk", false);
 		//화면전환
