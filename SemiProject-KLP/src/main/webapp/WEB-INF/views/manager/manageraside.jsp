@@ -373,7 +373,7 @@
                     <h4>회원</h4>
                 </button>
                   <button class="<%=pagenum==9?"btn1":"btn2" %>" onclick="location.assign('<%=request.getContextPath()%>/manager/unactivememberlist.do?pagenum=9')">
-                    <h4>탈퇴회원</h4>
+                    <h4>제재내역</h4>
                 </button>
            </div>
            <br>

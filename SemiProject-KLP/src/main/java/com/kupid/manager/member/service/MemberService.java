@@ -31,6 +31,20 @@ public class MemberService {
 		return result;
 	}
 	
+	public List<MemberDto> selectPenaltyAll(int cPage,int numPerpage){
+		Connection conn=getConnection();
+		List<MemberDto> member=dao.selectPenaltyAll(conn,cPage,numPerpage);
+		close(conn);
+		return member;
+	}
+	public int selectPenaltyAllCount() {
+		Connection conn=getConnection();
+		int result=dao.selectPenaltyAllCount(conn);
+		close(conn);
+		return result;
+	}
+
+	
 	public MemberDto selectMemberByNo(int no) {
 		Connection conn=getConnection();
 		MemberDto member=dao.selectMemberByNo(conn,no);
@@ -55,9 +69,23 @@ public class MemberService {
 		return members;
 	}
 	
+	public List<MemberDto> searchPenalty(String type,String keyword,int cPage,int numPerpage){
+		Connection conn=getConnection();
+		List<MemberDto> members=dao.searchPenalty(conn,type,keyword,cPage,numPerpage);
+		close(conn);
+		return members;
+	}
+	
 	public int searchMemberCount(String type,String keyword) {
 		Connection conn=getConnection();
 		int count=dao.searchMemberCount(conn,type,keyword);
+		close(conn);
+		return count;
+	}
+	
+	public int searchPenaltyCount(String type,String keyword) {
+		Connection conn=getConnection();
+		int count=dao.searchPenaltyCount(conn,type,keyword);
 		close(conn);
 		return count;
 	}

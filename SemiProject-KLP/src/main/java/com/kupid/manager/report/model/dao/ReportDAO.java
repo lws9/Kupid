@@ -177,6 +177,53 @@ public class ReportDAO {
 		return result;
 	}
 	
+	public int memberGradeUpdate(Connection conn,Penalty p) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+	
+			pstmt=conn.prepareStatement(sql.getProperty("memberGradeUpdate"));
+			if(p.getPenaltyCategory().equals("unactive")) {
+				pstmt.setString(1, "탈퇴");
+			}else if(p.getPenaltyCategory().equals("stop")) {
+				pstmt.setString(1, "정지");
+			}
+//			else if(p.getPenaltyCategory().equals("pass")) {
+//				pstmt.setString(1, "회원");
+//			}
+			//pstmt.setString(1, p.getPenaltyCategory());
+			pstmt.setInt(2, p.getMemberNo());
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+//	public String selectPenaltyDate(Connection conn,int no) {
+//		PreparedStatement pstmt=null;
+//		ResultSet rs=null;
+//		String date="";
+//		try {
+//			pstmt=conn.prepareStatement(sql.getProperty("selectPenaltyDate"));
+//			pstmt.setInt(1,no);
+//			rs=pstmt.executeQuery();
+//			if(rs.next()) {
+//				date=(rs.getString("penalty_start_date"));
+//			}
+//			
+//			
+//		}catch(SQLException e) {
+//			
+//		}finally {
+//			close(rs);
+//			close(pstmt);
+//		}
+//		return date;
+//	}
+	
 	
 	public static Report getSearchReport(ResultSet rs) throws SQLException {
 		return Report.builder()
@@ -188,6 +235,7 @@ public class ReportDAO {
 				.reportedMember(rs.getInt("reported_member"))//신고받은 회원
 				.reportedId(rs.getString("member_id"))
 				.reportResult(rs.getString("report_result"))
+				.reportEndDate(rs.getDate("report_end_date"))
 				.build();
 	}
 	
@@ -199,6 +247,7 @@ public class ReportDAO {
 				.reportCategory(rs.getString("report_category"))
 				.reportContent(rs.getString("report_content"))
 				.reportDate(rs.getDate("report_date"))
+				.reportEndDate(rs.getDate("report_end_date"))
 				.reportingMember(rs.getInt("reporting_member"))//신고한 회원
 				.reportedMember(rs.getInt("reported_member"))//신고받은 회원
 				.reportedId(rs.getString(10))//인덱스 번호 11 신고받은 회원

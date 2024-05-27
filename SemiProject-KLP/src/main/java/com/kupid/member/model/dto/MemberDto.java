@@ -48,4 +48,6 @@ public class MemberDto {
 	private String penaltyDay;
 	private String kakaoId;
 	private String kakaoPw;
+	private String penaltyDate;
+	private String penaltyCate;
 }
