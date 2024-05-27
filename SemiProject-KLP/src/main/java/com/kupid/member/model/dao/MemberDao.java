@@ -93,6 +93,9 @@ public class MemberDao {
 			pstmt.setString(8, m.getEmail());
 			pstmt.setDate(9, m.getBirth());
 			pstmt.setString(10, m.getNickname());
+			pstmt.setString(11, m.getKakaoId());
+			pstmt.setString(12, m.getKakaoPw());
+
 			result = pstmt.executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -131,6 +134,22 @@ public class MemberDao {
 			e.printStackTrace();
 		}
 		return m; 
+	}
+	public MemberDto checkkakaoId(Connection conn, String userid) {
+		PreparedStatement pstmt = null;
+		MemberDto m = null;;
+		ResultSet rs = null;
+		try{
+			pstmt = conn.prepareStatement(sql.getProperty("checkkakaoId"));
+			pstmt.setString(1, userid);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				m=memberBuilder(rs);
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return m;
 	}
 	public static MemberDto memberBuilder(ResultSet rs) throws SQLException {
 //		String email,phone,addressDetail,address,memberPw;

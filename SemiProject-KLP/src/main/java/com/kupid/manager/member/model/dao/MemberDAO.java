@@ -27,6 +27,7 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
+
 	
 	public List<MemberDto> selectMemberAll(Connection conn,int cPage,int numPerpage,String grade){
 		PreparedStatement pstmt=null;
@@ -127,7 +128,6 @@ public class MemberDAO {
 		}
 		return m;
 	}
-	
 	
 	public int deleteMember(Connection conn,int no) {
 		PreparedStatement pstmt=null;

@@ -16,6 +16,7 @@ public class MemberService {
 	
 	MemberDAO dao=new MemberDAO();
 	
+	
 	public List<MemberDto> selectMemberAll(int cPage,int numPerpage,String grade){
 		Connection conn=getConnection();
 		List<MemberDto> member=dao.selectMemberAll(conn,cPage,numPerpage,grade);

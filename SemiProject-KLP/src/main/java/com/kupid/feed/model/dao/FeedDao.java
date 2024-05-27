@@ -30,6 +30,21 @@ public class FeedDao {
 		}
 	}
 	
+	public int deleteFeed(Connection conn,int feedNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("deleteFeed"));
+			pstmt.setInt(1,feedNo);
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public int countFeedComment(Connection conn, int feedNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

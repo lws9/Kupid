@@ -65,7 +65,7 @@
 	        <ul class="nav col-lg-auto mb-2 mb-md-0 me-5 align-items-center" style="gap: 7px">
 	          <li><a href="#" class="nav-link px-2 link-body-emphasis"><img src="<%=request.getContextPath()%>/image/icon/bell.png" alt="alert" class="header_icon_bell"></a></li>
 	          <li><a href="#" class="nav-link px-2 link-secondary"><img src="<%=request.getContextPath()%>/image/icon/pin.png" alt="notice" class="header_icon_pin"></a></li>
-	          <li><a href="#" class="nav-link px-2 link-body-emphasis"><img src="<%=request.getContextPath()%>/image/icon/question.png" class="header_icon" alt="customer"></a></li>
+	          <li><a href="<%=request.getContextPath()%>/customer/customermain.do" class="nav-link px-2 link-body-emphasis"><img src="<%=request.getContextPath()%>/image/icon/question.png" class="header_icon" alt="customer"></a></li>
 	          <li><a href="#" class="nav-link px-2 link-body-emphasis"><img src="<%=request.getContextPath()%>/image/icon/gift.png" alt="store" class="header_icon_gift"></a></li>
 	        </ul>
         <!-- <div class="d-flex col-lg-auto mb-3 mb-lg-0 me-lg-3 align-items-center" role="search">
