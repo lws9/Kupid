@@ -125,8 +125,7 @@ public class KakaoLoginServlet extends HttpServlet {
 				}
 				request.setAttribute("subscribeCk", subscribeCk);
 				request.setAttribute("GroupSubscribe", result);
-				request.getRequestDispatcher("/")
-				.forward(request, response);
+				response.sendRedirect(request.getContextPath());
 			
 		}
 		
