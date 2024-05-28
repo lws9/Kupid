@@ -670,10 +670,9 @@ $(document).on("click", "button.feedDeleteBt", function(e) {
 	    		},
 	    	async: false, // 동기처리하면 어케되나 궁금해서 해봄
 	    	success:function(data){	    	
-	    			console.log(data);
+	    			console.log(data+"삭제 데이터");
 	    			if(data>0){	    				
-	    			alert("삭제되었습니다.");
-	    			loadPage();
+		    			alert("삭제되었습니다.");
 	    			}else{
 	    				alert("삭제실패.");
 	    			}
