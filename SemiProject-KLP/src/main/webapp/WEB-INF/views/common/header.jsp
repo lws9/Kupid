@@ -82,6 +82,10 @@
 	            <img src="<%=request.getContextPath()%>/upload/member/profile/<%=loginMember.getProfileImgOriname() %>" alt="mdo" width="32" height="32" class="rounded-circle">
 	          </a>
 	          <ul class="dropdown-menu text-small">
+	          	<%if(loginMember.getMemberId().equals("admin")){%>
+	          		<li><a class="dropdown-item" href="<%=request.getContextPath()%>/manager/home.do">관리자페이지</a></li>
+	            	<li><hr class="dropdown-divider"></li>
+	          	<%} %>
 	            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/myprofile.do?pagenum=1">My KUPID</a></li>
 	            <li><hr class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/logout.do">로그아웃</a></li>
