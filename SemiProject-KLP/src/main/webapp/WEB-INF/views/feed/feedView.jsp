@@ -594,7 +594,7 @@ const loadPage = () => {
                     for (let i = 0; i < fileArr.length; i++) {
                         if (fileArr[i] !== "/SemiProject-KLP/upload/feed/null") {
                             img_listBt.append($('<div>').html($('<img>').attr({
-                                'src': fileArr[i],
+                                'src': "<%=request.getContextPath()%>/upload/feed/"+fileArr[i],
                                 'width': '500px',
                                 'height': '500px'
                             })));
