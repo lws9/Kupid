@@ -269,12 +269,14 @@
 	    </div>
     
     <div class="container mb-5">
-		<h2 class="main_title">인기 아티스트</h2>
+		<h3 class="main_title">새로운 아티스트를 만나보세요!</h3>
 	    <div class="row mt-4 text-center">
-	<%for(int i=0; i<4;i++){ %>
+	<%for(int i=0; i<groupList.size();i++){ %>
 	    	<div class="col-md-3 pb-2">
-		        <svg class="mt-4 bd-placeholder-img img_outline rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=groupList.get(i).getGroupImg() %>" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/></svg>
-		        <h4 class="fw-normal mt-4"><%= groupList.get(i).getGroupName()%></h4>
+		        <svg class="mt-4 bd-placeholder-img rounded-top" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=groupList.get(i).getGroupImg() %>" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/></svg>
+		        <div class="rounded-start" style="background-color: $gray-200">
+		        	<h4 class="fw-normal mt-2"><%= groupList.get(i).getGroupName()%></h4>
+				</div>
 	      	</div><!-- /.col-lg-4 -->
 		<%} %>
 		</div>
@@ -287,13 +289,15 @@
     
     <%if(loginMember != null && favorite.size()>0){ %>
     <div class="container mb-5">
-		<h2 class="main_title">구독 아티스트</h2>
+		<h3 class="main_title">구독 아티스트</h3>
 	    <div class="row mt-4 text-center">
     	<%for(int i=0; i<favorite.size();i++){
  			if(favorite.get(i).getMemberNo()==loginMember.getMemberNo()){%>
 		      <div class="col-md-3 pb-2">
-		        <svg class="mt-4 bd-placeholder-img img_outline rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=favorite.get(i).getGroupImg() %>" width="100%" preserveAspectRatio="xMidYMid slice"/></svg>
-		        <h4 class="fw-normal mt-4"><%= favorite.get(i).getGroupName()%></h4>
+		        <svg class="mt-4 bd-placeholder-img rounded-top" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=favorite.get(i).getGroupImg() %>" width="100%" preserveAspectRatio="xMidYMid slice"/></svg>
+		        <div class="rounded-start bs-secondary-bg">
+		        	<h4 class="fw-normal mt-2"><%= favorite.get(i).getGroupName()%></h4>
+	        	</div>
 		      </div><!-- /.col-lg-4 -->
 	      <%} %>
 		<%} %>
@@ -309,8 +313,8 @@
 				<h2 class="main_title">인기 아티스트</h2>
 			    <div class="row mt-4 text-center">
 			    	<div class="col-md-3 pb-2">
-				        <svg class="mt-4 bd-placeholder-img img_outline rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=groupList.get(i).getGroupImg() %>" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/></svg>
-				        <h4 class="fw-normal mt-4"><%= groupList.get(i).getGroupName()%></h4>
+				        <svg class="mt-4 bd-placeholder-img rounded-top" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=groupList.get(i).getGroupImg() %>" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/></svg>
+				        <h4 class="fw-normal mt-2"><%= groupList.get(i).getGroupName()%></h4>
 			      	</div><!-- /.col-lg-4 -->
 				</div>
 			</div>
@@ -379,14 +383,11 @@
 	    };
 	
 	    const showNextSlide = () => {
-	    	console.log('next');
 	    	currentIndex = (currentIndex + 1) % slidesCount;
-	    	console.log(`Current index after next: \${currentIndex}`);
 	        updateSliderPosition();
 	    };
 	
 	    const showPrevSlide = () => {
-	    	console.log('pre');
 	    	currentIndex = (currentIndex - 1 + slidesCount) % slidesCount;
 	        updateSliderPosition();
 	    };
