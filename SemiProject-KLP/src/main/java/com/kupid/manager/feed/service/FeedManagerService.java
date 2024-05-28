@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.kupid.feed.model.dto.Feed;
 import com.kupid.manager.feed.model.dao.FeedManagerDAO;
+import com.kupid.member.model.dto.MemberDto;
 
 public class FeedManagerService {
 
@@ -39,7 +40,19 @@ public class FeedManagerService {
 		return result;
 	}
 	
+	public List<Feed> searchFeed(String type,String keyword,int cPage,int numPerpage){
+		Connection conn=getConnection();
+		List<Feed> feed=dao.searchFeed(conn,type,keyword,cPage,numPerpage);
+		close(conn);
+		return feed;
+	}
 	
+	public int searchFeedCount(String type,String keyword) {
+		Connection conn=getConnection();
+		int count=dao.searchFeedCount(conn,type,keyword);
+		close(conn);
+		return count;
+	}
 	
 	
 	

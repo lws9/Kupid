@@ -84,12 +84,6 @@ ul li:hover > a{
     border-radius: 5px;
 	
 }
-.table-size{
-	width:85%;
-	height:650px;
-	font-size:30px;
-
-}
 .section{
 	width:95%;
 	display: flex;
@@ -147,11 +141,6 @@ ul li:hover > a{
     margin-top: 20px;
 }
 
-.table-size {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
 
 .table-size th, .table-size td {
     border: 1px solid #ddd;
@@ -213,12 +202,14 @@ ul li:hover > a{
 <div class="member-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
 	<div class="member-sec">
-		<h1>MEMBER</h1>
+		<h1>FEED</h1>
 		<h1>
 			<div>
 				<select id="searchType">
 		       		<option value="회원" <%=searchType!=null&&searchType.equals("회원")?"selected":"" %>>회원</option>
 		        	<option value="아티스트" <%=searchType!=null&&searchType.equals("아티스트")?"selected":"" %>>아티스트</option>
+		        	<option value="정지" <%=searchType!=null&&searchType.equals("정지")?"selected":"" %>>정지</option>
+		        	<option value="탈퇴" <%=searchType!=null&&searchType.equals("탈퇴")?"selected":"" %>>탈퇴</option>
 	        	</select>
 	        	<div id="search-회원">
 					<form action="<%=request.getContextPath()%>/manager/searchfeed.do">
@@ -230,6 +221,20 @@ ul li:hover > a{
 				<div id="search-아티스트">
 					<form action="<%=request.getContextPath()%>/manager/searchfeed.do">
 						<input type="hidden" name="searchType" value="아티스트">
+						<input type="text" name="searchKeyword" placeholder="검색할 아이디를 입력하세요" style="width:300px">
+						<button type="submit">검색</button>
+					</form>
+				</div>
+				<div id="search-정지">
+					<form action="<%=request.getContextPath()%>/manager/searchfeed.do">
+						<input type="hidden" name="searchType" value="정지">
+						<input type="text" name="searchKeyword" placeholder="검색할 아이디를 입력하세요" style="width:300px">
+						<button type="submit">검색</button>
+					</form>
+				</div>
+				<div id="search-탈퇴">
+					<form action="<%=request.getContextPath()%>/manager/searchfeed.do">
+						<input type="hidden" name="searchType" value="탈퇴">
 						<input type="text" name="searchKeyword" placeholder="검색할 아이디를 입력하세요" style="width:300px">
 						<button type="submit">검색</button>
 					</form>

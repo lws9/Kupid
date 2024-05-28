@@ -86,12 +86,6 @@ ul li:hover > a{
     border-radius: 5px;
 	
 }
-.table-size{
-	width:85%;
-	height:650px;
-	font-size:30px;
-
-}
 .section{
 	width:95%;
 	display: flex;
@@ -149,11 +143,6 @@ ul li:hover > a{
     margin-top: 20px;
 }
 
-.table-size {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
 
 .table-size th, .table-size td {
     border: 1px solid #ddd;

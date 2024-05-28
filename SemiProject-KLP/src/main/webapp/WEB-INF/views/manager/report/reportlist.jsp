@@ -86,10 +86,9 @@ ul li:hover > a{
 	
 }
 .table-size{
-	width:85%;
+	width:75%;
 	height:650px;
-	font-size:30px;
-
+	font-size:20px;
 }
 .section{
 	width:95%;
@@ -97,6 +96,7 @@ ul li:hover > a{
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+
 } */
 
 
