@@ -1,5 +1,7 @@
 package com.kupid.mypage.dao;
 
+import static com.kupid.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -37,6 +39,9 @@ public class MyPageDao {
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
 		}
 		return m; 
 	}
@@ -55,6 +60,9 @@ public class MyPageDao {
 			System.out.println(result.size());
 		} catch(SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
 		}
 		return result; 
 	}
@@ -71,6 +79,9 @@ public class MyPageDao {
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
 		}
 		return m; 
 	}
@@ -88,6 +99,9 @@ public class MyPageDao {
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
 		}
 		return result; 
 	}
@@ -102,6 +116,8 @@ public class MyPageDao {
 			result = pstmt.executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result; 
 	}
@@ -115,6 +131,8 @@ public class MyPageDao {
 			result = pstmt.executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result; 
 	}
@@ -127,6 +145,8 @@ public class MyPageDao {
 			result = pstmt.executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result; 
 	}
@@ -146,6 +166,8 @@ public class MyPageDao {
 			result = pstmt.executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result;
 	}
