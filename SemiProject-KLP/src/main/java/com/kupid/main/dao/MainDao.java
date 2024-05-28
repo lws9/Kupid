@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.kupid.group.model.dto.GroupDto;
+import static com.kupid.common.JDBCTemplate.close;
 
 public class MainDao {
 	private Properties sql = new Properties();
@@ -35,6 +36,9 @@ public class MainDao {
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
 		}
 		return g; 
 	}
