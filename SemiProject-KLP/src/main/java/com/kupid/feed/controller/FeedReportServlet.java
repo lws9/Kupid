@@ -34,6 +34,8 @@ public class FeedReportServlet extends HttpServlet {
 		int reportMemberNo = Integer.parseInt(request.getParameter("reportMemberNo"));
 		int reportedfeedNo = Integer.parseInt(request.getParameter("reportedfeedNo"));
 		new FeedService().insertFeedReport(category,content,reportMemberNo,reportedfeedNo);
+        response.setContentType("text/html; charset=UTF-8");
+        response.getWriter().write("<html><body><script type='text/javascript'>window.opener.location.reload(); window.close();</script></body></html>");
 	}
 
 	/**
