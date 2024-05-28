@@ -490,3 +490,4 @@ $(document).ready(function() {
 			   outlineColor: "#e0e0e0" //테두리
 			};
 </script>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>

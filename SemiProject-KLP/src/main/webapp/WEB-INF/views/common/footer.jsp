@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
     <div class="col-md-4 d-flex align-items-center">
       <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
         <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
@@ -12,7 +12,7 @@
    </div>
 
     <ul class="nav col-md-4 justify-content-end list-unstyled d-flex ms-4">
-      <li class="nav-item"><a href="<%=request.getContextPath()%>/policies/terms?no=1" class="nav-link px-2 text-body-secondary">MemberPolicy</a></li>
-      <li class="nav-item"><a href="<%=request.getContextPath()%>/policies/terms?no=2" class="nav-link px-2 text-body-secondary">PrivacyPolicy</a></li>
+      <li class="nav-item"><a href="<%=request.getContextPath()%>/policies/terms?no=1" class="nav-link px-2 text-body-secondary">Member-Policy</a></li>
+      <li class="nav-item"><a href="<%=request.getContextPath()%>/policies/terms?no=2" class="nav-link px-2 text-body-secondary">Privacy-Policy</a></li>
     </ul>
   </footer>
