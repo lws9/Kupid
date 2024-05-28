@@ -474,7 +474,44 @@ function submitFeed() {
     }
 }
 
+//피드 수정
+$(document).on("click", "button.feedUpdateBt", function(e) {
+    const feedNo = $(e.target).closest('.board').find('.feedNo').val();
+    const $feedContent = $(e.target).closest('.board').find('.feedContent');
+    const feedContentContainer = $feedContent.text();
 
+    const $textarea = $("<textarea>").val(feedContentContainer);
+
+    const $cancelButton = $("<button>").text("취소").addClass("cancelUpdate");
+    const $confirmButton = $("<button>").text("확인").addClass("confirmUpdate");
+
+    const $container = $("<div>").append($textarea, $cancelButton, $confirmButton);
+
+    $feedContent.replaceWith($container);
+
+    $cancelButton.click(function() {
+        $container.replaceWith($feedContent);
+    });
+    $confirmButton.click(function() {
+    	console.log("Dsadsa");
+        $.ajax({
+            type: "POST",
+            url: "<%=request.getContextPath()%>/feed/feedupdate.do",
+            data: {
+                "feedNo": feedNo,
+                "feedContent": $textarea.val()
+            },
+            success: function(data) {
+            	 // 서버 응답 데이터 확인
+                console.log('Update success:', data);
+                history.go(0);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error updating comment:', error);
+            }
+        });
+    });
+});
 
 
 

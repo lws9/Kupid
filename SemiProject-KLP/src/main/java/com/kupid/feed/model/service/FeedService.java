@@ -32,6 +32,14 @@ public class FeedService {
 		return fc;
 	}
 	
+	public int feedUpdate(int feedNo,String feedContent) {
+		Connection conn = getConnection();
+		int result = dao.feedUpdate(conn,feedNo,feedContent);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+	
 	public int checkLikes(int feedNo,int loginMemberNo) {
 		Connection conn = getConnection();
 		int result = dao.checkLikes(conn,feedNo,loginMemberNo);
@@ -42,7 +50,6 @@ public class FeedService {
 	public int insertFeedReport(String category, String content, int reportMemberNo, int reportedfeedNo) {
 		Connection conn = getConnection();
 		int reportedMemberNo = dao.selectMemberByFeedNo(conn, reportedfeedNo);
-		System.out.println(reportedMemberNo);
 		int result = dao.insertFeedReport(conn,category,content,reportMemberNo,reportedMemberNo);
 		if(result>0) commit(conn);
 		else rollback(conn);
