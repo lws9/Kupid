@@ -247,7 +247,6 @@
         </form>
         <div class="line">
             <hr class="line1" size="1" />
-            <a href="https://kauth.kakao.com/oauth/authorize?client_id=483bf9a98ad4edfd5c3b00bb569518bd&redirect_uri=http://localhost:9090/SemiProject-KLP/kakao/kakaologinservlet.do&response_type=code">로그인</a>
             <h5 class="highlight11">소셜 로그인</h5>
             <hr class="line11" size="1" />
         </div>
@@ -266,52 +265,7 @@
 </div>
 
 <script>
-
-<%-- $(document).ready(function() {
-    if (!Kakao.isInitialized()) {
-        Kakao.init('dce940cde51988e6775848268d95d186');
-    }
-    
-    $(document).on("click", "button.social_login", function(e) {
-        function kakaoLogin() {
-            Kakao.Auth.login({
-                success: function(response) {
-                    Kakao.API.request({
-                        url: '/v2/user/me',
-                        success: function(response) {
-                            $.ajax({
-                                type: "POST",
-                                url: "<%=request.getContextPath()%>/kakao/kakaologinservlet.do",
-                                data: {
-                                    kakaoId: response.id,
-                                    nickname: response.properties.nickname,
-                                    email: response.kakao_account.email
-                                },
-                                success: function(result) {
-                                    if (result.success) {
-                                        alert("로그인 성공");
-                                        window.location.href = "<%=request.getContextPath()%>";
-                                    } else {
-                                        alert("로그인 실패: " + result.message);
-                                    }
-                                },
-                                error: function(xhr, status, error) {
-                                    console.error('Error:', error);
-                                }
-                            });
-                        },
-                        fail: function(error) {
-                            alert("사용자 정보 요청 실패: " + JSON.stringify(error));
-                        }
-                    });
-                },
-                fail: function(error) {
-                    alert("로그인 실패: " + JSON.stringify(error));
-                }
-            });
-        }
-        
-        kakaoLogin();
-    });
-}); --%>
+	$(document).on("click", "button.social_login", function(e) {
+		location.href="https://kauth.kakao.com/oauth/authorize?client_id=483bf9a98ad4edfd5c3b00bb569518bd&redirect_uri=http://localhost:9090/SemiProject-KLP/kakao/kakaologinservlet.do&response_type=code"
+	})
 </script>
