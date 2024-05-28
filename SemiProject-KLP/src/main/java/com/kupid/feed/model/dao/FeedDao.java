@@ -103,7 +103,6 @@ public class FeedDao {
 				close(pstmt);
 			}
 		
-		System.out.println(result);
 		
 			return result;
 		
@@ -238,6 +237,23 @@ public class FeedDao {
 			e.printStackTrace();
 		}finally {
 			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateFeedLikes(Connection conn, int likes, int feedNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("updateFeedLikes"));
+			pstmt.setInt(1,likes);
+			pstmt.setInt(2,feedNo);
+			
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
 			close(pstmt);
 		}
 		return result;

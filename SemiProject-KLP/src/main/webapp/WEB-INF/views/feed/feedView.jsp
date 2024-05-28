@@ -125,7 +125,7 @@
 }
 
         #content {
-            width: 40vw;
+            width: 63vw;
         }
 a.next, a.prev {
     background-color: transparent;
@@ -716,6 +716,8 @@ $(document).on("click", "button.feedDeleteBt", function(e) {
 	    			}else{
 	    				alert("삭제실패.");
 	    			}
+	                history.go(0);
+
 	    		}
 	    	,
     		 error: function(xhr, status, error) {

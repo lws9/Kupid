@@ -85,22 +85,26 @@ public class FeedService {
 	public int switchingLikes(int memberNo,int feedNo) {
 		Connection conn = getConnection();
 		int countClick = dao.selectLikes(conn, memberNo, feedNo); 
+		System.out.println(countClick);
 		int result = 0;
 		int likes = 0;
+		int commitCheck = 0;
 		if(countClick==0) {
-			 result= dao.insertLikes(conn,memberNo,feedNo);
+			commitCheck=dao.insertLikes(conn,memberNo,feedNo);
 			 likes = dao.selectFeedLikes(conn,feedNo);
-			 if(result>0) commit(conn);
-				else rollback(conn);
-			 return likes;
-		}else {
-			 result = dao.deleteLikes(conn,memberNo,feedNo);
-			 likes = dao.selectFeedLikes(conn,feedNo);
-			 if(result>0) commit(conn);
-				else rollback(conn);
-			 return likes;
+			 likes +=1;
+			 result= dao.updateFeedLikes(conn,likes,feedNo);
 			 
+		}else {
+			commitCheck=dao.deleteLikes(conn,memberNo,feedNo);
+			 likes = dao.selectFeedLikes(conn,feedNo);
+			 likes -=1;
+			 result= dao.updateFeedLikes(conn,likes,feedNo);
 		}
+		if(commitCheck>0) commit(conn);
+		else rollback(conn);
+		System.out.println(result);
+		 return likes;
 		
 	}
 	
