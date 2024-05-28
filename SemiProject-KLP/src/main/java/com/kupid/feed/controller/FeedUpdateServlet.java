@@ -8,19 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kupid.feed.model.service.FeedService;
 
 /**
- * Servlet implementation class FeedReportServlet
+ * Servlet implementation class FeedUpdateServlet
  */
-@WebServlet("/feed/feedReport.do")
-public class FeedReportServlet extends HttpServlet {
+@WebServlet("/feed/feedupdate.do")
+public class FeedUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FeedReportServlet() {
+    public FeedUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,13 +30,15 @@ public class FeedReportServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String category = request.getParameter("category");
-		String content = request.getParameter("content");
-		int reportMemberNo = Integer.parseInt(request.getParameter("reportMemberNo"));
-		int reportedfeedNo = Integer.parseInt(request.getParameter("reportedfeedNo"));
-		new FeedService().insertFeedReport(category,content,reportMemberNo,reportedfeedNo);
-        response.setContentType("text/html; charset=UTF-8");
-        response.getWriter().write("<html><body><script type='text/javascript'>window.opener.location.reload(); window.close();</script></body></html>");
+		int feedNo = Integer.parseInt(request.getParameter("feedNo"));
+		String feedContent = request.getParameter("feedContent");
+		int result = new FeedService().feedUpdate(feedNo,feedContent);
+		
+		response.setContentType("application/json;charset=utf-8");
+
+		Gson gson = new Gson();
+		gson.toJson(result,response.getWriter());
+
 	}
 
 	/**

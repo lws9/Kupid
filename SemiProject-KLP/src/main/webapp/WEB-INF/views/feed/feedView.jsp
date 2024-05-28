@@ -474,7 +474,44 @@ function submitFeed() {
     }
 }
 
+//피드 수정
+$(document).on("click", "button.feedUpdateBt", function(e) {
+    const feedNo = $(e.target).closest('.board').find('.feedNo').val();
+    const $feedContent = $(e.target).closest('.board').find('.feedContent');
+    const feedContentContainer = $feedContent.text();
 
+    const $textarea = $("<textarea>").val(feedContentContainer);
+
+    const $cancelButton = $("<button>").text("취소").addClass("cancelUpdate");
+    const $confirmButton = $("<button>").text("확인").addClass("confirmUpdate");
+
+    const $container = $("<div>").append($textarea, $cancelButton, $confirmButton);
+
+    $feedContent.replaceWith($container);
+
+    $cancelButton.click(function() {
+        $container.replaceWith($feedContent);
+    });
+    $confirmButton.click(function() {
+    	console.log("Dsadsa");
+        $.ajax({
+            type: "POST",
+            url: "<%=request.getContextPath()%>/feed/feedupdate.do",
+            data: {
+                "feedNo": feedNo,
+                "feedContent": $textarea.val()
+            },
+            success: function(data) {
+            	 // 서버 응답 데이터 확인
+                console.log('Update success:', data);
+                history.go(0);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error updating comment:', error);
+            }
+        });
+    });
+});
 
 
 
@@ -535,9 +572,11 @@ const loadPage = () => {
                 $header.append('<div class="likesCnt">' + "좋아요"+element.likes + '</div>');
                 $moreContainer.append('<div class="menu-icon">'+'<span></span>'+'<span></span>'+'<span></span>'+'</div>');
                 $moreContainer.append('<div id="dropdown-menu" class="dropdown-content"><button class="reportBt">신고</button></div>');
+                //로그인 비교
+                if(<%=loginMember.getMemberNo()%>==element.feedMemberName){
                 $moreContainer.append('<div class="dropdown-content"><button class="feedUpdateBt">수정</button></div>');
                 $moreContainer.append('<div class="dropdown-content"><button class="feedDeleteBt" style="z-index:1">삭제</button></div>');
-
+                }
                 $header.append($moreContainer);
 
                 $div.append($header);
@@ -670,10 +709,9 @@ $(document).on("click", "button.feedDeleteBt", function(e) {
 	    		},
 	    	async: false, // 동기처리하면 어케되나 궁금해서 해봄
 	    	success:function(data){	    	
-	    			console.log(data);
+	    			console.log(data+"삭제 데이터");
 	    			if(data>0){	    				
-	    			alert("삭제되었습니다.");
-	    			loadPage();
+		    			alert("삭제되었습니다.");
 	    			}else{
 	    				alert("삭제실패.");
 	    			}

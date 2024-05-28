@@ -97,7 +97,8 @@ public class KakaoLoginServlet extends HttpServlet {
 
 		MemberDto m	= new MemberService().checkkakaoId(userid);
 		MemberDto km = null; 
-				
+
+		boolean subscribeCk = false;
 		
 		if(m==null) {
 			//회원가입
@@ -111,7 +112,6 @@ public class KakaoLoginServlet extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/views/member/signup.jsp").forward(request, response);
 		}else {
 			//로그인
-			boolean subscribeCk = false;
 			HttpSession session=request.getSession();
 				//로그인한 정보를 HttpSession에 저장
 				session.setAttribute("loginMember", m);
@@ -125,8 +125,7 @@ public class KakaoLoginServlet extends HttpServlet {
 				}
 				request.setAttribute("subscribeCk", subscribeCk);
 				request.setAttribute("GroupSubscribe", result);
-				request.getRequestDispatcher("/")
-				.forward(request, response);
+				response.sendRedirect(request.getContextPath());
 			
 		}
 		

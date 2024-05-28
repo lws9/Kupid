@@ -311,6 +311,7 @@
         border: 1px solid black; 
         display: flex;
         justify-content: left;
+        min-width: 250px;
         /* align-items: top; */
 }
 .sidebar-container button:hover {
@@ -321,7 +322,12 @@
 	justify-content:center;
 	 align-items: center;
 } 
-        
+.table-size {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size:25px;
+}        
         
 </style>
 <head>
@@ -334,7 +340,7 @@
         <div class="flex_col">
             <div class="flex_col1">
                 <div class="flex_row">
-                    <h4 class="subtitle">관리자&nbsp;&nbsp;&nbsp;
+                    <h4 class="subtitle">관리자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                 <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/')"><h4>main</h4></button>&nbsp;
 	                 <button class="btn2" onclick="location.assign('<%=request.getContextPath()%>/logout.do')"><h4>logout</h4></button></h4>
                 </div>

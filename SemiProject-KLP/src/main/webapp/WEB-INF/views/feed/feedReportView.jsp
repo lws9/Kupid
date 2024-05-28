@@ -10,8 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="<%=request.getContextPath()%>/feed/feedReport.do">
-		<input type="text"><br>
+	<form id="reportForm" action="<%=request.getContextPath()%>/feed/feedReport.do">
 		<select name="category">
 			<option value ="스팸홍보/도배글">스팸홍보/도배글</option>
 			<option value ="음란물">음란물</option>
@@ -21,7 +20,6 @@
 			<option value ="기타">기타</option>
 			<input type="hidden" name="reportMemberNo" value="<%=loginMember.getMemberNo()%>">
 			<input type="hidden" name="reportedfeedNo"value='<%=request.getAttribute("feedno")%>'>
-			
 		</select>
 		<br>
 		<textarea name="content" cols="35" rows="5"></textarea>
@@ -29,4 +27,14 @@
 		<input type="submit" value="신고">
 	</form>
 </body>
+<!-- <script type="text/javascript">
+	function closePopup() {
+	    window.close();
+	}
+    document.getElementById('reportForm').addEventListener('submit', function(event) {
+        event.preventDefault(); 
+        window.opener.location.reload(); 
+        closePopup(); 
+    });
+</script> -->
 </html>

@@ -81,6 +81,54 @@ Properties sql=new Properties();
 		return result;
 	}
 	
+	public List<Feed> searchFeed(Connection conn,String type,String keyword, int cPage,int numPerpage) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<Feed> feed=new ArrayList<>();
+		try {
+			//String sql=this.sql.getProperty("selectSearchMember");
+			//sql=sql.replace("#COL", type);//컬럼값은 ?로 받을 수 없기때문에 문자열로 받아서 replace로 문자자체를 바꿈 
+			pstmt=conn.prepareStatement(sql.getProperty("selectSearchFeed"));
+			pstmt.setString(1,type);
+			pstmt.setString(2,"%"+keyword+"%");
+			pstmt.setInt(3, (cPage-1)*numPerpage+1);
+			pstmt.setInt(4, cPage*numPerpage);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				feed.add(getFeed(rs));
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return feed;
+	}
+	
+	public int searchFeedCount(Connection conn,String type,String keyword) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+//		String sql=this.sql.getProperty("searchFeedCount");
+//		sql=sql.replace("#COL", type);
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("searchFeedCount"));
+			pstmt.setString(1, type );
+			pstmt.setString(2, "%"+keyword+"%" );
+			rs=pstmt.executeQuery();
+			if(rs.next()) result=rs.getInt(1);
+			
+		}catch(SQLException e) {
+			
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	private Feed getFeed(ResultSet rs) throws SQLException{
