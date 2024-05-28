@@ -571,9 +571,10 @@ const loadPage = () => {
                 $header.append('<div class="commentsCnt">' + "댓글수" +element.commentCnt + '</div>');
                 $header.append('<div class="likesCnt">' + "좋아요"+element.likes + '</div>');
                 $moreContainer.append('<div class="menu-icon">'+'<span></span>'+'<span></span>'+'<span></span>'+'</div>');
-                $moreContainer.append('<div id="dropdown-menu" class="dropdown-content"><button class="reportBt">신고</button></div>');
                 //로그인 비교
-                if(<%=loginMember.getMemberNo()%>==element.feedMemberName){
+                if(<%=loginMember.getMemberNo()%>!=element.feedMemberName){
+                $moreContainer.append('<div id="dropdown-menu" class="dropdown-content"><button class="reportBt">신고</button></div>');
+                }else{
                 $moreContainer.append('<div class="dropdown-content"><button class="feedUpdateBt">수정</button></div>');
                 $moreContainer.append('<div class="dropdown-content"><button class="feedDeleteBt" style="z-index:1">삭제</button></div>');
                 }
