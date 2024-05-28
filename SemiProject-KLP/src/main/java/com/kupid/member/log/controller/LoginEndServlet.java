@@ -57,18 +57,29 @@ public class LoginEndServlet extends HttpServlet {
 			//메인페이지 회원 구독 아티스트 조회를 위한 조인 쿼리문을 통한 메소드로 변경
 			MemberDto m=new MemberService().selectMemberById(userId,password);
 			HttpSession session=request.getSession();
-			if(m!=null) {
+			System.out.println(m.getMemberGrade());
+			if(m!=null&&(m.getMemberGrade().equals("회원")||m.getMemberGrade().equals("아티스트")||m.getMemberGrade().equals("관리자"))) {
 				//로그인한 정보를 HttpSession에 저장
 				session.setAttribute("loginMember", m);
 				//아티스트그룹의 구독자 정보 가져오기(전체 아티스트)
 				List<MemberDto> result = new MemberService().selectGroupSubscribe();
 				session.setAttribute("GroupSubscribe", result);
 				//화면전환
-				if(!userId.equals("admin")) {
+				if(!userId.equals("admin")) {//관리자로 로그인하면 메인페이지가 아니라 관리자 페이지로 이동되게 하는 로직
 				response.sendRedirect(request.getContextPath());
 				}else {
 					response.sendRedirect(request.getContextPath()+"/manager/home.do");
 				}
+			}else if(m.getMemberGrade().equals("탈퇴")) {//탈퇴된 애들 로그인 막는 로직
+				request.setAttribute("msg", "탈퇴된 회원입니다.");
+				request.setAttribute("loc", "/");
+				request.getRequestDispatcher(request.getServletContext().getInitParameter("viewpath")+"common/msg.jsp")
+				.forward(request, response);
+			}else if(m.getMemberGrade().equals("정지")){
+				request.setAttribute("msg", "정지된 회원입니다.");
+				request.setAttribute("loc", "/");
+				request.getRequestDispatcher(request.getServletContext().getInitParameter("viewpath")+"common/msg.jsp")
+				.forward(request, response);
 			}else {
 				request.setAttribute("msg","아이디나 패스워드가 일치하지 않습니다");
 				request.setAttribute("loc", "/");
