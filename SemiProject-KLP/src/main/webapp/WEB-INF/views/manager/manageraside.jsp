@@ -311,6 +311,7 @@
         border: 1px solid black; 
         display: flex;
         justify-content: left;
+        min-width: 300px;
         /* align-items: top; */
 }
 .sidebar-container button:hover {

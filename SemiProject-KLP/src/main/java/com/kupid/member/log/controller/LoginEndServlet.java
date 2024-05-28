@@ -72,11 +72,15 @@ public class LoginEndServlet extends HttpServlet {
 				request.setAttribute("subscribeCk", subscribeCk);
 				session.setAttribute("GroupSubscribe", result);
 				//화면전환
+				if(!userId.equals("admin")) {
 				response.sendRedirect(request.getContextPath());
-//				request.getRequestDispatcher("/")
-//				.forward(request, response);
-//				request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")
-//				.forward(request, response);
+	//				request.getRequestDispatcher("/")
+	//				.forward(request, response);
+	//				request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")
+	//				.forward(request, response);
+				}else {
+					response.sendRedirect(request.getContextPath()+"/manager/home.do");
+				}
 			}else {
 				request.setAttribute("subscribeCk", subscribeCk);
 				request.setAttribute("msg","아이디나 패스워드가 일치하지 않습니다");
