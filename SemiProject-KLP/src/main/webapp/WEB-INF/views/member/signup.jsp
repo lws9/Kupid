@@ -228,7 +228,7 @@
 		        <div class="part">
 		        <div class="h3_btn_container">
 			       	<h3>이메일</h3>
-			       	<button class="Emailbtn" type="button" onclick="emailValidCk();">이메일 검증</button>
+			       	<button class="btn2" type="button" id="btnEmail" onclick="emailValidCk();">이메일 검증</button>
 		       </div>
 		        <div class="input_box">
 		        	 <input required type="text" name="email" placeholder="예) kupid_79@naver.com" class="inputTag" id="inputEmail" value="">
@@ -283,7 +283,7 @@ $(document).ready(function() {
     <%if (kakaoMember != null) {%>
         var email = "<%= kakaoMember.getEmail() %>";
         $('#inputEmail').attr('placeholder', email).val(email).prop('readonly', true);
-        $("button.Emailbtn").css('display','none');
+        $("button#btnEmail").css('display','none');
     <%}%>
 });
 
@@ -490,3 +490,4 @@ $(document).ready(function() {
 			   outlineColor: "#e0e0e0" //테두리
 			};
 </script>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
