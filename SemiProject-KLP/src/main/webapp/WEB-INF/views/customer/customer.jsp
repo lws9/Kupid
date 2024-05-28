@@ -21,19 +21,24 @@
 
         .center-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 30px;
         }
 
         .center-header h1 {
             font-size: 38px;
             color: #4a4a4a;
-            margin-top: 40px; /* 간격 추가 */
+            margin-top: 50px; 
+            margin-bottom: 60px; 
         }
+        .center-header h4 {
+        	margin-top: 20px;
+   		 margin-bottom: -20px; 
+}
 
         .button-container {
             display: flex;
             justify-content: center;
-            margin-bottom: 50px;
+            margin-bottom: 10px;
         }
 
         .button-container h3 {
@@ -51,7 +56,7 @@
             padding: 23px 10px;
             border-radius: 10px;
             cursor: pointer;
-            margin: 10px;
+            margin: 15px;
             font-size: 18px;
             width: 100px;
             height: 100px;
@@ -60,6 +65,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            
         }
 
         .button-container button:hover {
@@ -129,8 +135,8 @@
         }
 
         .faq_button {
-            margin-top: 50px;
-            margin-bottom: 20px;
+            margin-top: 10px;
+            margin-bottom: 40px;
             text-decoration: none;
             font-size: 14px;
             display: flex;
@@ -220,5 +226,6 @@
             <p>KUPID 고객센터에서는 고객님의 문의를 녹음으로 접수받고 <br>답변 드리는 음성메시지 서비스를 운영하고 있습니다. <br>음성메시지를 남겨주시면 빠르게 확인하여 답변드리겠습니다.</p>
         </div>
     </div>
+    
 </body>
 </html>

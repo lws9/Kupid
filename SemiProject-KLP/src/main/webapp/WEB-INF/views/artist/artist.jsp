@@ -12,29 +12,32 @@
         }
         .container {
             width: 80%;
-            margin: 0 auto;
+            margin: 0 auto;           
+    		padding-top: 80px; /* navbar 높이만큼 패딩 추가 */
+    	}
         }
         .header {
             text-align: center;
             margin-bottom: 0px;
+            pointer-events: none;
         }
         .header iframe {
-         position:relative;
-         left:0;
-         top: -70px;
-   		 bottom: -60px;
-         width: 1400px;
-         height: 600px;
-         margin-bottom: 10px; 
+	         position:relative;
+	         left:100;
+	         top: -60px;
+	   		 bottom: -60px;
+	         width: 1400px;
+	         height: 600px;
+	         margin-bottom: 10px; 
         }
         .header::after {
-	    content:'';
-	    position: relative;
-	    top: 0;
-	    left: 0;
-	    width: 100%;
-	    height: 100%;
-	    z-index: 1;
+		    content:'';
+		    position: relative;
+		    top: 0;
+		    left: 0;
+		    width: 100%;
+		    height: 100%;
+		    z-index: 1;
 		}
         .member-photos {
             display: flex;
@@ -44,7 +47,7 @@
         }
 	    .member-photo {
 	    text-align: center;
-	    transition: transform 0.3s ease; /* 변환 효과에 대한 transition 추가 */
+	    transition: transform 0.3s ease; 
 		}
 		
 		.member-photo img {
@@ -54,7 +57,7 @@
 		}
 		
 		.member-photo:hover {
-		    transform: scale(1.2); /* 마우스 호버 시 이미지를 1.2배 확대 */
+		    transform: scale(1.2); 
 		}
 
         .icons {
@@ -95,8 +98,6 @@
 		    line-height: 31px;
 		    padding: 8px 15px;
 		    vertical-align: top;
-		    
-            
         }
         .pre {
         	margin-top: 0px;
@@ -113,6 +114,7 @@
 	        display: flex;
 	        justify-content: space-between;
 	        margin-bottom: 70Px;
+	        pointer-events: none;
     	}
         }
         .media-videos iframe, .membership-videos iframe {
@@ -159,34 +161,68 @@
         .social-icons img.youtube {
 			 margin-top: 10px; /* 원하는 여백 크기로 조정 */
 		}
-/*         .logo {
-            position: absolute;
-            top: 10px; /* 로고의 위치 조정 */
-            left: 10px; /* 로고의 위치 조정 */
-            width: 150px; /* 로고의 너비 조정 */
-            z-index: 1000; /* 다른 요소 위에 로고가 보이도록 설정 */
-        }
-         */
+
+        .logo-container {
+ 	    flex: 0 0 auto; 
+		}	
+
+		.logo {
+  	     height: 60px; 
+  	     width:auto;
+         position: absolute;
+         top: 10px; 
+         left: 10px; 
+         width: 150px; 
+         z-index: 1000; 
+  	    
+ 		}
+         
+		.navbar {
+	    display: flex;
+	    justify-content: space-between;
+	    align-items: center;
+	    background-color: black;
+	    padding: 10px 20px;
+	    position: absolute;
+	    top: 0;
+	    width: 100%;
+	    z-index: 1000;
+	    height:100px;;
+		}
+		.header img, .container > .header > pre {
+		    margin: 0 auto;
+		    display: block;
+		}
     </style>
 </head>
 <!-- 	<div>
 	   <img src="/image/artist/ArtistLogo" alt="로고" class="logo">
 	</div> -->
-<body>
+<body>	
+	<nav>
+		<nav class="navbar">
+        <div class="logo-container">
+		<a href="<%=request.getContextPath()%>/">
+        <img src="<%=request.getContextPath()%>/image/artistpage/KUPID-removebg-preview.png" alt="Logo" class="logo" onclick="location.href = 'http://localhost:9090/SemiProject-KLP/'">
+		</a>
 
-    <div class="container">
-        <div class="header">
-            <!-- 대표 영상 -->
-            <iframe src="https://www.youtube.com/embed/Ey53EQhkLY8?autoplay=1&mute=1&controls=0&start=22" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            	<img src="data:image/png;base64,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">
-            	<pre class="pre">
-RIIZE(라이즈)는 ‘Rise & Realize’를 더해 만든 이름으로, 함께 성장하고
-            꿈을 실현해 나아가는 팀이라는 의미다.
 
-   각자의 개성을 지닌 일곱 명의 멤버가 하나의 팀으로서 쌓아가는 리얼타임 오디세이(성장사)를
-  바탕으로, RIIZE만의 감정을 표현하는 독자적 음악 스타일인 Emotional Pop을 선사한다.
-    RIIZE는 일상의 모든 경험에서 영감을 얻는 Emotional Pop Rookie가 성장해, 
-세상 모두의 공감을 불러일으키는 Emotional Pop Artist로서의 꿈을 실현하겠다는 포부를 가지고 있다.
+
+	</nav>
+	
+	    <div class="container">
+	        <div class="header">
+	            <!-- 대표 영상 -->
+	            <iframe src="https://www.youtube.com/embed/Ey53EQhkLY8?autoplay=1&mute=1&controls=0&start=22" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+	            	<img src="data:image/png;base64,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">
+	            	<pre class="pre">
+									RIIZE(라이즈)는 ‘Rise & Realize’를 더해 만든 이름으로, 함께 성장하고
+									                  꿈을 실현해 나아가는 팀이라는 의미다.
+									
+								 각자의 개성을 지닌 일곱 명의 멤버가 하나의 팀으로서 쌓아가는 리얼타임 오디세이(성장사)를
+								     바탕으로, RIIZE만의 감정을 표현하는 독자적 음악 스타일인 Emotional Pop을 선사한다.
+									   RIIZE는 일상의 모든 경험에서 영감을 얻는 Emotional Pop Rookie가 성장해, 
+							      세상 모두의 공감을 불러일으키는 Emotional Pop Artist로서의 꿈을 실현하겠다는 포부를 가지고 있다.
             	</pre>
         </div>
           <div class="media-section">
@@ -291,7 +327,7 @@ RIIZE(라이즈)는 ‘Rise & Realize’를 더해 만든 이름으로, 함께 �
         });
 
 
-        document.querySelector('').addEventListener('click', function() {
+        document.querySelector('.media-section').addEventListener('click', function() {
             showMembershipPopup();
         });
        
