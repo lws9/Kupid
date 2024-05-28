@@ -3,9 +3,9 @@
 	<%@ page import="com.kupid.faq.model.dto.FaqDto" %>
 	
 	<% List<FaqDto> faqs = (List<FaqDto>) request.getAttribute("faq");
-	  StringBuffer pagebar=(StringBuffer)request.getAttribute("pageBar");
-	  String category=request.getParameter("category");
-	String searchKeyword=request.getParameter("searchkeyword");
+	   StringBuffer pagebar=(StringBuffer)request.getAttribute("pageBar");
+	   String category=request.getParameter("category");
+	   String searchKeyword=request.getParameter("searchkeyword");
 	%>
 	
 	<!DOCTYPE html>
