@@ -185,6 +185,7 @@
         white-space: nowrap;
         width: 100%;
         width: 180px;
+     	color: black;
 	 }
 	 .artist-card image {
          transition: transform 0.3s ease-in-out; /* Smooth transition for the scaling */
@@ -297,15 +298,22 @@
     
     <div class="container mb-5">
 		<h3 class="main_title">새로운 아티스트를 만나보세요!</h3>
+		
 	    <div class="row mt-4 text-center">
 	<%for(int i=0; i<groupList.size();i++){ %>
 	    	<div class="col-2-4 pb-2 mt-2 mb-2">
-	    		<div class="shadow-sm d-inline-grid rounded artist-card">
-			        <svg class="bd-placeholder-img rounded-top" width="180" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=groupList.get(i).getGroupImg() %>" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/></svg>
+    			<a href="<%= request.getContextPath() %>/artist/artist.do" class="artist-card">
+	    		<div class="shadow-sm d-inline-grid rounded">
+			        <svg class="bd-placeholder-img rounded-top" width="180" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+				        <title>Placeholder</title>
+				        <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
+				        <image href="<%=request.getContextPath()%>/upload/artist/<%=groupList.get(i).getGroupImg() %>" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/>
+			        </svg>
 			        <div class="rounded-bottom d-inline-flex" style="background-color: #f4eefd" width="180px" height="180px">
 			        	<h4 class="fw-normal mt-2 group-name"><%= groupList.get(i).getGroupName()%></h4>
 					</div>
 				</div>
+				</a>
 	      	</div><!-- /.col-lg-4 -->
 		<%} %>
 		</div>
@@ -317,18 +325,21 @@
     
     
     <%if(loginMember != null && favorite.size()>0){ %>
+    <hr class="featurette-divider">
     <div class="container mb-5">
 		<h3 class="main_title">구독 아티스트</h3>
 	    <div class="row mt-4 text-center">
     	<%for(int i=0; i<favorite.size();i++){
  			if(favorite.get(i).getMemberNo()==loginMember.getMemberNo()){%>
 		      <div class="col-2-4 pb-2 mt-2 mb-2">
+		      <a href="<%= request.getContextPath() %>/feed/feedView.do" class="artist-card">
 		      	<div class="shadow-sm d-inline-grid rounded artist-card">
-			        <svg class="bd-placeholder-img rounded-top" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=favorite.get(i).getGroupImg() %>" width="100%" preserveAspectRatio="xMidYMid slice"/></svg>
+			        <svg class="bd-placeholder-img rounded-top" width="180" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=favorite.get(i).getGroupImg() %>" width="100%" preserveAspectRatio="xMidYMid slice"/></svg>
 			        <div class="rounded-bottom d-inline-flex" style="background-color: #f4eefd" width="180px" height="180px">
 			        	<h4 class="fw-normal mt-2 group-name"><%= favorite.get(i).getGroupName()%></h4>
 		        	</div>
 		        </div>
+		        </a>
 		      </div><!-- /.col-lg-4 -->
 	      <%} %>
 		<%} %>
@@ -336,13 +347,14 @@
       </div>
 	    <!-- 비회원이거나 회원중에 아무도 구독하지 않은 회원 -->
 		<%}else if(loginMember != null && subscribeCk==false){ %>
+		<hr class="featurette-divider">
 	        <%for(int i=0; i<4;i++){ %>
         	<div class="container mb-5">
 				<h3 class="main_title">인기 아티스트</h3>
 			    <div class="row mt-4 text-center">
 			    	<div class="col-2-4 pb-2 mt-2 mb-2">
 			    		<div class="shadow-sm d-inline-grid rounded artist-card">
-					        <svg class="mt-4 bd-placeholder-img rounded-top" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=groupList.get(i).getGroupImg() %>" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/></svg>
+					        <svg class="mt-4 bd-placeholder-img rounded-top" width="180" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=groupList.get(i).getGroupImg() %>" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/></svg>
 					        <div class="rounded-bottom d-inline-flex" style="background-color: #f4eefd" width="180px" height="180px">
 						        <h4 class="fw-normal mt-2"><%= groupList.get(i).getGroupName()%></h4>
 						    </div>
@@ -367,8 +379,7 @@
       </div>
 	<br>
 	</div> -->
-    <hr class="featurette-divider">
-	<a href="<%=request.getContextPath()%>/feed/feedView.do">피드</a>
+    
 </main>
 </body>
 <script>
