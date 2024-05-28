@@ -40,14 +40,13 @@ public class LoginEndServlet extends HttpServlet {
 		if(saveId!=null) {			//
 			saveIdCookie.setMaxAge(60*60*24*7);
 			saveIdCookie.setPath("/");
-//			response.addCookie(saveIdCookie);
+			response.addCookie(saveIdCookie);
 		}else {
 //			Cookie saveIdCookie=new Cookie("saveId","삭제");
 			saveIdCookie.setMaxAge(0);
 		}
 		response.addCookie(saveIdCookie);
 		
-		boolean subscribeCk = false;
 		if(userId.equals("")||password.equals("")) {
 			request.setAttribute("msg", "아이디나 패스워드를 입력하세요");
 			request.setAttribute("loc", "/");
@@ -63,26 +62,14 @@ public class LoginEndServlet extends HttpServlet {
 				session.setAttribute("loginMember", m);
 				//아티스트그룹의 구독자 정보 가져오기(전체 아티스트)
 				List<MemberDto> result = new MemberService().selectGroupSubscribe();
-				for (MemberDto e : result) {
-				    if (m.getMemberNo() == e.getMemberNo()) {
-				        subscribeCk = true;
-				        break; // 일치하는 항목을 찾으면 루프를 종료합니다.
-				    }
-				}
-				request.setAttribute("subscribeCk", subscribeCk);
 				session.setAttribute("GroupSubscribe", result);
 				//화면전환
 				if(!userId.equals("admin")) {
 				response.sendRedirect(request.getContextPath());
-	//				request.getRequestDispatcher("/")
-	//				.forward(request, response);
-	//				request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")
-	//				.forward(request, response);
 				}else {
 					response.sendRedirect(request.getContextPath()+"/manager/home.do");
 				}
 			}else {
-				request.setAttribute("subscribeCk", subscribeCk);
 				request.setAttribute("msg","아이디나 패스워드가 일치하지 않습니다");
 				request.setAttribute("loc", "/");
 				request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")

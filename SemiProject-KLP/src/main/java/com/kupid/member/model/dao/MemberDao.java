@@ -56,6 +56,9 @@ public class MemberDao {
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
 		}
 		return result; 
 	}
@@ -73,6 +76,9 @@ public class MemberDao {
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
 		}
 		return result; 
 	}
@@ -99,6 +105,9 @@ public class MemberDao {
 			result = pstmt.executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
 		}
 		return result; 
 	}
@@ -116,6 +125,9 @@ public class MemberDao {
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
 		}
 		return m; 
 	}
@@ -132,6 +144,9 @@ public class MemberDao {
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
 		}
 		return m; 
 	}
@@ -148,6 +163,9 @@ public class MemberDao {
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
 		}
 		return m;
 	}

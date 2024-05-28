@@ -46,7 +46,6 @@ public class GetgroupListFilter extends HttpFilter implements Filter {
 //			List<MemberDto> result = new MemberService().selectGroupSubscribe();
 			List<GroupDto> result = new MainService().selectAllGroup();
 			request.setAttribute("GroupList", result);
-			request.setAttribute("subscribeCk", false);
 		//화면전환
 //		response.sendRedirect(request.getContextPath());
 		chain.doFilter(request, response);
