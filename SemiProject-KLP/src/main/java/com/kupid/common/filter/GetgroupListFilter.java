@@ -19,7 +19,7 @@ import com.kupid.main.service.MainService;
 /**
  * Servlet Filter implementation class EncodingFilter
  */
-@WebFilter("/*")
+@WebFilter("/")
 public class GetgroupListFilter extends HttpFilter implements Filter {
        
     /**

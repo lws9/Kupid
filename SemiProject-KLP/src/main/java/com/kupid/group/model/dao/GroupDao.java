@@ -1,5 +1,7 @@
 package com.kupid.group.model.dao;
 
+import static com.kupid.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -35,6 +37,9 @@ public class GroupDao {
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
 		}
 		return g; 
 	}

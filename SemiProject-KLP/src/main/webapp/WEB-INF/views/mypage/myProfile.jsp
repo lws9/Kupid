@@ -28,11 +28,13 @@
 <style>
 .myprofile-container{
 	display: flex;
-	width: 100vh;
 	height: 100vh;
 	justify-content: left;
 }
-.myProfile.main {
+.myProfile{
+	margin: 0px auto;
+}
+.main {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -49,7 +51,7 @@
   flex-direction: column;
   align-items: center;
   margin: 0px auto;
-  width: 825px;
+  width: 100%;
   padding: 30px 70px 30px 70px;
 }
 .myProfile .title {
@@ -212,7 +214,7 @@
 }
 .myProfile .favorite1_box {
   position: relative;
-  margin: 8px 0px 0px;
+  margin: 8px 0px 20px;
   min-width: 0px;
   border-radius: 8px 8px 8px 8px;
   padding: 8px 16px 8px 16px;
@@ -264,13 +266,13 @@
 	background-color: #ededed;
 }
 </style>
-<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <div class="myprofile-container">
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/mypageSidebar.jsp" %>
     <main class="main">
-        <section class="myProfile">
-            <div class="flex_col">
-                <h1 class="title fs-5">내 프로필</h1>
+        <section class="myProfile flex-fill d-flex">
+            <div class="flex_col flex-fill">
+                <h2 class="title">내 프로필</h2>
                 <div class="content_box1 content_box">
                     <div class="flex_row">
                         <div class="flex_col1">
@@ -278,7 +280,7 @@
                             	<img class='<%=(m.getProfileImgOriname().equals("기본프로필.png"))?"profile_img_default":"profile_img" %>' src="<%=src %>" id="profile_img">
                            	</div>
                            	<div class="btn_container">
-	                            <button class="btn btn_chane_img" id="changeImg">사진 변경</button>
+	                            <button class="btn btn_chane_img text-nowrap" id="changeImg">사진 변경</button>
 	                            <%if(!m.getProfileImgOriname().equals("기본프로필.png")){ %>
 		                            <form>
 		                            	<button class="btn btn_chane_img" id="deleteImg">사진 삭제</button>
@@ -295,22 +297,21 @@
                        	<div class="content-container">
                        		<input type="text" name="no" value="<%=m.getMemberNo()%>" style="display:none">
                        		<div class="nickname-container">
-                            	<h3>닉네임</h3>
+                            	<h4>닉네임</h4>
                             	<h5 id="nicknameResult"></h5>
                            	</div>
                             <div class="favorite1_box">
 	                            <input type="text" name="nickname" id="nickname" class="favorite1" value="<%=m.getNickname()%>">
                             </div>
-                            <h3>소개</h3>
+                            <h4>소개</h4>
                             <div class="favorite1_box" >
 	                            <textarea name="introduce" cols="55" rows="5" class="favorite1" placeholder="소개를 적어주세요 :)" style="resize: none" ><%=m.getIntroduce()%></textarea>
                             </div>
-                            <h3>관심 아티스트</h3>
+                            <h4>관심 아티스트</h4>
                             <div class="favorite1_box readonly_box">
                             	<input type="text" name="favorite" id="pickArtist" class="favorite1" style="color: #828282" placeholder="관심 아티스트를 골라주세요 :)" readOnly value='<%= (profile.get(0).getGroupName()!=null)?favorite:""%>'>
                             </div>
                          </div>
-                         <br>
 	                		<button name="submit" class="btn btn_chane_img">적용</button>
                         </form>
                     </div>
