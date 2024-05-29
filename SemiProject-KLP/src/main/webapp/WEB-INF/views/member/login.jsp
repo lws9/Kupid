@@ -254,9 +254,9 @@
             <span class="highlight3"><span class="highlight3_span0">By clicking login, you agree to our </span><br><a class="policy-link">Terms of Service</a><span class="highlight3_span2"> and </span><a class="policy-link">Privacy Policy</a></span>
         </h5> -->
         <div class="flex_row1">
-            <a href='<%=request.getContextPath()%>/member/enrollmember.do' class="subtitle1">비밀번호 찾기</a>
+            <a href='<%=request.getContextPath()%>/member/findid.do' class="subtitle1">아이디 찾기</a>
             <h3 class="subtitle11">|</h3>
-            <a href='<%=request.getContextPath()%>/member/enrollmember.do' class="subtitle1">아이디 찾기</a>
+            <a href='<%=request.getContextPath()%>/member/findpw.do' class="subtitle1">비밀번호 찾기</a>
             <h3 class="subtitle11">|</h3>
             <a href='<%=request.getContextPath()%>/member/enrollmember.do' class="subtitle1">회원가입</a>
         </div>
