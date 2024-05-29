@@ -14,7 +14,7 @@
 	    width: 90vw; /* 90% of viewport width */
 	    outline-offset: 70px;
 	    margin: 0px auto;
-	    padding: 50px;
+	    padding: 70px 50px 70px 50px;
 	}
 	@media (max-width: 600px) {
 	    .flex_col {

@@ -203,8 +203,6 @@
         margin-right: calc(-.5* var(--bs-gutter-x));
     	margin-left: calc(2.5* var(--bs-gutter-x));
 	}
-	
-	 
 }
 </style>
 </head>
@@ -237,12 +235,6 @@
         <div class="next">❯</div>
 </div>
 <main class="">
-	<%-- <div>
-	<% if(loginMember!=null){ %>
-		<h2><%=loginMember.getMemberName()%>님 안녕하세요 :)</h2>
-	<%} %>
-	</div> --%>
-    
     <div class="container mb-5">
 		<div class="row d-flex justify-content-center">
 		    <form class="d-flex justify-content-center position-relative" role="search">

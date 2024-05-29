@@ -35,6 +35,7 @@
 	margin: 0px auto;
 }
 .main {
+  margin: 0px auto;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -44,6 +45,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .myProfile .flex_col {
   position: relative;
@@ -66,22 +68,12 @@
 .myProfile .content-container{
 	padding: 15px;
 }
-.myProfile .content_box1 {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  margin: 49.5px 0px 0px;
-  width: 100%;
-  border-radius: 59px 59px 59px 59px;
-  outline: 1px solid #d1ade3;
-  outline-offset: -1px;
-}
 .myProfile .flex_row {
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 0px 10px;
+  gap: 0px 30px;
   margin: 71px auto 65px;
   width: 84.97%;
 }
@@ -164,6 +156,7 @@
   outline: 1px solid #e0e0e0;
   outline-offset: -1px;
   width: 100%;
+  min-width: 700px;
 }
 .myProfile .highlight_box {
   position: relative;
@@ -266,14 +259,13 @@
 	background-color: #ededed;
 }
 </style>
-<div class="myprofile-container">
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-<%@ include file="/WEB-INF/views/common/mypageSidebar.jsp" %>
+<div class="myprofile-container">
     <main class="main">
-        <section class="myProfile flex-fill d-flex">
+        <section class="myProfile flex-fill d-flex align-items-center">
             <div class="flex_col flex-fill">
                 <h2 class="title">내 프로필</h2>
-                <div class="content_box1 content_box">
+                <div class="content_box shadow-sm">
                     <div class="flex_row">
                         <div class="flex_col1">
                         	<div class="profile_img_container">
@@ -305,11 +297,11 @@
                             </div>
                             <h4>소개</h4>
                             <div class="favorite1_box" >
-	                            <textarea name="introduce" cols="55" rows="5" class="favorite1" placeholder="소개를 적어주세요 :)" style="resize: none" ><%=m.getIntroduce()%></textarea>
+	                            <textarea name="introduce" cols="55" rows="3" class="favorite1" placeholder="소개를 적어주세요 :)" style="resize: none" ><%=m.getIntroduce()%></textarea>
                             </div>
                             <h4>관심 아티스트</h4>
-                            <div class="favorite1_box readonly_box">
-                            	<input type="text" name="favorite" id="pickArtist" class="favorite1" style="color: #828282" placeholder="관심 아티스트를 골라주세요 :)" readOnly value='<%= (profile.get(0).getGroupName()!=null)?favorite:""%>'>
+                            <div class="favorite1_box">
+                            	<input type="text" name="favorite" id="pickArtist" class="favorite1" style="color: #828282" placeholder="아직 구독한 아티스트가 없습니다" readOnly value='<%= (profile.get(0).getGroupName()!=null)?favorite:""%>'>
                             </div>
                          </div>
 	                		<button name="submit" class="btn btn_chane_img">적용</button>
@@ -320,6 +312,7 @@
         </section>
     </main>
 </div>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 <script>
 
 	$("#changeImg").click(e=>{

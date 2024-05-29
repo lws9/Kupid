@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.kupid.member.model.dto.MemberDto" %>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <%
 	int pagenum = 0;
 	if((Integer) request.getAttribute("pagenum")!=null){
