@@ -290,6 +290,58 @@ public class MemberDAO {
 		return members;
 	}
 	
+	public int memberCount(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("memberCount"));
+			pstmt.setString(1, "회원");
+			rs=pstmt.executeQuery();
+			if(rs.next()) result=rs.getInt(1);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int artistCount(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("artistCount"));
+			pstmt.setString(1, "아티스트");
+			rs=pstmt.executeQuery();
+			if(rs.next()) result=rs.getInt(1);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int membershipCount(Connection conn) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("membershipCount"));
+			rs=pstmt.executeQuery();
+			if(rs.next()) result=rs.getInt(1);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	public MemberDto getMembership(ResultSet rs) throws SQLException {
 		return MemberDto.builder()

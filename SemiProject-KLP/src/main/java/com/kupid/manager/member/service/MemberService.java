@@ -6,7 +6,9 @@ import static com.kupid.common.JDBCTemplate.getConnection;
 import static com.kupid.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.kupid.manager.member.model.dao.MemberDAO;
 import com.kupid.member.model.dto.MemberDto;
@@ -102,6 +104,19 @@ public class MemberService {
 		List<MemberDto> members=dao.selectMembershipByNo(conn,no);
 		close(conn);
 		return members;
+	}
+	
+	public Map managerHomeCountAll() {
+		Connection conn=getConnection();
+		int membercount=dao.memberCount(conn);
+		int artistcount=dao.artistCount(conn);
+		int membershipcount=dao.membershipCount(conn);
+		Map m=new HashMap();
+		m.put("mc", membercount);
+		m.put("ac", artistcount);
+		m.put("msc", membershipcount);
+		
+		return m;
 	}
 	
 }
