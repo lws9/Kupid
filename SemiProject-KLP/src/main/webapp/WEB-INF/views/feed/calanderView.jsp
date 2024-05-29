@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
             $.ajax({
                 url: '<%=request.getContextPath()%>/feed/calendarbirth.do', // 이벤트 데이터를 불러올 서버의 URL
                 method: 'GET',
+                data:{"groupNo":}
                 dataType: 'json',
                 success: function(data) {
                     successCallback(data);
