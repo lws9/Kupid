@@ -266,6 +266,6 @@
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
 <script>
 	$(document).on("click", "button.social_login", function(e) {
-		location.href="https://kauth.kakao.com/oauth/authorize?client_id=483bf9a98ad4edfd5c3b00bb569518bd&redirect_uri=http://localhost:9090/SemiProject-KLP/kakao/kakaologinservlet.do&response_type=code"
+		location.href="https://kauth.kakao.com/oauth/authorize?client_id=483bf9a98ad4edfd5c3b00bb569518bd&redirect_uri=<%=request.getContextPath()%>/SemiProject-KLP/kakao/kakaologinservlet.do&response_type=code"
 	})
 </script>

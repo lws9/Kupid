@@ -317,7 +317,6 @@ public class FeedDao {
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("insertFeedFile"));
-			System.out.println(pstmt.toString());
 			pstmt.setInt(1, seq);
 			pstmt.setString(2, filePath);
 			result = pstmt.executeUpdate();
@@ -330,7 +329,7 @@ public class FeedDao {
 		return result;
 	}
 	
-	public int insertFeed(Connection conn, Feed f, int seq,int memberNo) {
+	public int insertFeed(Connection conn, Feed f, int seq,int memberNo,int groupNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -342,6 +341,7 @@ public class FeedDao {
 			pstmt.setString(4,f.getFeedContent());
 			pstmt.setInt(5,0);
 			pstmt.setInt(6,0);
+			pstmt.setInt(7,groupNo);
 			
 			result = pstmt.executeUpdate();
 		}catch(SQLException e) {
@@ -370,6 +370,26 @@ public class FeedDao {
 		}
 		return memberNo;
 		
+	}
+	
+	
+	public int selectGroupNoById(Connection conn, int memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+		int groupId = 0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectGroupNoById"));
+			pstmt.setInt(1,memberNo);
+			rs=pstmt.executeQuery();
+			rs.next();
+			memberNo=rs.getInt(1);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return memberNo;
 	}
 	
 	public int deleteFeedComment(Connection conn,int replyNumber) {
@@ -458,6 +478,8 @@ public class FeedDao {
 				.filePath(rs.getString("FILE_PATH"))
 				.profileImgOriname(rs.getString("PROFILE_IMG_ORINAME"))
 				.commentCnt(rs.getInt("commentCnt"))
+				.groupNo(rs.getInt("GROUP_NO"))
+				.memberGrade(rs.getString("MEMBER_GRADE"))
 				.build();
 	}
 	public static LikeFeed getLikeFeed(ResultSet rs) throws SQLException{
@@ -501,6 +523,7 @@ public class FeedDao {
 				.likes(rs.getInt("likes"))
 				.memberNo(rs.getInt("memberno"))
 				.replyContent(rs.getString("reply_content"))
+				.groupNo(rs.getInt("GROUP_NO"))
 				.build();
 	}
 }

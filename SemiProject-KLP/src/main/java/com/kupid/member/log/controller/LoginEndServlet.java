@@ -57,7 +57,6 @@ public class LoginEndServlet extends HttpServlet {
 			//메인페이지 회원 구독 아티스트 조회를 위한 조인 쿼리문을 통한 메소드로 변경
 			MemberDto m=new MemberService().selectMemberById(userId,password);
 			HttpSession session=request.getSession();
-			System.out.println(m.getMemberGrade());
 			if(m!=null&&(m.getMemberGrade().equals("회원")||m.getMemberGrade().equals("아티스트")||m.getMemberGrade().equals("관리자"))) {
 				//로그인한 정보를 HttpSession에 저장
 				session.setAttribute("loginMember", m);

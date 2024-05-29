@@ -42,7 +42,7 @@ public class InfiniteScrollServlet extends HttpServlet {
 			numPerpage=Integer.parseInt(request.getParameter("numPerpage"));			
 		}catch(NumberFormatException e) {}
 		
-		 List<Feed> feeds=new FeedService().selectFeedAll(cPage,numPerpage);
+		List<Feed> feeds=new FeedService().selectFeedAll(cPage,numPerpage);
 
 			
 //			int totalData=new FeedService().selectFeedCount();
