@@ -1,5 +1,6 @@
 package com.kupid.mypage.info.controller;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.Random;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kupid.common.MemberSendEmail;
+import com.kupid.mypage.dao.MyPageDao;
 
 /**
  * Servlet implementation class MyInfoEmailCheckServlet
@@ -25,7 +27,16 @@ public class MyInfoSendEmailServlet extends HttpServlet {
     public MyInfoSendEmailServlet() {
         super();
     }
+    private Properties sql = new Properties();
+	{
+		String path = MyInfoSendEmailServlet.class.getResource("/email.properties").getPath();
 
+		try (FileReader fr = new FileReader(path)){
+			sql.load(fr);
+		} catch(IOException e){
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -40,7 +51,8 @@ public class MyInfoSendEmailServlet extends HttpServlet {
 		
 		String email = request.getParameter("email");
 		MemberSendEmail mse = new MemberSendEmail(email);
-		Session session = mse.setting(new Properties(), "kupid_79@naver.com", "kupid7979!");
+//		Session session = mse.setting(new Properties(), "kupid_79@naver.com", "kupid7979!");
+		Session session = mse.setting(new Properties(), sql.getProperty("id"), sql.getProperty("pw"));
 		
 		int result = mse.SendMail(session, title, content);
 		if(result>0) {
