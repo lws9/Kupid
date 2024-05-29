@@ -16,13 +16,6 @@
     height: ; /* 높이를 자동으로 */
     display: flex;
     position: relative;
-/*     width: 598px;
-    overflow: hidden;
-    border-radius: 30px;
-    margin: 15px 30px 15px 30px;
-    /* border: 1px solid blue; 
-    height: 325px;
-    display: inline-block; */
  }
   .slider {
     width: 200%; 
@@ -32,19 +25,12 @@
     position: relative;
     will-change: transform;
     z-index: 1;
-/*      width: 2400px; /* (600px * 6) 
-     height: 330px;
-     display: flex;
-     transition: transform 0.5s ease; */
  }
  
  .slide {
      width: 100%;
  	 flex: 0 0 100%; /* 각 슬라이드가 컨테이너의 100% */
  	 display: contents;
-/*   width: 600px;
-     height: 325px;
-     align-self: center; */
  }
 
  .slide img {
@@ -53,10 +39,6 @@
     object-fit: cover;
     display: block;
     border-radius: 30px;
-/*      width: 100%;
-     height: 100%;
-     object-fit: cover;
-     display: inline; */
  }
 
  .prev, .next {
@@ -77,12 +59,10 @@
  }
  
  .prev {
-     /* left: 10px; */
      left: 45px; 
  }
 
  .next {
-     /* right: 10px; */
      right: 45px; 
  }
  .banner{
@@ -96,9 +76,6 @@
  .img_outline{
  	outline: 5px #faf0ff solid;
  }
- /* .container a:hover{
- 	cursor: pointer;
- } */
    .favorite1_box {
 	  position: relative;
 	  margin: 8px 0px 0px;
@@ -118,17 +95,21 @@
 	  vertical-align: top;
 	  position: realtive;
   }
+  .position-relative {
+	    position: relative;
+	}
 	 .searchBox{
 	 	background: #fff;
 	    border-radius: 14px;
 	    box-shadow: 0 5px 20px #00000014;
 	    /* display: block; */
 	    display: none;
-	    left: 30%;
 	    position: absolute;
 	    z-index: 1000;
-	    top: 67%;
-	    width: 40%;
+	    top: 110%;
+	    width: 100%;
+/* 	    top: 67%;
+	    width: 40%; */
 	 }
 	 .searchUl{
 	 	list-style: none;
@@ -185,6 +166,7 @@
         white-space: nowrap;
         width: 100%;
         width: 180px;
+     	color: black;
 	 }
 	 .artist-card image {
          transition: transform 0.3s ease-in-out; /* Smooth transition for the scaling */
@@ -206,6 +188,22 @@
 	 	flex: 0 0 20%;
         max-width: 20%;
 	 }
+	 img#badge{
+	 	width: 50px;
+	 	height: auto;
+	 	z-index: 999;
+	 }
+	 span.translate-middle{
+	 	/* transform: translate(-66%, -47%) !important; */
+	 }
+	 .row {
+	    display: flex;
+	    justify-content: space-between;
+	    flex-wrap: wrap;
+        margin-right: calc(-.5* var(--bs-gutter-x));
+    	margin-left: calc(2.5* var(--bs-gutter-x));
+	}
+}
 </style>
 </head>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
@@ -215,8 +213,11 @@
 	List<GroupDto> groupList = (List<GroupDto>) request.getAttribute("GroupList");
 	List<MemberDto> favorite = new ArrayList<>();
 	if(loginMember!=null){
-		favorite=(List<MemberDto>) session.getAttribute("GroupSubscribe");
-		subscribeCk = (boolean) request.getAttribute("subscribeCk");
+		int no = loginMember.getMemberNo();
+		//favorite=(List<MemberDto>) session.getAttribute("GroupSubscribe");
+		favorite=(List<MemberDto>) request.getAttribute("GroupSubscribe");
+		//구독테이블에 등록된 회원번호가 로그인회원의 번호와 일치하면 true
+		subscribeCk = favorite.stream().anyMatch(e->e.getMemberNo() == no);
 	}
 	//인기순 정렬?
 	/* List<MemberDto> artist_popular =  */
@@ -235,114 +236,112 @@
         <div class="next">❯</div>
 </div>
 <main class="">
-	<%-- <div>
-	<% if(loginMember!=null){ %>
-		<h2><%=loginMember.getMemberName()%>님 안녕하세요 :)</h2>
-	<%} %>
-	</div> --%>
-	<!-- 샘플 출력 양식(지우지 말것) -->
-	<%-- <div class="container mb-5">
-	<h2 class="main_title">테스트 출력</h2>
-	   <div class="row mt-4 text-center">
-	       <div class="col-md-3 pb-2">
-	        <svg class="mt-4 bd-placeholder-img img_outline rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath() %>/image/아이유셀카.jpg" width="100%"/></svg>
-	        <h4 class="fw-normal mt-4">아티스트 2</h4>
-	      </div><!-- /.col-lg-4 -->
-	      <div class="col-md-3 pb-2">
-	        <svg class="mt-4 bd-placeholder-img img_outline rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath() %>/image/아이유셀카.jpg" width="100%"/></svg>
-	        <h4 class="fw-normal mt-4">아티스트 3</h4>
-	      </div><!-- /.col-lg-4 -->
-	      <div class="col-md-3 pb-2">
-	        <svg class="mt-4 bd-placeholder-img img_outline rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath() %>/image/아이유셀카.jpg" width="100%"/></svg>
-	        <h4 class="fw-normal mt-4">아티스트 4</h4>
-	      </div><!-- /.col-lg-4 -->
-	      <div class="col-md-3 pb-2">
-	        <svg class="mt-4 bd-placeholder-img img_outline rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath() %>/image/아이유셀카.jpg" width="100%"/></svg>
-	        <h4 class="fw-normal mt-4">아티스트 4</h4>
-	      </div><!-- /.col-lg-4 -->
-	      <div class="col-md-3 pb-2">
-	        <svg class="mt-4 bd-placeholder-img img_outline rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath() %>/image/아이유셀카.jpg" width="100%"/></svg>
-	        <h4 class="fw-normal mt-4">아티스트 4</h4>
-	      </div><!-- /.col-lg-4 -->
-	    </div><!-- /.row -->
-    </div><!-- /.container -->  --%>
-    
-	    <div class="container mb-5">
-			<div class="row d-flex justify-content-center">
-			    <form class="d-flex justify-content-center" role="search">
-				    <input class="searchAritist form-control w-50" type="search" placeholder="아티스트명을 입력해주세요" id="searchArtist">
-			    </form>
-		    </div>
-			<div id="searchResult" class="searchBox">
-				<%-- <ul role="listbox" class="searchUl">
-					<li role="none">
-						<a role="option" class="">
-							<svg class="bd-placeholder-img rounded-circle" width="30" height="30" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath() %>/image/아이유셀카.jpg" width="100%"/></svg>
-							<em>
-								<mark>I</mark><span>U</span>
-							</em>
-						</a>
-					</li>
-					<li role="none">
-						<a role="option" class="">
-							<svg class="bd-placeholder-img rounded-circle" width="30" height="30" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath() %>/image/아이유셀카.jpg" width="100%"/></svg>
-							<em>
-								<mark>I</mark><span>U</span>
-							</em>
-						</a>
-					</li>
-				</ul> --%>
-			</div>
-	    </div>
-    
     <div class="container mb-5">
-		<h3 class="main_title">새로운 아티스트를 만나보세요!</h3>
-	    <div class="row mt-4 text-center">
-	<%for(int i=0; i<groupList.size();i++){ %>
-	    	<div class="col-2-4 pb-2 mt-2 mb-2">
-	    		<div class="shadow-sm d-inline-grid rounded artist-card">
-			        <svg class="bd-placeholder-img rounded-top" width="180" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=groupList.get(i).getGroupImg() %>" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/></svg>
-			        <div class="rounded-bottom d-inline-flex" style="background-color: #f4eefd" width="180px" height="180px">
-			        	<h4 class="fw-normal mt-2 group-name"><%= groupList.get(i).getGroupName()%></h4>
-					</div>
-				</div>
-	      	</div><!-- /.col-lg-4 -->
-		<%} %>
-		</div>
-		<a class="icon-link mt-4 ms-4 show-more" href="#">
-		  더보기
-		  <svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg>
-		</a>
-	</div>
-    
-    
-    <%if(loginMember != null && favorite.size()>0){ %>
+		<div class="row d-flex justify-content-center">
+		    <form class="d-flex justify-content-center position-relative" role="search">
+			    <input class="searchAritist form-control w-50" type="search" placeholder="아티스트명을 입력해주세요" id="searchArtist">
+				<div id="searchResult" class="searchBox w-50"></div>
+		    </form>
+	    </div>
+    </div>
+    <!-- 구독 아티스트가 있는 회원 : 해당 아티스트 피드로 연결 -->
+    <%if(loginMember != null && subscribeCk){ %>
     <div class="container mb-5">
 		<h3 class="main_title">구독 아티스트</h3>
 	    <div class="row mt-4 text-center">
     	<%for(int i=0; i<favorite.size();i++){
  			if(favorite.get(i).getMemberNo()==loginMember.getMemberNo()){%>
 		      <div class="col-2-4 pb-2 mt-2 mb-2">
-		      	<div class="shadow-sm d-inline-grid rounded artist-card">
-			        <svg class="bd-placeholder-img rounded-top" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=favorite.get(i).getGroupImg() %>" width="100%" preserveAspectRatio="xMidYMid slice"/></svg>
-			        <div class="rounded-bottom d-inline-flex" style="background-color: #f4eefd" width="180px" height="180px">
+		      <a href="<%= request.getContextPath() %>/feed/feedView.do?groupno=<%=favorite.get(i).getGroupNo() %>" class="artist-card">
+		      	<div class="shadow-sm d-inline-grid rounded artist-card position-relative">
+			        <svg class="bd-placeholder-img rounded-top" width="180" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=favorite.get(i).getGroupImg() %>" width="100%" preserveAspectRatio="xMidYMid slice"/></svg>
+			        	 <span class="position-absolute top-50 start-50 translate-middle p-2 rounded-circle">
+			       			<%-- <img src="<%= request.getContextPath() %>/image/icon/sendingheart2.png" alt="subscribe" id="badge"> --%>
+			       			<!-- <button>구독</button> -->
+					  </span>
+			        <div class="rounded-bottom d-inline-flex" style="background-color: #e0d1f6" width="180px" height="180px">
 			        	<h4 class="fw-normal mt-2 group-name"><%= favorite.get(i).getGroupName()%></h4>
 		        	</div>
 		        </div>
+		        </a>
 		      </div><!-- /.col-lg-4 -->
 	      <%} %>
 		<%} %>
       </div>
       </div>
-	    <!-- 비회원이거나 회원중에 아무도 구독하지 않은 회원 -->
-		<%}else if(loginMember != null && subscribeCk==false){ %>
+	    <hr class="featurette-divider">
+	<%} %>
+    
+    
+    <div class="container mb-5">
+		<h3 class="main_title">새로운 아티스트를 만나보세요!</h3>
+	    <div class="row mt-4 text-center ">
+	 <!-- 구독이 없거나 비회원 : 전체 아티스트 목록 출력 -->
+	<%if(loginMember!=null && !subscribeCk || loginMember==null){
+		for(int i=0; i<groupList.size();i++){ %>
+	    	<div class="col-2-4 pb-2 mt-2 mb-4">
+    			<a href="<%= request.getContextPath() %>/artist/artist.do" class="artist-card">
+	    		<div class="shadow-sm d-inline-grid rounded position-relative">
+			        <svg class="bd-placeholder-img rounded-top" width="180" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+				        <title>Placeholder</title>
+				        <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
+				        <image href="<%=request.getContextPath()%>/upload/artist/<%=groupList.get(i).getGroupImg() %>" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/>
+			        </svg>
+			        <!-- <span class="position-absolute top-50 start-50 translate-middle p-2 rounded-circle">
+			       			<button>구독</button>
+					  </span> -->
+			        <div class="rounded-bottom d-inline-flex" style="background-color: #e0d1f6" width="180px" height="180px">
+			        	<h4 class="fw-normal mt-2 group-name"><%= groupList.get(i).getGroupName()%></h4>
+					</div>
+				</div>
+				</a>
+	      	</div><!-- /.col-lg-4 -->
+		<%}%>
+		</div>
+		<!-- 구독이 있는 회원 : 구독하지 않은 아티스트만 출력 : 해당 아티스트 페이지로 연결 -->
+	<% }else if(loginMember!=null && subscribeCk){ %>
+		<%for(int i=0; i<favorite.size();i++){ %>
+			<%if(favorite.get(i).getMemberNo()==0){ %>
+	    	<div class="col-2-4 pb-2 mt-2 mb-2">
+    			<a href="<%= request.getContextPath() %>/artist/artist.do" class="artist-card">
+	    		<div class="shadow-sm d-inline-grid rounded position-relative">
+			        <svg class="bd-placeholder-img rounded-top" width="180" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+				        <title>Placeholder</title>
+				        <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
+				        <image href="<%=request.getContextPath()%>/upload/artist/<%=favorite.get(i).getGroupImg() %>" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/>
+			        </svg>
+						 <%-- <%if(loginMember !=null && (favorite.get(i).getMemberNo()==loginMember.getMemberNo())){ %>
+			        	<span class="position-absolute top-0 start-100 translate-middle p-2 rounded-circle">
+			       			<img src="<%= request.getContextPath() %>/image/icon/sendingheart2.png" alt="subscribe" id="badge">
+					   </span> 
+					   <%} %> --%>
+			        <div class="rounded-bottom d-inline-flex" style="background-color: #e0d1f6" width="180px" height="180px">
+			        	<h4 class="fw-normal mt-2 group-name"><%= favorite.get(i).getGroupName()%></h4>
+					</div>
+				</div>
+				</a>
+	      	</div><!-- /.col-lg-4 -->
+			<%} %>
+		<%} %>
+	<%} %>
+		<!-- <a class="icon-link mt-4 ms-4 show-more" href="#">
+		  더보기
+		  <svg class="bi" aria-hidden="true"><use xlink:href="#arrow-right"></use></svg>
+		</a> -->
+	</div>
+    
+    
+    
+    <!-- 비회원이거나 회원중에 아무도 구독하지 않은 회원 -->
+	<%-- <%}else if(loginMember != null && subscribeCk==false){ %>
+		<hr class="featurette-divider">
 	        <%for(int i=0; i<4;i++){ %>
         	<div class="container mb-5">
 				<h3 class="main_title">인기 아티스트</h3>
 			    <div class="row mt-4 text-center">
 			    	<div class="col-2-4 pb-2 mt-2 mb-2">
 			    		<div class="shadow-sm d-inline-grid rounded artist-card">
-					        <svg class="mt-4 bd-placeholder-img rounded-top" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=groupList.get(i).getGroupImg() %>" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/></svg>
+					        <svg class="mt-4 bd-placeholder-img rounded-top" width="180" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=groupList.get(i).getGroupImg() %>" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/></svg>
 					        <div class="rounded-bottom d-inline-flex" style="background-color: #f4eefd" width="180px" height="180px">
 						        <h4 class="fw-normal mt-2"><%= groupList.get(i).getGroupName()%></h4>
 						    </div>
@@ -350,13 +349,8 @@
 			      	</div><!-- /.col-lg-4 -->
 				</div>
 			</div>
-				<%} %>
-		<%}/* else if(loginMember == null){ */ %>
+				<%} %> --%>
       
-
-
-	
-
    <!--  <div class="row featurette">
       <div class="col-md-7">
         <h2 class="featurette-heading fw-normal lh-1">And lastly, this one. <span class="text-body-secondary">Checkmate.</span></h2>
@@ -367,8 +361,7 @@
       </div>
 	<br>
 	</div> -->
-    <hr class="featurette-divider">
-	<a href="<%=request.getContextPath()%>/feed/feedView.do">피드</a>
+    
 </main>
 </body>
 <script>
@@ -457,7 +450,7 @@
 			if(filterG.length>0){
 				filterG.map(e=>{
 				let lis="";
-					lis+=`<li><a>
+					lis+=`<li><a href="<%= request.getContextPath() %>/artist/artist.do">
 						<svg class="bd-placeholder-img rounded-circle" width="30" height="30" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath() %>/upload/artist/\${e.groupImg}" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/></svg>
 						<em>
 							<span>\${e.groupName}</span>
@@ -477,3 +470,4 @@
 	});
 </script>
 </html>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>

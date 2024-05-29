@@ -16,7 +16,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 /**
  * Servlet implementation class MyInfoUpdateServlet
  */
-@WebServlet(name = "profileUpdate", urlPatterns = { "/mypage/profileupdate.do" })
+@WebServlet("/mypage/profileupdate.do")
 public class MyProfileUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

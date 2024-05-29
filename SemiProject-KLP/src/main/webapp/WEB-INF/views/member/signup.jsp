@@ -23,6 +23,7 @@
 	  color: black;
 	  text-align: center;
 	  font-size: 2.2em;
+	  margin-bottom: 40px;
 	}
 	.flex_col {
 	    position: relative;
@@ -94,7 +95,7 @@
 	.input_box_fail {
 	  background-color: #ffc6c6;
 	}
-	.h3_btn_container{
+	.h4_btn_container{
 		display: flex;
 		gap: 15px;
 		align-items: center; /* 수직 중앙 정렬 */
@@ -105,6 +106,7 @@
 	.result-container{
 		display: flex;
 		gap: 10px;
+		align-items: center;
 	}
 	.btn_container{
 		display: flex;
@@ -139,6 +141,7 @@
 	}
 	.part .p{
 		margin: 0px;
+		font-size: 1rem;
 	}
 	.flex_col2 .ck{
 		text-decoration: none;
@@ -146,6 +149,12 @@
 	}
 	.flex_col2 .ck:hover{
 		text-decoration: underline;
+	}
+	.flex_col2 label{
+		letter-spacing: -2px;
+	}
+	.flex_col2 label:hover{
+		cursor: pointer;
 	}
 </style>
 <section class="join">
@@ -159,7 +168,7 @@
 				} %>
 				<div class="part">
 					<div class="result-container">
-					<h3>아이디</h3>
+					<h4 class="mt-2">아이디</h4>
 					<h5 id="idResult"></h5>
 					</div>
 			        <div class="input_box">
@@ -168,7 +177,7 @@
 		        </div>
 		        <!-- <div class="part-none">
 		        <div class="result-container">
-                	<h3>닉네임</h3>
+                	<h4>닉네임</h4>
                 	<h5 id="nicknameResult"></h5>
                	</div>
                 <div class="input_box">
@@ -177,10 +186,10 @@
                 </div> -->
 		        <div class="part">
 		        <div class="result-container">
-				<h3>비밀번호</h3><h5 id="pwckResult"></h5>
+				<h4 class="mt-2">비밀번호</h4><h5 id="pwckResult"></h5>
 				</div>
 		        <div class="pw_box">
-                	<p class="p">영문, 숫자, 특수문자가 포함된 4~20글자 사용가능</p>
+                	<p class="p">영문, 숫자, 특수문자가 포함된 4 ~ 20글자 사용가능</p>
                 </div>
 		        <div class="input_box">
 		         	<input required type="password" class="inputTag" name="pw" id="pw" placeholder="비밀번호 입력">
@@ -190,20 +199,20 @@
 		        </div>
 		        </div>
 		        <div class="part">
-				<h3>이름</h3>
+				<h4 class="mt-2">이름</h4>
 			     <div class="input_box">
 			      	<input required type="text"  placeholder="이름" class="inputTag" name="name" id="name">
 			    </div>
 			    </div>
 		        <div class="part">
-				<h3>생년월일</h3>
+				<h4 class="mt-2">생년월일</h4>
 			     <div class="input_box">
 			      	<input required type="date"  class="inputTag" name="birth" id="birth">
 <!-- 			      	<input required type="date"  placeholder="" class="inputTag" name="name" id="name"> -->
 			    </div>
 			    </div>
 			    <div class="part">
-				<h3>성별</h3>
+				<h4 class="mt-2">성별</h4>
 				<div class="radio_box">
 					<div>
 					<input type='radio' name='gender' id="female" value='female'>
@@ -220,23 +229,23 @@
 				</div>
 				</div>
 				<div class="part">
-				<h3>연락처</h3>
+				<h4 class="mt-2">연락처</h4>
 		        <div class="input_box">
 		         	<input required type="text" class="inputTag" name="phone" id="phone" placeholder="'-'를 제외하고 숫자만 입력">
 		        </div>
 		        </div>
 		        <div class="part">
-		        <div class="h3_btn_container">
-			       	<h3>이메일</h3>
-			       	<button class="Emailbtn" type="button" onclick="emailValidCk();">이메일 검증</button>
+		        <div class="h4_btn_container">
+			       	<h4 class="mt-2">이메일</h4>
+			       	<button class="btn2" type="button" id="btnEmail" onclick="emailValidCk();">이메일 검증</button>
 		       </div>
 		        <div class="input_box">
 		        	 <input required type="text" name="email" placeholder="예) kupid_79@naver.com" class="inputTag" id="inputEmail" value="">
 		        </div>
 		        </div>
 		        <div class="part">
-		         <div class="h3_btn_container">
-			       	<h3>주소</h3>
+		         <div class="h4_btn_container">
+			       	<h4 class="mt-2">주소</h4>
 			       	<button class="btn2" type="button" id="searchAddress" onclick="addressSearch();">주소 검색</button>
 		      	</div>
 		        <div class="input_box readonly_box">
@@ -247,23 +256,23 @@
 		     	</div>
 		     	</div>
 		     	<!-- <div class="part">
-				<h3>관심 아티스트 (선택)</h3>
+				<h4>관심 아티스트 (선택)</h4>
 		        <div class="input_box">
 		        	<input type="text" name="favorite" id="pickArtist" class="inputTag" style="color: #828282" readOnly placeholder="관심 아티스트를 골라주세요" value=''>
 		        </div>
 		        </div> -->
 	     		<div class="flex_col2">
 	     			<div>
-			    		<input type='checkbox' name='ckAll' id="ckAll"><label for="ckAll"> (필수, 선택) 전체 동의</label>
+			    		<input type='checkbox' class="me-2" name='ckAll' id="ckAll"><label for="ckAll"> (필수, 선택) 전체 동의</label>
 			    	</div>
 			    	<div>
-			        	<input required type='checkbox' name='ck1' id="ck1"><label for="ck1"><a class="ck" target="_blank" rel="noopener noreferrer" href="<%=request.getContextPath()%>/policies/terms?no=1"> (필수) 개인회원 약관 동의</a></label>
+			        	<input required type='checkbox' class="me-2" name='ck1' id="ck1"><label for="ck1"><a class="ck" target="_blank" rel="noopener noreferrer" href="<%=request.getContextPath()%>/policies/terms?no=1"> (필수) 개인회원 약관 동의</a></label>
 			        </div>
 			        <div>
-			        	<input required type='checkbox' name='ck2' id='ck2'><label for="ck2"> <a class="ck" target="_blank" rel="noopener noreferrer" href="<%=request.getContextPath()%>/policies/terms?no=2"> (필수) 개인정보 수집 및 이용 약관에 동의</a></label>
+			        	<input required type='checkbox' class="me-2" name='ck2' id='ck2'><label for="ck2"> <a class="ck" target="_blank" rel="noopener noreferrer" href="<%=request.getContextPath()%>/policies/terms?no=2"> (필수) 개인정보 수집 및 이용 약관에 동의</a></label>
 			        </div>
 			        <div>
-			        <input type='checkbox' name='ck3' id='ck3'><label for="ck3"> <a class="ck" target="_blank" rel="noopener noreferrer" href="<%=request.getContextPath()%>/policies/terms?no=3"> (선택) 마케팅 정보 수신 동의 - 이메일, SMS/MMS</a></label>
+			        <input type='checkbox' name='ck3' class="me-2" id='ck3'><label for="ck3"> <a class="ck" target="_blank" rel="noopener noreferrer" href="<%=request.getContextPath()%>/policies/terms?no=3">(선택) 마케팅 정보 수신 동의 - 이메일, SMS/MMS</a></label>
 			    	</div>
 			</div>
 			<br>
@@ -283,7 +292,7 @@ $(document).ready(function() {
     <%if (kakaoMember != null) {%>
         var email = "<%= kakaoMember.getEmail() %>";
         $('#inputEmail').attr('placeholder', email).val(email).prop('readonly', true);
-        $("button.Emailbtn").css('display','none');
+        $("button#btnEmail").css('display','none');
     <%}%>
 });
 
@@ -352,7 +361,7 @@ $(document).ready(function() {
 			data: {"id": target},
 			success: data=>{
 				console.dir(data);
-				$("#idResult").text("");
+				$("#idResult").text("").addClass('p');
 				if(data==0){
 					$("#idResult").text("* 사용가능한 아이디입니다.").css("color","#c552ff");
 				} else if(data!=0){
@@ -490,3 +499,4 @@ $(document).ready(function() {
 			   outlineColor: "#e0e0e0" //테두리
 			};
 </script>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>

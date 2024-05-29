@@ -28,11 +28,14 @@
 <style>
 .myprofile-container{
 	display: flex;
-	width: 100vh;
 	height: 100vh;
 	justify-content: left;
 }
-.myProfile.main {
+.myProfile{
+	margin: 0px auto;
+}
+.main {
+  margin: 0px auto;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -42,6 +45,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 .myProfile .flex_col {
   position: relative;
@@ -49,7 +53,7 @@
   flex-direction: column;
   align-items: center;
   margin: 0px auto;
-  width: 825px;
+  width: 100%;
   padding: 30px 70px 30px 70px;
 }
 .myProfile .title {
@@ -64,22 +68,12 @@
 .myProfile .content-container{
 	padding: 15px;
 }
-.myProfile .content_box1 {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  margin: 49.5px 0px 0px;
-  width: 100%;
-  border-radius: 59px 59px 59px 59px;
-  outline: 1px solid #d1ade3;
-  outline-offset: -1px;
-}
 .myProfile .flex_row {
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 0px 10px;
+  gap: 0px 30px;
   margin: 71px auto 65px;
   width: 84.97%;
 }
@@ -162,6 +156,7 @@
   outline: 1px solid #e0e0e0;
   outline-offset: -1px;
   width: 100%;
+  min-width: 700px;
 }
 .myProfile .highlight_box {
   position: relative;
@@ -212,7 +207,7 @@
 }
 .myProfile .favorite1_box {
   position: relative;
-  margin: 8px 0px 0px;
+  margin: 8px 0px 20px;
   min-width: 0px;
   border-radius: 8px 8px 8px 8px;
   padding: 8px 16px 8px 16px;
@@ -266,19 +261,18 @@
 </style>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <div class="myprofile-container">
-<%@ include file="/WEB-INF/views/common/mypageSidebar.jsp" %>
     <main class="main">
-        <section class="myProfile">
-            <div class="flex_col">
-                <h1 class="title fs-5">내 프로필</h1>
-                <div class="content_box1 content_box">
+        <section class="myProfile flex-fill d-flex align-items-center">
+            <div class="flex_col flex-fill">
+                <h2 class="title">내 프로필</h2>
+                <div class="content_box shadow-sm">
                     <div class="flex_row">
                         <div class="flex_col1">
                         	<div class="profile_img_container">
                             	<img class='<%=(m.getProfileImgOriname().equals("기본프로필.png"))?"profile_img_default":"profile_img" %>' src="<%=src %>" id="profile_img">
                            	</div>
                            	<div class="btn_container">
-	                            <button class="btn btn_chane_img" id="changeImg">사진 변경</button>
+	                            <button class="btn btn_chane_img text-nowrap" id="changeImg">사진 변경</button>
 	                            <%if(!m.getProfileImgOriname().equals("기본프로필.png")){ %>
 		                            <form>
 		                            	<button class="btn btn_chane_img" id="deleteImg">사진 삭제</button>
@@ -295,22 +289,21 @@
                        	<div class="content-container">
                        		<input type="text" name="no" value="<%=m.getMemberNo()%>" style="display:none">
                        		<div class="nickname-container">
-                            	<h3>닉네임</h3>
+                            	<h4>닉네임</h4>
                             	<h5 id="nicknameResult"></h5>
                            	</div>
                             <div class="favorite1_box">
 	                            <input type="text" name="nickname" id="nickname" class="favorite1" value="<%=m.getNickname()%>">
                             </div>
-                            <h3>소개</h3>
+                            <h4>소개</h4>
                             <div class="favorite1_box" >
-	                            <textarea name="introduce" cols="55" rows="5" class="favorite1" placeholder="소개를 적어주세요 :)" style="resize: none" ><%=m.getIntroduce()%></textarea>
+	                            <textarea name="introduce" cols="55" rows="3" class="favorite1" placeholder="소개를 적어주세요 :)" style="resize: none" ><%=m.getIntroduce()%></textarea>
                             </div>
-                            <h3>관심 아티스트</h3>
-                            <div class="favorite1_box readonly_box">
-                            	<input type="text" name="favorite" id="pickArtist" class="favorite1" style="color: #828282" placeholder="관심 아티스트를 골라주세요 :)" readOnly value='<%= (profile.get(0).getGroupName()!=null)?favorite:""%>'>
+                            <h4>관심 아티스트</h4>
+                            <div class="favorite1_box">
+                            	<input type="text" name="favorite" id="pickArtist" class="favorite1" style="color: #828282" placeholder="아직 구독한 아티스트가 없습니다" readOnly value='<%= (profile.get(0).getGroupName()!=null)?favorite:""%>'>
                             </div>
                          </div>
-                         <br>
 	                		<button name="submit" class="btn btn_chane_img">적용</button>
                         </form>
                     </div>
@@ -319,6 +312,7 @@
         </section>
     </main>
 </div>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 <script>
 
 	$("#changeImg").click(e=>{

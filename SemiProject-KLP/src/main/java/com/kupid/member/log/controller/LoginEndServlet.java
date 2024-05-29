@@ -1,6 +1,7 @@
 package com.kupid.member.log.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpSession;
 
 import com.kupid.member.model.dto.MemberDto;
 import com.kupid.member.model.service.MemberService;
-import com.kupid.mypage.service.MyPageService;
 
 /**
  * Servlet implementation class LoginServlet
@@ -40,14 +40,13 @@ public class LoginEndServlet extends HttpServlet {
 		if(saveId!=null) {			//
 			saveIdCookie.setMaxAge(60*60*24*7);
 			saveIdCookie.setPath("/");
-//			response.addCookie(saveIdCookie);
+			response.addCookie(saveIdCookie);
 		}else {
 //			Cookie saveIdCookie=new Cookie("saveId","삭제");
 			saveIdCookie.setMaxAge(0);
 		}
 		response.addCookie(saveIdCookie);
 		
-		boolean subscribeCk = false;
 		if(userId.equals("")||password.equals("")) {
 			request.setAttribute("msg", "아이디나 패스워드를 입력하세요");
 			request.setAttribute("loc", "/");
@@ -58,31 +57,27 @@ public class LoginEndServlet extends HttpServlet {
 			//메인페이지 회원 구독 아티스트 조회를 위한 조인 쿼리문을 통한 메소드로 변경
 			MemberDto m=new MemberService().selectMemberById(userId,password);
 			HttpSession session=request.getSession();
-			if(m!=null) {
+			if(m!=null&&(m.getMemberGrade().equals("회원")||m.getMemberGrade().equals("아티스트")||m.getMemberGrade().equals("관리자"))) {
 				//로그인한 정보를 HttpSession에 저장
 				session.setAttribute("loginMember", m);
 				//아티스트그룹의 구독자 정보 가져오기(전체 아티스트)
-				List<MemberDto> result = new MemberService().selectGroupSubscribe();
-				for (MemberDto e : result) {
-				    if (m.getMemberNo() == e.getMemberNo()) {
-				        subscribeCk = true;
-				        break; // 일치하는 항목을 찾으면 루프를 종료합니다.
-				    }
-				}
-				request.setAttribute("subscribeCk", subscribeCk);
-				session.setAttribute("GroupSubscribe", result);
 				//화면전환
-				if(!userId.equals("admin")) {
+				if(!userId.equals("admin")) {//관리자로 로그인하면 메인페이지가 아니라 관리자 페이지로 이동되게 하는 로직
 				response.sendRedirect(request.getContextPath());
-	//				request.getRequestDispatcher("/")
-	//				.forward(request, response);
-	//				request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")
-	//				.forward(request, response);
 				}else {
 					response.sendRedirect(request.getContextPath()+"/manager/home.do");
 				}
+			}else if(m.getMemberGrade().equals("탈퇴")) {//탈퇴된 애들 로그인 막는 로직
+				request.setAttribute("msg", "탈퇴된 회원입니다.");
+				request.setAttribute("loc", "/");
+				request.getRequestDispatcher(request.getServletContext().getInitParameter("viewpath")+"common/msg.jsp")
+				.forward(request, response);
+			}else if(m.getMemberGrade().equals("정지")){
+				request.setAttribute("msg", "정지된 회원입니다.");
+				request.setAttribute("loc", "/");
+				request.getRequestDispatcher(request.getServletContext().getInitParameter("viewpath")+"common/msg.jsp")
+				.forward(request, response);
 			}else {
-				request.setAttribute("subscribeCk", subscribeCk);
 				request.setAttribute("msg","아이디나 패스워드가 일치하지 않습니다");
 				request.setAttribute("loc", "/");
 				request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")

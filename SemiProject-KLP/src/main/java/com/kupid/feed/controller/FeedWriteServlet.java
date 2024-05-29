@@ -58,6 +58,7 @@ public class FeedWriteServlet extends HttpServlet {
 				//나머지 정보를 가져오기
 				String writer=mr.getParameter("writer");
 				String content=mr.getParameter("content");
+				int groupNo=Integer.parseInt(mr.getParameter("groupNo"));
 				
 				Enumeration<String> formNames = mr.getFileNames();
 				List<String> fileNames = new ArrayList<String>();
@@ -81,20 +82,17 @@ public class FeedWriteServlet extends HttpServlet {
 					String oriFileName=mr.getFilesystemName(name);
 					String fileSavePath = request.getContextPath()+ "/upload/feed" + File.separator + refileName;
 					
-					System.out.println(name + "name");
-					System.out.println(fileSavePath + "fileSavePath");
 	//				int fileResult = new FeedService().insertFile(filePath);
-					fileNames.add(fileSavePath);
+					fileNames.add(refileName);
 					
 				}
-				
-				new FeedService().insertProcess(f, fileNames);
+				new FeedService().insertProcess(f, fileNames,groupNo);
 
 				
 				
 				
 
-				request.getRequestDispatcher("/feed/feedwriteend.do").forward(request, response);
+				request.getRequestDispatcher("/WEB-INF/views/feed/feedView.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
