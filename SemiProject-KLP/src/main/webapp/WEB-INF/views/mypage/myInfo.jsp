@@ -186,10 +186,10 @@
 	                            <input type="text" name="id" class="inputTag" value="<%=loginMember.getMemberId()%>" readOnly>
                             </div>
                             <div class="result-container mt-2">
-                            <h4 class="ms-2">비밀번호</h4><h5 id="pwckResult"></h5>
+                            <h4 class="mb-0 ms-2">비밀번호</h4><h5 id="pwckResult"></h5>
                             </div>
                             <div class="h3_btn_container ms-2">
-                            	<p class="p">영문, 숫자, 특수문자가 포함된 4~20글자 사용가능</p>
+                            	<p class="p my-1">영문, 숫자, 특수문자가 포함된 4~20글자 사용가능</p>
                             </div>
                             <div class="input_box mt-3 mb-3">
 	                            <input type="password" id="prepw" name="prepw" class="inputTag" required placeholder="현재 비밀번호 입력">
@@ -269,13 +269,13 @@
 		input = target;
 		if($("#newpw").val() !== ""){
 			if(input ===$("#newpw").val()){
-				$("#pwckResult").text('비밀번호가 일치합니다.').css("color","#c552ff");
+				$("#pwckResult").text('비밀번호가 일치합니다.').css("color","#c552ff").addClass('p');
 				$("#newpwck").parent().removeClass('input_box_fail');
 				if($("#newpwck").blur()){
 					$("#pwckResult").text('');
 				}
 			}else{
-				$("#pwckResult").text('비밀번호가 일치하지 않습니다.').css("color","#ff5e5e");
+				$("#pwckResult").text('비밀번호가 일치하지 않습니다.').css("color","#ff5e5e").addClass('p');
 				$("#newpwck").parent().addClass('input_box_fail');
 			}
 		} else{
