@@ -55,10 +55,19 @@ public class MyPageService {
 		close(conn);
 		return result;
 	}
-	public int updateInfo(String id, String name, String newpw, String phone, String email, String address,
+	public int updateInfo(String id, String name, String phone, String email, String address,
 			String addressDetail) {
 		Connection conn = getConnection();
-		int result = dao.updateInfo(conn, id, name, newpw, phone, email, address, addressDetail);
+		int result = dao.updateInfo(conn, id, name, phone, email, address, addressDetail);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	public int updateInfoAll(String id, String name, String newpw, String phone, String email, String address,
+			String addressDetail) {
+		Connection conn = getConnection();
+		int result = dao.updateInfoAll(conn, id, name, newpw, phone, email, address, addressDetail);
 		if(result>0) commit(conn);
 		else rollback(conn);
 		close(conn);
