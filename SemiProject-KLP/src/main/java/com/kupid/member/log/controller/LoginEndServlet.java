@@ -1,6 +1,7 @@
 package com.kupid.member.log.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpSession;
 
 import com.kupid.member.model.dto.MemberDto;
 import com.kupid.member.model.service.MemberService;
-import com.kupid.mypage.service.MyPageService;
 
 /**
  * Servlet implementation class LoginServlet
@@ -62,8 +62,6 @@ public class LoginEndServlet extends HttpServlet {
 				//로그인한 정보를 HttpSession에 저장
 				session.setAttribute("loginMember", m);
 				//아티스트그룹의 구독자 정보 가져오기(전체 아티스트)
-				List<MemberDto> result = new MemberService().selectGroupSubscribe();
-				session.setAttribute("GroupSubscribe", result);
 				//화면전환
 				if(!userId.equals("admin")) {//관리자로 로그인하면 메인페이지가 아니라 관리자 페이지로 이동되게 하는 로직
 				response.sendRedirect(request.getContextPath());
