@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
-
+	console.log("dsasad");
     calendar.render();
 });
 
