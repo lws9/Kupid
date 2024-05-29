@@ -14,7 +14,7 @@
 	    width: 90vw; /* 90% of viewport width */
 	    outline-offset: 70px;
 	    margin: 0px auto;
-	    padding: 50px;
+	    padding: 70px 50px 70px 50px;
 	}
 	@media (max-width: 600px) {
 	    .flex_col {
@@ -254,9 +254,9 @@
             <span class="highlight3"><span class="highlight3_span0">By clicking login, you agree to our </span><br><a class="policy-link">Terms of Service</a><span class="highlight3_span2"> and </span><a class="policy-link">Privacy Policy</a></span>
         </h5> -->
         <div class="flex_row1">
-            <a href='<%=request.getContextPath()%>/member/enrollmember.do' class="subtitle1">비밀번호 찾기</a>
+            <a href='<%=request.getContextPath()%>/member/findid.do' class="subtitle1">아이디 찾기</a>
             <h3 class="subtitle11">|</h3>
-            <a href='<%=request.getContextPath()%>/member/enrollmember.do' class="subtitle1">아이디 찾기</a>
+            <a href='<%=request.getContextPath()%>/member/findpw.do' class="subtitle1">비밀번호 찾기</a>
             <h3 class="subtitle11">|</h3>
             <a href='<%=request.getContextPath()%>/member/enrollmember.do' class="subtitle1">회원가입</a>
         </div>
@@ -265,7 +265,10 @@
 </section>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
 <script>
+var contextPath = window.location.pathname.split('/')[1];
+var dynamicContextPath = window.location.origin + '/' + contextPath;
 	$(document).on("click", "button.social_login", function(e) {
-		location.href="https://kauth.kakao.com/oauth/authorize?client_id=483bf9a98ad4edfd5c3b00bb569518bd&redirect_uri=http://localhost:9090/SemiProject-KLP/kakao/kakaologinservlet.do&response_type=code"
+		location.href="https://kauth.kakao.com/oauth/authorize?client_id=483bf9a98ad4edfd5c3b00bb569518bd&redirect_uri="+window.location.origin + '/' + contextPath + '/kakao/kakaologinservlet.do&response_type=code';
+		
 	})
 </script>

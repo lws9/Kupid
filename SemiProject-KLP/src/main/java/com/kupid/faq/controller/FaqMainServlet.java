@@ -54,11 +54,11 @@ public class FaqMainServlet extends HttpServlet {
 		}catch(NumberFormatException e){
 			
 		}
-		int numBerpage=5;
+		int numBerpage = 10;
 		try {
-			numBerpage=Integer.parseInt(request.getParameter("numBerpage"));
-		}catch(NumberFormatException e){
-			
+			numBerpage = Integer.parseInt(request.getParameter("numBerpage"));
+		} catch (NumberFormatException e) {
+
 		}
 		
 		int totalData=new FaqSevice().selectAllCount();

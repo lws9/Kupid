@@ -203,8 +203,6 @@
         margin-right: calc(-.5* var(--bs-gutter-x));
     	margin-left: calc(2.5* var(--bs-gutter-x));
 	}
-	
-	 
 }
 </style>
 </head>
@@ -216,7 +214,8 @@
 	List<MemberDto> favorite = new ArrayList<>();
 	if(loginMember!=null){
 		int no = loginMember.getMemberNo();
-		favorite=(List<MemberDto>) session.getAttribute("GroupSubscribe");
+		//favorite=(List<MemberDto>) session.getAttribute("GroupSubscribe");
+		favorite=(List<MemberDto>) request.getAttribute("GroupSubscribe");
 		//구독테이블에 등록된 회원번호가 로그인회원의 번호와 일치하면 true
 		subscribeCk = favorite.stream().anyMatch(e->e.getMemberNo() == no);
 	}
@@ -237,12 +236,6 @@
         <div class="next">❯</div>
 </div>
 <main class="">
-	<%-- <div>
-	<% if(loginMember!=null){ %>
-		<h2><%=loginMember.getMemberName()%>님 안녕하세요 :)</h2>
-	<%} %>
-	</div> --%>
-    
     <div class="container mb-5">
 		<div class="row d-flex justify-content-center">
 		    <form class="d-flex justify-content-center position-relative" role="search">
@@ -259,7 +252,7 @@
     	<%for(int i=0; i<favorite.size();i++){
  			if(favorite.get(i).getMemberNo()==loginMember.getMemberNo()){%>
 		      <div class="col-2-4 pb-2 mt-2 mb-2">
-		      <a href="<%= request.getContextPath() %>/feed/feedView.do" class="artist-card">
+		      <a href="<%= request.getContextPath() %>/feed/feedView.do?groupno=<%=favorite.get(i).getGroupNo() %>" class="artist-card">
 		      	<div class="shadow-sm d-inline-grid rounded artist-card position-relative">
 			        <svg class="bd-placeholder-img rounded-top" width="180" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=favorite.get(i).getGroupImg() %>" width="100%" preserveAspectRatio="xMidYMid slice"/></svg>
 			        	 <span class="position-absolute top-50 start-50 translate-middle p-2 rounded-circle">
@@ -457,7 +450,7 @@
 			if(filterG.length>0){
 				filterG.map(e=>{
 				let lis="";
-					lis+=`<li><a>
+					lis+=`<li><a href="<%= request.getContextPath() %>/artist/artist.do">
 						<svg class="bd-placeholder-img rounded-circle" width="30" height="30" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath() %>/upload/artist/\${e.groupImg}" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"/></svg>
 						<em>
 							<span>\${e.groupName}</span>

@@ -108,15 +108,14 @@ public class FeedService {
 		
 	}
 	
-	public int insertProcess(Feed f, List<String> filePath) {
+	public int insertProcess(Feed f, List<String> filePath, int groupNo) {
 		Connection conn = getConnection();
 		int seq = dao.selectSeqFeed(conn);
 		int memberNo = dao.selectMemberNoById(conn,f.getFeedWriterName());
-		int result = dao.insertFeed(conn,f,seq,memberNo);
+		int result = dao.insertFeed(conn,f,seq,memberNo,groupNo);
 		Iterator<String>iter = filePath.iterator();
 		while(iter.hasNext()) {
 			String nextPath = iter.next();
-			System.out.println(nextPath);
 			result = dao.insertFeedFile(conn,nextPath,seq);
 			
 			if(result==0) {

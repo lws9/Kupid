@@ -20,6 +20,7 @@ public class FaqSevice {
 	public List<FaqDto> selectFaqAll(int cPage,int numberpage){
 		Connection conn=getConnection();
 		List<FaqDto> faq = faqDao.selectFaqAll(conn, cPage, numberpage);
+		System.out.println(cPage);
 		close(conn);
 		return faq;
 		}
