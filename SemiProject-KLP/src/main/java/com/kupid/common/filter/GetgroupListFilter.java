@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.kupid.group.model.dto.GroupDto;
 import com.kupid.main.service.MainService;
+import com.kupid.member.model.dto.MemberDto;
+import com.kupid.member.model.service.MemberService;
 
 /**
  * Servlet Filter implementation class EncodingFilter
@@ -46,6 +48,8 @@ public class GetgroupListFilter extends HttpFilter implements Filter {
 //			List<MemberDto> result = new MemberService().selectGroupSubscribe();
 			List<GroupDto> result = new MainService().selectAllGroup();
 			request.setAttribute("GroupList", result);
+			List<MemberDto> favorite = new MemberService().selectGroupSubscribe();
+			request.setAttribute("GroupSubscribe", favorite);
 		//화면전환
 //		response.sendRedirect(request.getContextPath());
 		chain.doFilter(request, response);
