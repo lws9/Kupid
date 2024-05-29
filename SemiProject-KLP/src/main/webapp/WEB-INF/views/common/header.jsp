@@ -19,6 +19,10 @@
 		}
 	}
 	String servletHistory=request.getParameter("return");
+	int pagenum = 0;
+	if((Integer) request.getAttribute("pagenum")!=null){
+		pagenum=(Integer) request.getAttribute("pagenum");
+	}
 %>
 <style>
 	/* 폰트 */
@@ -56,6 +60,13 @@
      letter-spacing: -1.36px;
      font-size: 1.1rem;
 	}
+	.dropdown-item.active, .dropdown-item:active{
+		background-color: #d1ade3;
+	}
+	.btn:hover{
+		background-color: #d1ade3;
+		box-shadow: 0 1rem 3rem rgba(black, .175);
+	}
 </style>
 <header class="p-2 border-bottom d-flex">
       <div class="d-flex flex-wrap align-items-center w-100">
@@ -80,15 +91,20 @@
             <img src="<%=request.getContextPath()%>/image/icon/profile.png" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
 	     <%}else{ %>
-	          <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle me-2" data-bs-toggle="dropdown" aria-expanded="false">
-	            <img src="<%=request.getContextPath()%>/upload/member/profile/<%=loginMember.getProfileImgOriname() %>" alt="mdo" width="32" height="32" class="rounded-circle">
+	          <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle me-2 " data-bs-toggle="dropdown" aria-expanded="false">
+	            <img src="<%=request.getContextPath()%>/upload/member/profile/<%=loginMember.getProfileImgOriname() %>" alt="mdo" width="32" height="32" class="rounded-circle mb-1">
+				<%=loginMember.getMemberName()%>
 	          </a>
 	          <ul class="dropdown-menu text-small">
 	          	<%if(loginMember.getMemberId().equals("admin")){%>
 	          		<li><a class="dropdown-item" href="<%=request.getContextPath()%>/manager/home.do">관리자페이지</a></li>
 	            	<li><hr class="dropdown-divider"></li>
 	          	<%} %>
-	            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/myprofile.do?pagenum=1">My KUPID</a></li>
+	            <li class="ms-3 my-1 fs-5">My KUPID</li>
+	            <li><a class="dropdown-item <%=pagenum==1?"active":""%>" href="<%=request.getContextPath()%>/mypage/myprofile.do?pagenum=1">내 프로필</a></li>
+	            <li><a class="dropdown-item <%=pagenum==2?"active":""%>" href="<%=request.getContextPath()%>/mypage/myinfo.do?pagenum=2">내 정보</a></li>
+	            <li><a class="dropdown-item <%=pagenum==3?"active":""%>" href="<%=request.getContextPath()%>/mypage/myprofile.do?pagenum=3">내 활동</a></li>
+	            <%-- <li><a class="dropdown-item" href="<%=request.getContextPath()%>/mypage/myactivity.do?pagenum=4">내 문의</a></li> --%>
 	            <li><hr class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="<%=request.getContextPath()%>/logout.do">로그아웃</a></li>
 	          </ul>

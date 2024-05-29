@@ -5,6 +5,14 @@ String email =(String) (request.getAttribute("email"));
 %>
 <script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 <style>
+body{
+     font-family: 'DungGeunMo';
+     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+     letter-spacing: -1.36px;
+     font-size: 1.1rem;
+	}
 .check_email {
     position: relative;
     display: flex;

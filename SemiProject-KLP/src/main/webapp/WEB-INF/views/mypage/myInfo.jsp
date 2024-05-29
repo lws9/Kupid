@@ -10,7 +10,8 @@
 .myInfo-container{
 	display: flex;
 	width: 100%;
-	justify-content: left;
+	justify-content: center;
+	margin: 0px auto;
 }
 .myInfo.main {
   position: relative;
@@ -78,7 +79,7 @@
    min-width: 75px;
    color: black;
    text-align: center;
-   background-color: #e9bcff;
+   background-color: #d1ade3;
    border-radius: 8px;
    padding: 4px 8px 4px 8px;
    border: none;
@@ -105,12 +106,8 @@
   outline: 1px solid #e0e0e0;
   outline-offset: -1px;
   width: 100%;
+  padding: 30px 170px 30px 170px;
 }
-/* .myInfo .favorite {
-  position: relative;
-  margin: 32px 0px 0px;
-  color: black;
-} */
 .myInfo .input_box {
   position: relative;
   margin: 8px;
@@ -148,10 +145,12 @@
 	justify-content: space-between;
 	margin: 0px;
 	padding: 0px;
+	
 }
 .myInfo .h3_btn_container> p, .myInfo .h3_btn_container>h5{
 	margin-bottom: 5px;
 	margin-top: -5px;
+	font-size: 1rem;
 }
 .myInfo .readonly_box{
 	background-color: #ededed;
@@ -161,32 +160,36 @@
 	gap: 10px;
 	align-items: center;
 }
+.myInfo .p{
+	margin: 0px;
+	font-size: 1rem;
+	color: gray;
+}
 </style>
 <!-- 임시디자인 -->
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <div class="myInfo-container">
-<%@ include file="/WEB-INF/views/common/mypageSidebar.jsp" %>
     <main class="main">
         <section class="myInfo d-flex">
             <div class="flex_col p-5">
-                <h1 class="title">개인정보 수정</h1>
-                <div class="content_box p-5 right">
+                <h2 class="title">개인정보 수정</h2>
+                <div class="content_box shadow-sm">
                     <div class="flex_row">
                         <form action="<%=request.getContextPath() %>/mypage/infoupdate.do" method="post" onsubmit="fnInputCk(event);" >
                        	<div class="content-container flex flex-fill">
-                            <h3>이름</h3>
+                            <h4 class="ms-2">이름</h4>
                             <div class="input_box mt-3 mb-4">
 	                            <input type="text" name="name" class="inputTag" id="name" value="<%=loginMember.getMemberName()%>">
                             </div>
-                            <h3>아이디</h3>
+                            <h4 class="ms-2">아이디</h4>
                             <div class="input_box readonly_box mt-3 mb-4">
 	                            <input type="text" name="id" class="inputTag" value="<%=loginMember.getMemberId()%>" readOnly>
                             </div>
-                            <div class="result-container">
-                            <h3>비밀번호</h3><h5 id="pwckResult"></h5>
+                            <div class="result-container mt-2">
+                            <h4 class="ms-2">비밀번호</h4><h5 id="pwckResult"></h5>
                             </div>
-                            <div class="h3_btn_container">
-                            	<p>영문, 숫자, 특수문자가 포함된 4~20글자 사용가능</p>
+                            <div class="h3_btn_container ms-2">
+                            	<p class="p">영문, 숫자, 특수문자가 포함된 4~20글자 사용가능</p>
                             </div>
                             <div class="input_box mt-3 mb-3">
 	                            <input type="password" id="prepw" name="prepw" class="inputTag" required placeholder="현재 비밀번호 입력">
@@ -197,19 +200,19 @@
                             <div class="input_box mt-3 mb-4">
 	                            <input type="password" id="newpwck" class="inputTag" placeholder="비밀번호 확인">
                             </div>
-                            <h3>연락처</h3>
+                            <h4 class="ms-2">연락처</h4>
                             <div class="input_box mt-3 mb-4">
 	                            <input type="text" name="phone" class="inputTag" value="<%=loginMember.getPhone()%>">
                             </div>
                             <div class="h3_btn_container">
-                            	<h3>이메일</h3>
+                            	<h4 class="ms-2">이메일</h4>
                             	<button class="btn2" type="button" onclick="emailValidCk();">이메일 검증</button>
                             </div>
                             <div class="input_box readonly_box mt-3 mb-4">
 	                            <input type="text" name="email" class="inputTag" id="inputEmail" readOnly value="<%=loginMember.getEmail()%>">
                             </div>
                            <div class="h3_btn_container">
-                            	<h3>주소</h3>
+                            	<h4 class="ms-2">주소</h4>
                             	<button class="btn2" type="button" id="searchAddress" onclick="addressSearch();">주소 검색</button>
                            	</div>
                             <div class="input_box readonly_box mt-3 mb-3">
@@ -253,7 +256,7 @@
 		if(regex.test(e.target.value)){
 			$(".h3_btn_container>p").text('영문, 숫자, 특수문자가 포함된 4~20글자 사용가능').css("color",'black');
 		}else{
-			$(".h3_btn_container>p").text('영문, 숫자, 특수문자가 포함된 4~20글자만 사용가능합니다.').css("color","#ff5e5e");
+			$(".h3_btn_container>p").text('영문, 숫자, 특수문자가 포함되어야 합니다.').css("color","#ff5e5e");
 		}
 	});
 	$("#newpwck").keyup(e=>{
