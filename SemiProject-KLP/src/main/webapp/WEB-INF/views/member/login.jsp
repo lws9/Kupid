@@ -265,7 +265,10 @@
 </section>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
 <script>
+var contextPath = window.location.pathname.split('/')[1];
+var dynamicContextPath = window.location.origin + '/' + contextPath;
 	$(document).on("click", "button.social_login", function(e) {
-		location.href="https://kauth.kakao.com/oauth/authorize?client_id=483bf9a98ad4edfd5c3b00bb569518bd&redirect_uri=<%=request.getContextPath()%>/SemiProject-KLP/kakao/kakaologinservlet.do&response_type=code"
+		location.href="https://kauth.kakao.com/oauth/authorize?client_id=483bf9a98ad4edfd5c3b00bb569518bd&redirect_uri="+window.location.origin + '/' + contextPath + '/kakao/kakaologinservlet.do&response_type=code';
+		
 	})
 </script>
