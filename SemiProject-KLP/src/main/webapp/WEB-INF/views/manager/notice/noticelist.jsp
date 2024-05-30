@@ -9,9 +9,7 @@
 %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 <style>
  ul{
    /* width:80%; */
@@ -207,7 +205,7 @@ ul li:hover > a{
     margin-top: 20px;
 }
 </style>
-</head>
+
 <body>
 <div class="notice-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>

@@ -95,8 +95,9 @@ Properties sql=new Properties();
 			sql=sql.replace("#COL", type);//컬럼값은 ?로 받을 수 없기때문에 문자열로 받아서 replace로 문자자체를 바꿈 
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1,"%"+keyword+"%");
-			pstmt.setInt(2, (cPage-1)*numPerpage+1);
-			pstmt.setInt(3, cPage*numPerpage);
+			pstmt.setString(2,"아티스트");
+			pstmt.setInt(3, (cPage-1)*numPerpage+1);
+			pstmt.setInt(4, cPage*numPerpage);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				artist.add(getArtist(rs));

@@ -6,10 +6,6 @@
 %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>faq수정</title>
-</head>
 <body>
 <div class="myInfo-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>

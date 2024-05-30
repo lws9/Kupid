@@ -9,9 +9,7 @@
 %>    
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 <style>
  ul{
    /* width:80%; */
@@ -197,7 +195,7 @@ ul li:hover > a{
 }
 
 </style>
-</head>
+
 <body>
 <div class="member-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
@@ -265,7 +263,6 @@ ul li:hover > a{
 					<td style="text-align:center;"><%=f.getLikes()%></td>
 					<td style="text-align:center;"><%=f.getReport() %></td>
 					<td style="text-align:center;"><%=f.getMemberGrade() %></td>
-					<td><button onclick="location.assign('<%=request.getContextPath()%>/manager/memberview.do?no=<%=f.getFeedNo()%>')">상세정보(필요한가?)</button></td>
 					<td><button onclick="deleteFeed(<%=f.getFeedNo()%>);">피드삭제</button></td>
 				</tr>
 				<%} 
