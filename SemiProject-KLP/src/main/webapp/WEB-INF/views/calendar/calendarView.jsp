@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
             calendar.unselect();
         } ,*/
         eventClick: function(arg) {
-            
+			window.open("<%=request.getContextPath()%>/calendar/calendarbirthday.do?groupNo=<%=request.getParameter("groupNo")%>","_blank","width=500,height=600");
         },
         editable: true,
         dayMaxEvents: true, // allow "more" link when too many events
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	                    id: eventData.scId,
 	                    title: eventData.scTitle,
 	                    start: eventData.scStart,
-	                    end: eventData.scEnd,
+	                    end: eventData.scEnd
 	                };
 	            	events.push(event); // 이벤트를 events 배열에 추가
 	            });
