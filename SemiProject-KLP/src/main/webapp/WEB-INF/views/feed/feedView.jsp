@@ -15,7 +15,7 @@
 </script>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <body>
-	<a href="<%=request.getContextPath()%>/calendar/calendarservlet.do?groupNo="+<%=groupNo%>>캘린더</a>
+	<a href="<%=request.getContextPath()%>/calendar/calendarservlet.do?groupNo=<%=request.getParameter("groupNo")%>">캘린더</a>
     <div class = "textarea-container">
         <form id="feedForm" action="<%=request.getContextPath()%>/feed/feedWrite.do" enctype="multipart/form-data" method="post" onsubmit="return submitFeed();" >
             <input type="hidden" name="groupNo" value='<%=groupNo%>'>
