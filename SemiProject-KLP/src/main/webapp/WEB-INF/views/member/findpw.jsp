@@ -140,12 +140,12 @@ body{
 	});
 	$("#input_email").on('input', e=>{
 		let target = e.target.value;
-		target = target.replace(/[^a-zA-Z0-9ㄱ-ㅎ가-힣]/g, '');
+		target = target.replace(/[^a-zA-Z0-9ㄱ-ㅎ가-힣._!@#$%^&*]/g, '');
 		e.target.value = target;
 	});
 	$("#input_name").on('input', e=>{
 		let target = e.target.value;
-		target = target.replace(/[^가-힣]/g, '');
+		target = target.replace(/[^가-힣ㄱ-ㅎ]/g, '');
 		e.target.value = target;
 	});
 	$("#sendBtn").click(e=>{
@@ -159,7 +159,7 @@ body{
 			alert('아이디를 입력해주세요.');
 		}else{
 			$.ajax({
-				url: "<%=request.getContextPath()%>/member/findid/send.do",
+				url: "<%=request.getContextPath()%>/member/findpw/send.do",
 				data: {
 					"id": $("input#input_id").val(),
 					"email": $("input#input_email").val(),
@@ -198,7 +198,7 @@ body{
 		}else{
 			let encodeEmail = encodeURIComponent($("#input_email").val());
 			$.ajax({
-				url: "<%=request.getContextPath()%>/member/findid/emailCheckEnd.do",
+				url: "<%=request.getContextPath()%>/member/findpw/emailCheckEnd.do",
 				data: {
 					"id": $("input#input_id").val(),
 					"value": $("input#codeck").val(),
@@ -212,7 +212,7 @@ body{
 					if(jdata !== null){
 						alert('이메일이 확인되었습니다.');
 						$("#result_container").html('');
-						let result = '회원님의 아이디는 "' + jdata.memberId + '"입니다.';
+						let result = '회원님의 새로운 비밀번호가 해당 이메일로 발송되었습니다.';
 						$("<h3>").text(result).addClass('title py-3').attr({'text-align': 'center', 'color': 'red'}).appendTo($("#result_container"));
 						$("<button>").addClass('btn btn-outline-secondary').attr({'id': 'toMain', 'onclick': 'toMain();'}).text('메인으로').appendTo("#result_container");
 					} else{

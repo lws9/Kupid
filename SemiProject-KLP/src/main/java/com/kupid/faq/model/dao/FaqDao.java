@@ -74,13 +74,13 @@ public class FaqDao {
 	    		ResultSet rs=null;
 	    		List<FaqDto> faq=new ArrayList<>();
 	    		try { 
-	    			pstmt=conn.prepareStatement(sql.getProperty("selectAllCategories"));
+	    			pstmt=conn.prepareStatement(sql.getProperty("selectSearchFaq"));
 	    			pstmt.setString(1,category);
 	    			pstmt.setString(2,"%"+keyword+"%");
-	    			pstmt.setString(3,"%"+keyword+"%");
-	    			pstmt.setInt(4, (cPage-1)*numBerpage+1);
-	    			pstmt.setInt(5, cPage*numBerpage);
+	    			pstmt.setInt(3, (cPage-1)*numBerpage+1);
+	    			pstmt.setInt(4, cPage*numBerpage);
 	    			rs=pstmt.executeQuery();
+	    			System.out.println( category+ keyword+  cPage+ numBerpage);
 	    			while(rs.next()) {
 	    				faq.add(getFaq(rs));
 	    			}
@@ -114,7 +114,7 @@ public class FaqDao {
 	    		}
 	    		return result;
 	    	}
-	    
+	    	
 			
 			public static FaqDto getFaq(ResultSet rs) throws SQLException{
 				return FaqDto.builder()

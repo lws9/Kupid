@@ -55,7 +55,7 @@ public class CalendarDao {
 		String startString = sdf.format(rs.getDate("sc_start"));
 		String endString = sdf.format(rs.getDate("sc_end"));
 		return Calendar.builder()
-				.scId(rs.getInt("sc_id"))
+				.scId(rs.getInt("group_no"))
 				.scTitle(rs.getString("sc_title"))
 				.scStart(startString)
 				.scEnd(endString)
