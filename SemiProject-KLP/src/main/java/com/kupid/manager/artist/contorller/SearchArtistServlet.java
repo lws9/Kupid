@@ -38,7 +38,7 @@ public class SearchArtistServlet extends HttpServlet {
 		}catch(NumberFormatException e) {
 			
 		}
-		int numPerpage=5;
+		int numPerpage=10;
 		try {
 			numPerpage=Integer.parseInt(request.getParameter("numPerpage"));
 		}catch(NumberFormatException e) {

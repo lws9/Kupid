@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
  <style>
         /* 간단한 스타일링 */
         body {
@@ -111,7 +108,7 @@
 	text-align: center;
 }
     </style>
-</head>
+
 <body>
      <%@ include file="/WEB-INF/views/common/header.jsp"%>
 	 <div class="container">
