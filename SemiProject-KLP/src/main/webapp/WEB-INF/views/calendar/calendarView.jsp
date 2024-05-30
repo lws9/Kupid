@@ -8,6 +8,7 @@
 	<title>Insert title here</title>
 	<script src="<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.13/index.global.min.js'></script>
+	<a href="<%=request.getContextPath()%>/feed/feedView.do?groupno=<%=request.getParameter("groupNo")%>">피드</a>
 </head>
 <script>
 
