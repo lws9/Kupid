@@ -63,27 +63,26 @@ public class LoginEndServlet extends HttpServlet {
 				//아티스트그룹의 구독자 정보 가져오기(전체 아티스트)
 				//화면전환
 				if(!userId.equals("admin")) {//관리자로 로그인하면 메인페이지가 아니라 관리자 페이지로 이동되게 하는 로직
-				response.sendRedirect(request.getContextPath());
+					response.sendRedirect(request.getContextPath());
 				}else {
 					response.sendRedirect(request.getContextPath()+"/manager/home.do");
 				}
-			}else if(m.getMemberGrade().equals("탈퇴")) {//탈퇴된 애들 로그인 막는 로직
+			}else if(m!=null&&m.getMemberGrade().equals("탈퇴")) {//탈퇴된 애들 로그인 막는 로직
 				request.setAttribute("msg", "탈퇴된 회원입니다.");
 				request.setAttribute("loc", "/");
 				request.getRequestDispatcher(request.getServletContext().getInitParameter("viewpath")+"common/msg.jsp")
 				.forward(request, response);
-			}else if(m.getMemberGrade().equals("정지")){
+			}else if(m!=null&&m.getMemberGrade().equals("정지")){
 				request.setAttribute("msg", "정지된 회원입니다.");
 				request.setAttribute("loc", "/");
 				request.getRequestDispatcher(request.getServletContext().getInitParameter("viewpath")+"common/msg.jsp")
 				.forward(request, response);
-			}else {
+			}else{
 				request.setAttribute("msg","아이디나 패스워드가 일치하지 않습니다");
 				request.setAttribute("loc", "/");
 				request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")
 				.forward(request, response);
 			}
-		
 		}
 	}
 

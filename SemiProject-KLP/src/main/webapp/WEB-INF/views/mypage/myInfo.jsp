@@ -176,6 +176,7 @@
                 <div class="content_box shadow-sm">
                     <div class="flex_row">
                         <form action="<%=request.getContextPath() %>/mypage/infoupdate.do" method="post" onsubmit="fnInputCk(event);" >
+                        <!-- <form action="#" method="post" onsubmit="fnInputCk(event);" > -->
                        	<div class="content-container flex flex-fill">
                             <h4 class="ms-2">이름</h4>
                             <div class="input_box mt-3 mb-4">
@@ -183,7 +184,7 @@
                             </div>
                             <h4 class="ms-2">아이디</h4>
                             <div class="input_box readonly_box mt-3 mb-4">
-	                            <input type="text" name="id" class="inputTag" value="<%=loginMember.getMemberId()%>" readOnly>
+	                            <input type="text" name="id" class="inputTag" id="id" value="<%=loginMember.getMemberId()%>" readOnly>
                             </div>
                             <div class="result-container mt-2">
                             <h4 class="mb-0 ms-2">비밀번호</h4><h5 id="pwckResult"></h5>
@@ -282,14 +283,10 @@
 			$("#pwckResult").text('');
 		}
 	});
-	const fnInputCk=(e)=>{
-		console.log(e.target.value);
-		if($("prepw").val().trim()===""){
-			alert('수정하려면 현재 비밀번호를 입력해주세요.');
-			$("#prepw").focus();
-			e.preventDefault();
-			return false;
-		}		
+	const fnInputCk=(event)=>{
+		$(document).ready();
+		let e= event;
+		e.preventDefault();
 		const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{4,20}$/;
 		//비밀번호 암호화 전까지 잠시 보류
 		/* if(!regex.test($("#newpw").val())){
@@ -301,25 +298,34 @@
 		if($("#newpwck").val()!== $("#newpw").val()){
 			alert('비밀번호 확인 값이 일치하지 않습니다.');
 			$("#newpwch").focus();
-			e.preventDefault();
 			return false;
 		}
-	    // 모든 input 필드가 비어있지 않은지 확인
- 		let isValid=true;
-	    $("form input").each(function() {
-	        if ($(this).val().trim() === "") {
-	            alert('모든 필드를 입력해주세요.');
-	            $(this).focus();
-	            isValid = false;
-	            e.preventDefault();
-	            return false; // jQuery each의 루프 종료
-	        }
-	    }); 
-		//현재 비밀번호가 일치해야 제출
-		if($("#prepw").val !== m.getMemberPw()){
-            e.preventDefault();
+	    if($("#prepw").val().trim()===""){
+			alert('수정하려면 현재 비밀번호를 입력해주세요.');
+			$("#prepw").focus();
 			return false;
+		} else{
+			$.ajax({
+				url: "<%=request.getContextPath()%>/pwcheck.do",
+				type: "post",
+				data: {
+					"id" : $("#id").val(),
+					"prepw" : $("#prepw").val()
+				},
+				success: data=>{
+					console.log(data);
+					if(data!=="true"){
+						/* alert('비밀번호가 틀렸습니다.'); */
+						toastr.warning('My name is Inigo Montoya. You killed my father, prepare to die!');
+						$("#prepw").focus();
+						return false;
+					}else{
+						return true;
+					}
+				}
+			});
 		}
+	    return false;
 	};
 	const emailValidCk=()=>{
 		console.log('email');	
@@ -330,11 +336,28 @@
 		//$(document).ready();
 		$("#inputEmail").val(email);
 	}
-	<%-- const addressSearch=()=>{
-		window.open('<%=request.getContextPath()%>/mypage/addressSearch.do','addressSearch','width=570px, height=320px');	
-	}; --%>
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	toastr.options = {
+	  "closeButton": true,
+	  "debug": false,
+	  "newestOnTop": false,
+	  "progressBar": false,
+	  "positionClass": "toast-top-right",
+	  "preventDuplicates": false,
+	  "onclick": null,
+	  "showDuration": "300",
+	  "hideDuration": "1000",
+	  "timeOut": "5000",
+	  "extendedTimeOut": "1000",
+	  "showEasing": "swing",
+	  "hideEasing": "linear",
+	  "showMethod": "fadeIn",
+	  "hideMethod": "fadeOut"
+	}
+</script>
+<script src="toastr.js"></script>
 <script>
 	const addressSearch=()=>{
 		let width= 500;

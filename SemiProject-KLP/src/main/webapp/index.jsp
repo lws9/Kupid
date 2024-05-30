@@ -88,6 +88,7 @@
 	}
 	.searchAritist {
       width: 100%;
+      height: 50px;
 	  color: black;
 	  background-color: transparent;
 	  border: 0px;
@@ -187,6 +188,8 @@
 	 .col-2-4{
 	 	flex: 0 0 20%;
         max-width: 20%;
+        /* border: 1px solid black; */
+        padding: 30px;
 	 }
 	 img#badge{
 	 	width: 50px;
@@ -197,11 +200,22 @@
 	 	/* transform: translate(-66%, -47%) !important; */
 	 }
 	 .row {
-	    display: flex;
-	    justify-content: space-between;
+        --bs-gutter-x: 1.5rem;
+    	--bs-gutter-y: 0;
+	   	/* display: -webkit-inline-box !important; */
+	    justify-content: flex-start;
 	    flex-wrap: wrap;
         margin-right: calc(-.5* var(--bs-gutter-x));
-    	margin-left: calc(2.5* var(--bs-gutter-x));
+    	margin-left: calc(2.5* var(--bs-gutter-x)); 
+    	display: flex;
+	    /* justify-content: flex-start;
+	    flex-wrap: wrap;
+	    margin-right: calc(-1.5rem);
+	    margin-left: calc(2.5rem); */
+	}
+	.row>*{
+	    min-width: 200px;
+		width: fit-content;
 	}
 }
 </style>
@@ -251,14 +265,10 @@
 	    <div class="row mt-4 text-center">
     	<%for(int i=0; i<favorite.size();i++){
  			if(favorite.get(i).getMemberNo()==loginMember.getMemberNo()){%>
-		      <div class="col-2-4 pb-2 mt-2 mb-2">
+		      <div class="col-2-4 pb-2 mt-2 mb-4">
 		      <a href="<%= request.getContextPath() %>/feed/feedView.do?groupno=<%=favorite.get(i).getGroupNo() %>" class="artist-card">
-		      	<div class="shadow-sm d-inline-grid rounded artist-card position-relative">
+		      	<div class="shadow-sm d-inline-grid rounded position-relative">
 			        <svg class="bd-placeholder-img rounded-top" width="180" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=favorite.get(i).getGroupImg() %>" width="100%" preserveAspectRatio="xMidYMid slice"/></svg>
-			        	 <span class="position-absolute top-50 start-50 translate-middle p-2 rounded-circle">
-			       			<%-- <img src="<%= request.getContextPath() %>/image/icon/sendingheart2.png" alt="subscribe" id="badge"> --%>
-			       			<!-- <button>구독</button> -->
-					  </span>
 			        <div class="rounded-bottom d-inline-flex" style="background-color: #e0d1f6" width="180px" height="180px">
 			        	<h4 class="fw-normal mt-2 group-name"><%= favorite.get(i).getGroupName()%></h4>
 		        	</div>
