@@ -18,7 +18,7 @@ import com.kupid.member.model.service.MemberService;
 /**
  * Servlet implementation class MyInfoEmailCheckEndServlet
  */
-@WebServlet("/member/findid/emailCheckEnd.do")
+@WebServlet("/member/findpw/emailCheckEnd.do")
 public class EmailCheckEndForPwServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -1,5 +1,6 @@
 package com.kupid.member.find.controller;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,11 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kupid.common.MemberSendEmail;
 import com.kupid.member.model.service.MemberService;
+import com.kupid.mypage.info.controller.MyInfoSendEmailServlet;
 
 /**
  * Servlet implementation class MyInfoEmailCheckServlet
  */
-@WebServlet("/member/findid/send.do")
+@WebServlet("/member/findpw/send.do")
 public class FindPwSendEmailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     /**
@@ -29,7 +31,16 @@ public class FindPwSendEmailServlet extends HttpServlet {
     public FindPwSendEmailServlet() {
         super();
     }
+    private Properties sql = new Properties();
+	{
+		String path = MyInfoSendEmailServlet.class.getResource("/email.properties").getPath();
 
+		try (FileReader fr = new FileReader(path)){
+			sql.load(fr);
+		} catch(IOException e){
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -58,7 +69,7 @@ public class FindPwSendEmailServlet extends HttpServlet {
 			System.out.println(content);
 			
 			MemberSendEmail mse = new MemberSendEmail(email);
-			Session session = mse.setting(new Properties(), "kupid_79@naver.com", "kupid7979!");
+			Session session = mse.setting(new Properties(), sql.getProperty("id"), sql.getProperty("pw"));
 			result = mse.SendMail(session, title, content);
 		} else {
 			System.out.println("없는 회원입니다.");
