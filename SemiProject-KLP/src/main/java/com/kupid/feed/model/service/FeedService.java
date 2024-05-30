@@ -16,6 +16,7 @@ import com.kupid.feed.model.dto.Reply;
 import com.kupid.member.model.dto.MemberDto;
 public class FeedService {
 	private FeedDao dao = new FeedDao();
+
 	
 	public int deleteFeed(int feedNo) {
 		Connection conn = getConnection();

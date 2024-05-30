@@ -11,7 +11,7 @@
             color: white;
         }
         .container {
-            width: 80%;
+            width: 80%; 
             margin: 0 auto;           
     		padding-top: 80px; /* navbar 높이만큼 패딩 추가 */
     	}
