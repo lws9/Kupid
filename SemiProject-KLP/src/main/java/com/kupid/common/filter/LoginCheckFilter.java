@@ -19,7 +19,7 @@ import com.kupid.member.model.dto.MemberDto;
  * Servlet Filter implementation class LoginCheckFilter
  */
 //TODO 수정필요
-@WebFilter(servletNames = {"memberView", "searchmember", "memberlist", "boardwrite"}, urlPatterns= {"/admin/*","/manager/*","/mypage/*"})
+@WebFilter(servletNames = {"memberView", "searchmember", "memberlist", "boardwrite"}, urlPatterns= {"/admin/*","/manager/*","/mypage/*","/inquiry/*"})
 public class LoginCheckFilter extends HttpFilter implements Filter {
        
     /**

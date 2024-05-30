@@ -13,7 +13,7 @@
         border-collapse: collapse;
     }
 
-    #customer-container th {
+    #customer-container th { 
         background-color: white;
         color: #b39ddb;
         padding: 10px;

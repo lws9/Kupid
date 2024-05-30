@@ -145,7 +145,7 @@
         }
 
         .faq_button a {
-            color: #6c5ce7; /* 보라색으로 설정 */
+            color: #6c5ce7; 
         }
 
         .faq_button a:hover {
@@ -154,7 +154,7 @@
 
         .faq_button a i {
             margin-right: 5px;
-            color: #6c5ce7; /* 보라색으로 설정 */
+            color: #6c5ce7; 
         }
 
         .faq-section button {
@@ -162,7 +162,7 @@
             color: #6c5ce7;
             border: 2px solid #6c5ce7;
             padding: 15px 20px;
-            border-radius: 20px; /* 둥근 모서리 추가 */
+            border-radius: 20px; 
             cursor: pointer;
             font-size: 16px;
             text-align: center;
@@ -194,15 +194,15 @@
         </div>
 
         <div class="button-container">
-            <button type="button" onclick="handlePayment()">
+            <button type="button" onclick="location.href='<%= request.getContextPath() %>/faq/faqserch.do?category=회원&searchKeyword='">
                 <i class="fas fa-user"></i>
                 회원
             </button>
-            <button type="button" onclick="handleAccount()">
+            <button type="button"  onclick="location.href='<%= request.getContextPath() %>/faq/faqserch.do?category=상점&searchKeyword='">
                 <i class="fas fa-store"></i>
                 상점
             </button>
-            <button type="button" onclick="handleCommunity()">
+            <button type="button"  onclick="location.href='<%= request.getContextPath() %>/faq/faqserch.do?category=커뮤니티&searchKeyword='">
                 <i class="fas fa-users"></i>
                 커뮤니티
             </button>
