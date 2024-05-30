@@ -92,7 +92,7 @@ public class FeedWriteServlet extends HttpServlet {
 				
 				
 
-				request.getRequestDispatcher("/WEB-INF/views/feed/feedView.jsp").forward(request, response);
+				response.sendRedirect(request.getContextPath()+"/feed/feedView.do?groupNo="+groupNo);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

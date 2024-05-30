@@ -45,7 +45,7 @@ public class KakaoLoginServlet extends HttpServlet {
 		String code = request.getParameter("code");
 		String bodyData="grant_type=authorization_code&";
         bodyData += "client_id=483bf9a98ad4edfd5c3b00bb569518bd&";
-        bodyData += "redirect_uri=http://localhost:9090/SemiProject-KLP/kakao/kakaologinservlet.do&";
+        bodyData += "redirect_uri=http://14.36.141.71:10079/GDJ79_KUPID_semi/kakao/kakaologinservlet.do&";
         bodyData += "code="+code; //인가코드
 
 

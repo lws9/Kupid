@@ -26,8 +26,7 @@ public class FeedViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(request.getParameter("groupno")+"5156116515616516");
-		int groupNo=Integer.parseInt(request.getParameter("groupno"));
+		int groupNo=Integer.parseInt(request.getParameter("groupNo"));
 		
 		request.setAttribute("groupNo", groupNo);
 		request.getRequestDispatcher("/WEB-INF/views/feed/feedView.jsp").forward(request, response);

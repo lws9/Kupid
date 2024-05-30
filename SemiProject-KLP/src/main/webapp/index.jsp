@@ -266,7 +266,7 @@
     	<%for(int i=0; i<favorite.size();i++){
  			if(favorite.get(i).getMemberNo()==loginMember.getMemberNo()){%>
 		      <div class="col-2-4 pb-2 mt-2 mb-4">
-		      <a href="<%= request.getContextPath() %>/feed/feedView.do?groupno=<%=favorite.get(i).getGroupNo() %>" class="artist-card">
+		      <a href="<%= request.getContextPath() %>/feed/feedView.do?groupNo=<%=favorite.get(i).getGroupNo() %>" class="artist-card">
 		      	<div class="shadow-sm d-inline-grid rounded position-relative">
 			        <svg class="bd-placeholder-img rounded-top" width="180" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect><image href="<%=request.getContextPath()%>/upload/artist/<%=favorite.get(i).getGroupImg() %>" width="100%" preserveAspectRatio="xMidYMid slice"/></svg>
 			        <div class="rounded-bottom d-inline-flex" style="background-color: #e0d1f6" width="180px" height="180px">

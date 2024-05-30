@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.List,java.text.SimpleDateFormat,com.kupid.feed.model.dto.Feed,com.kupid.feed.model.service.FeedService,com.kupid.member.model.dto.MemberDto"  %>
+<% int groupNo = Integer.parseInt(request.getParameter("groupNo"));%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,10 +15,10 @@
 </script>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <body>
-	<a href="<%=request.getContextPath()%>/calendar/calendarservlet.do?groupNo=<%=request.getAttribute("groupNo")%>">캘린더</a>
+	<a href="<%=request.getContextPath()%>/calendar/calendarservlet.do?groupNo="+<%=groupNo%>>캘린더</a>
     <div class = "textarea-container">
         <form id="feedForm" action="<%=request.getContextPath()%>/feed/feedWrite.do" enctype="multipart/form-data" method="post" onsubmit="return submitFeed();" >
-            <input type="hidden" name="groupNo" value='<%=request.getAttribute("groupNo")%>'>
+            <input type="hidden" name="groupNo" value='<%=groupNo%>'>
             <input type="hidden" name="writer" value="<%=loginMember.getMemberId()%>">
             <div >
                 <textarea class="form-cont" cols="40" rows="2" name="content" id="content"></textarea>
