@@ -150,12 +150,32 @@ public class MyPageDao {
 		}
 		return result; 
 	}
-	public int updateInfo(Connection conn, String id, String name, String pw, String phone, String email,
+	public int updateInfo(Connection conn, String id, String name, String phone, String email,
 			String address, String addressDetail) {
 		PreparedStatement pstmt = null;
 		int result =0;
 		try{
 			pstmt = conn.prepareStatement(sql.getProperty("updateInfo"));
+			pstmt.setString(1, name);
+			pstmt.setString(2, phone);
+			pstmt.setString(3, email);
+			pstmt.setString(4, address);
+			pstmt.setString(5, addressDetail);
+			pstmt.setString(6, id);
+			result = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int updateInfoAll(Connection conn, String id, String name, String pw, String phone, String email,
+			String address, String addressDetail) {
+		PreparedStatement pstmt = null;
+		int result =0;
+		try{
+			pstmt = conn.prepareStatement(sql.getProperty("updateInfoAll"));
 			pstmt.setString(1, name);
 			pstmt.setString(2, pw);
 			pstmt.setString(3, phone);

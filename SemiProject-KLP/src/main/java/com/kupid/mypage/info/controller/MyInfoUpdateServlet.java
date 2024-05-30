@@ -13,7 +13,7 @@ import com.kupid.mypage.service.MyPageService;
 /**
  * Servlet implementation class MyInfoUpdateServlet
  */
-@WebServlet(name = "profileUpdate", urlPatterns = { "/mypage/infoupdate.do" })
+@WebServlet("/mypage/infoupdate.do")
 public class MyInfoUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -32,17 +32,17 @@ public class MyInfoUpdateServlet extends HttpServlet {
 		
 		String name=request.getParameter("name");
 		String id=request.getParameter("id");
-		String prepw=request.getParameter("prepw");
 		String newpw=request.getParameter("newpw");
 		String phone=request.getParameter("phone");
 		String email=request.getParameter("email");
 		String address=request.getParameter("address");
 		String addressDetail=request.getParameter("addressDetail");
 		int result = 0;
+		//변경 비밀번호가 없으면 비밀번호는 바꾸지 않음
 		if(newpw == null || newpw.equals("")) {
-			result = new MyPageService().updateInfo(id, name, prepw, phone, email, address, addressDetail);
+			result = new MyPageService().updateInfo(id, name, phone, email, address, addressDetail);
 		} else {
-			result = new MyPageService().updateInfo(id, name, newpw, phone, email, address, addressDetail);
+			result = new MyPageService().updateInfoAll(id, name, newpw, phone, email, address, addressDetail);
 		}
 		if(result>0) {
 			System.out.println("수정성공");

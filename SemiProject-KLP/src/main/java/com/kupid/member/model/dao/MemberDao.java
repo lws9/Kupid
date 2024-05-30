@@ -5,6 +5,7 @@ import static com.kupid.common.JDBCTemplate.close;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,6 +42,85 @@ public class MemberDao {
 			close(rs);
 			close(pstmt);
 		}return m;
+	}
+	public int selectMemberByIdNameEmailBirth(Connection conn, String id, String name,String email, Date birth) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result = 0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("selectMemberByIdNameEmailBirth"));
+			pstmt.setString(1, id);
+			pstmt.setString(2, name);
+			pstmt.setString(3, email);
+			pstmt.setDate(4, birth);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("result");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return result;
+	}
+	public MemberDto findId(Connection conn, String name, String email, Date birth) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		MemberDto m=null;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("findId"));
+			pstmt.setString(1, name);
+			pstmt.setString(2, email);
+			pstmt.setDate(3, birth );
+			rs=pstmt.executeQuery();
+			if(rs.next()) m=memberBuilder(rs);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return m;
+	}
+	public MemberDto findPw(Connection conn,String id, String name, String email, Date birth) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		MemberDto m=null;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("findId"));
+			pstmt.setString(1, id);
+			pstmt.setString(2, name);
+			pstmt.setString(3, email);
+			pstmt.setDate(4, birth );
+			rs=pstmt.executeQuery();
+			if(rs.next()) m=memberBuilder(rs);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return m;
+	}
+	public int selectMemberByEmail(Connection conn, String name, String email, Date birth) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result =0;
+		try{
+			pstmt = conn.prepareStatement(sql.getProperty("selectMemberByEmail"));
+			pstmt.setString(1, name);
+			pstmt.setString(2, email);
+			pstmt.setDate(3, birth );
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("result");
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result; 
 	}
 	//닉네임 중복 조회: count(*)
 	public int checkNickname(Connection conn, String nickname) {
