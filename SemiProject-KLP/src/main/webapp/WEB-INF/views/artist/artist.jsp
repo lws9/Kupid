@@ -303,7 +303,7 @@ RIIZE(라이즈)는 ‘Rise & Realize’를 더해 만든 이름으로, 함께 �
             </div>
         </div>
         <div class="membership-button">
-  	    <button>멤버쉽 가입하기 ></button>
+  	    <button onclick="location.assign('<%= request.getContextPath() %>/marketview.do')">멤버쉽 가입하기 ></button>
   	    <button onclick="location.assign('<%= request.getContextPath() %>/feed/feedView.do?groupno=3')">구독하기 ></button>
 		</div>
     </div>   

@@ -2,10 +2,9 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <style>
     #customer-container {
-        width: 800px;
+        width: 900px;
         margin: 50px auto 30px;
         text-align: left; 
-        
     }
 
     #customer-container table {
@@ -13,16 +12,18 @@
         border-collapse: collapse;
     }
 
-    #customer-container th { 
+    #customer-container th, #customer-container td {
         background-color: white;
         color: #b39ddb;
         padding: 10px;
-        text-align: left; 
+        text-align: left;
+        width: 100%; 
     }
 
     #customer-container input[type="text"],
-    #customer-container textarea {
-        width: 90%;
+    #customer-container textarea,
+    #customer-container input[type="file"] {
+        width: calc(100% - 20px); 
         padding: 10px;
         margin: 10px 0;
         border: 1px solid #ccc;
@@ -42,13 +43,13 @@
     }
 
     #customer-container input[type="submit"]:hover {
-        background-color:  #6a0dad;
-        
+        background-color: #6a0dad;
     }
-   .btn-container {
-         text-align: right; /* 버튼을 오른쪽으로 정렬 */
-		margin-top: 20px;
-		margint-left:100px;
+
+    .btn-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
     }
 </style>
 
@@ -59,31 +60,30 @@
                 <th>제 목</th>
             </tr>
             <tr>
-                <td><input class="form-control" type="text" name="title" required></td>
+                <td><input type="text" name="title" required></td>
             </tr>
             <tr>
                 <th>문의 내용</th>
             </tr>
             <tr>
-                <td><textarea class="form-control" cols="47" rows="10" name="content" style="resize:none"></textarea></td>
+                <td><textarea cols="47" rows="10" name="content" style="resize:none"></textarea></td>
             </tr>
             <tr>
                 <th>파일 첨부</th>
             </tr>
             <tr>
-                <td><input class="form-control" type="file" name="upfile"></td>
+                <td><input type="file" name="upfile"></td>
             </tr>
             <tr>
                 <th>회원 번호</th>
             </tr>
             <tr>
-                <td><input class="form-control" type="text" name="inq_member" value="<%=loginMember.getMemberNo()%>"></td>
+                <td><input type="text" name="inq_member" value="<%=loginMember.getMemberNo()%>"></td>
             </tr>
-          
-            
         </table>
-         <div class="btn-container">
-            <input class="form-control d-flex align-items-center" type="submit" value="접수하기" onclick="">
+        <div class="btn-container">
+            <input type="submit" value="접수하기">
         </div>
     </form>
 </section>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %> 

@@ -23,6 +23,7 @@
         background-color: #fff; 
         margin: 0;
         padding: 0;
+        
     }
     
     .container {
@@ -31,6 +32,7 @@
         display: flex;
         flex-direction: column; 
         align-items: center; 
+        margin-bottom:50px;
     }
     
     .faq-header h1 {
@@ -98,7 +100,7 @@
         
     }
      .faq-content-row td {
-            text-align: right;
+            text-align: center;
             
         }
     
@@ -193,13 +195,13 @@
     </div>
     <div class="search-container">
         <form id="searchForm" action="<%= request.getContextPath() %>/faq/faqserch.do" method="get">
-            <button type="button" onclick="setCategory('전체')">전체</button>
-            <button type="button" onclick="setCategory('회원')">회원</button>
-            <button type="button" onclick="setCategory('상점')">상점</button>
-            <button type="button" onclick="setCategory('커뮤니티')">커뮤니티</button>
-            <input type="hidden" id="category" name="category" value="${(category != null) ? category : '전체'}">
+            <button type="button" onclick="setCategory('전체')" >전체</button>
+            <button type="button" id="member" onclick="setCategory('회원')">회원</button>
+            <button type="button" id="store" onclick="setCategory('상점')">상점</button>
+            <button type="button" id="community" onclick="setCategory('커뮤니티')">커뮤니티</button>
+            <input type="hidden" id="category" name="category" value="<%=request.getParameter("category")%>">
             <br>
-            <input type="text" id="search" name="searchKeyword" placeholder="검색어 입력" value="${(searchKeyword != null) ? searchKeyword : ''}">
+            <input type="text" id="search" name="searchKeyword" placeholder="검색어 입력" value="">
             <button type="submit">검색</button>
         </form>
     </div>
@@ -210,26 +212,28 @@
                 <th>제목</th>
             </tr>
         </thead>
-        <tbody>
-            <% if (faqs != null && !faqs.isEmpty()) { %>
-                <% for (FaqDto f : faqs) { %>
-                    <tr>
-                        <td><%= f.getFaqCategory() %></td>
-                        <td>
-                            <%= f.getFaqTitle() %>
-                            <button type="button" onclick="toggleContent(this)">✓</button>
-                        </td>
-                    </tr>
-                    <tr class="faq-content-row">
-                        <td colspan="2" class="faq-content"><%= f.getFaqContent() %></td>
-                    </tr>
-                <% } %>
-            <% } else { %>
-                <tr>
-                    <td colspan="2"><span>등록된 FAQ가 없습니다</span></td>
-                </tr>
-            <% } %>
-        </tbody>
+       <tbody>
+    <% if (faqs != null && !faqs.isEmpty()) { %>
+        <% for (FaqDto f : faqs) { %>
+            <tr>
+                <td><%= f.getFaqCategory() %></td>
+                <td>
+                    <%= f.getFaqTitle() %>
+                    <button type="button" onclick="toggleContent(this)">✓</button>
+                </td>
+            </tr>
+            <tr class="faq-content-row">
+                <td></td>
+                <td colspan="2" class="faq-content"><%= f.getFaqContent() %></td>
+            </tr>
+        <% } %>
+    <% } else { %>
+        <tr>
+            <td colspan="2"><span>등록된 FAQ가 없습니다</span></td>
+        </tr>
+    <% } %>
+</tbody>
+
     </table>
     <div class="pagination">
         <%= pagebar.toString() %>
@@ -263,4 +267,4 @@
 </script>
 </body>
 </html>
-<%-- <%@ include file="/WEB-INF/views/common/footer.jsp" %> --%>
+ <%@ include file="/WEB-INF/views/common/footer.jsp" %>

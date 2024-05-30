@@ -89,7 +89,7 @@ public class FaqSerchServlet extends HttpServlet {
 				sb.append("<a class='page-link' href='"+
 						request.getRequestURI()
 						+"?cPage="+pageNo+"&"
-						+"category"+category+"&"
+						+"category="+category+"&"
 						+"searchKeyword="+keyword
 						+"'>"+pageNo+"</a>");
 				sb.append("</li>");
