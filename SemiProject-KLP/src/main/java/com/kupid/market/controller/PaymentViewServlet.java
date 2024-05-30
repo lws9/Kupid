@@ -1,4 +1,4 @@
-package com.kupid.feed.controller;
+package com.kupid.market.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class CalanderViewServlet
+ * Servlet implementation class PaymentViewServlet
  */
-@WebServlet("/calendar/calendarservlet.do")
-public class CalanderViewServlet extends HttpServlet {
+@WebServlet("/paymentview.do")
+public class PaymentViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CalanderViewServlet() {
+    public PaymentViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +26,7 @@ public class CalanderViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/views/calendar/calendarView.jsp").forward(request, response);
-
+		request.getRequestDispatcher("/WEB-INF/views/market/payment.jsp").forward(request, response);
 	}
 
 	/**

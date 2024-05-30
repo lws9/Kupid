@@ -9,11 +9,15 @@
 <title>Insert title here</title>
 </head>
 
+<script type="text/javascript">
+
+</script>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <body>
-	<a href="<%=request.getContextPath()%>/feed/calanderservlet.do">캘린더</a>
+	<a href="<%=request.getContextPath()%>/calendar/calendarservlet.do?groupNo=<%=request.getAttribute("groupNo")%>">캘린더</a>
     <div class = "textarea-container">
         <form id="feedForm" action="<%=request.getContextPath()%>/feed/feedWrite.do" enctype="multipart/form-data" method="post" onsubmit="return submitFeed();" >
+            <input type="hidden" name="groupNo" value='<%=request.getAttribute("groupNo")%>'>
             <input type="hidden" name="writer" value="<%=loginMember.getMemberId()%>">
             <div >
                 <textarea class="form-cont" cols="40" rows="2" name="content" id="content"></textarea>
@@ -32,11 +36,26 @@
             </div>
         </form>
     </div>
+        <br>
+    <div>
+	    <div class="artistSelectBox">
+		     <select class="artistSelect">
+		     	<option value="">전체보기</option>
+		     	<option value="아티스트">아티스트보기</option>
+		     </select>
+	    </div>
+    </div>
 
     <div id="result"></div>
     <div class="container" id="container"></div>  
 </body>
 <style>
+.artistSelectBox{
+    display: flex;
+    justify-content: center;
+	margin-left: 640px;
+}
+
 .upfileCount{
 	    font-size: 14px;
     top: 74px;
@@ -449,10 +468,12 @@ a.next:hover, a.prev:hover {
 }
 </style>
 <script>
-const test = () => {
-    console.log(<%=loginMember.getMemberNo()%>);
-    console.log('<%=loginMember.getProfileImgOriname()%>');
-}
+
+/* $(document).on("change", "select.artistSelect", function(e) {
+    var selectedValue = $(this).val(); // 선택된 값 가져오기
+    loadPage();
+    
+}); */
 
 function submitFeed() {
     var textareaContent = document.getElementById("content").value;
@@ -534,6 +555,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (time) {
                 time = false;
                 loadPage();
+				console.log(${groupNo});
             }
         }
     });
@@ -548,69 +570,71 @@ const loadPage = () => {
             "numPerPage": perPage
         },
         success: function(data) {
+        	console.log("성공");
+        	//여기 function 함수 따로 빼기
             $.each(data, function(idx, element) {
-                const $div = $("<div>").css({
-                    "border-bottom": "1px solid #aba7a7",
-                    "width": "800px",
-                    'overflow': 'hidden',
-                    'padding-bottom': '10px'
-                }).attr("class", "board");
+                if(element.groupNo == <%=request.getAttribute("groupNo")%>){
+                    const $div = $("<div>").css({
+                        "border-bottom": "1px solid #aba7a7",
+                        "width": "800px",
+                        'overflow': 'hidden',
+                        'padding-bottom': '10px'
+                    }).attr("class", "board");
 
-                $div.append('<input type="hidden" class="feedNo" value=' + element.feedNo + '>');
-                $div.append('<input type="hidden" class="memberNo" value=' + element.feedMemberName + '>');
+                    $div.append('<input type="hidden" class="feedNo" value=' + element.feedNo + '>');
+                    $div.append('<input type="hidden" class="memberNo" value=' + element.feedMemberName + '>');
 
-					
-                const $header = $('<div>').addClass('board-header');
-                const $moreContainer = $('<div>').addClass('more-contianer');
-                $header.append('<div><img style="border-radius:50%; height:32px; width:32px;" src="<%=request.getContextPath()%>/upload/member/profile/' + element.profileImgOriname + '"></div>');
-                $header.append('<div>' + element.feedWriterName + '</div>');
-                if (element.feedUpdateDate == undefined) {
-                    $header.append('<div>' + element.feedWriteDate + '</div>');
-                } else {
-                    $header.append('<div>' + element.feedUpdateDate + '</div>');
-                }
-                $header.append('<div class="commentsCnt">' + "댓글수" +element.commentCnt + '</div>');
-                $header.append('<div class="likesCnt">' + "좋아요"+element.likes + '</div>');
-                $moreContainer.append('<div class="menu-icon">'+'<span></span>'+'<span></span>'+'<span></span>'+'</div>');
-                //로그인 비교
-                if(<%=loginMember.getMemberNo()%>!=element.feedMemberName){
-                $moreContainer.append('<div id="dropdown-menu" class="dropdown-content"><button class="reportBt">신고</button></div>');
-                }else{
-                $moreContainer.append('<div class="dropdown-content"><button class="feedUpdateBt">수정</button></div>');
-                $moreContainer.append('<div class="dropdown-content"><button class="feedDeleteBt" style="z-index:1">삭제</button></div>');
-                }
-                $header.append($moreContainer);
+                    const $header = $('<div>').addClass('board-header');
+                    const $moreContainer = $('<div>').addClass('more-contianer');
+                    $header.append('<div><img style="border-radius:50%; height:32px; width:32px;" src="<%=request.getContextPath()%>/upload/member/profile/' + element.profileImgOriname + '"></div>');
+                    $header.append('<div>' + element.feedWriterName + '</div>');
+                    if (element.feedUpdateDate == undefined) {
+                        $header.append('<div>' + element.feedWriteDate + '</div>');
+                    } else {
+                        $header.append('<div>' + element.feedUpdateDate + '</div>');
+                    }
+                    $header.append('<div class="commentsCnt">' + "댓글수" +element.commentCnt + '</div>');
+                    $header.append('<div class="likesCnt">' + "좋아요"+element.likes + '</div>');
+                    $moreContainer.append('<div class="menu-icon">'+'<span></span>'+'<span></span>'+'<span></span>'+'</div>');
+                    //로그인 비교
+                    if(<%=loginMember.getMemberNo()%> != element.feedMemberName){
+                        $moreContainer.append('<div id="dropdown-menu" class="dropdown-content"><button class="reportBt">신고</button></div>');
+                    } else {
+                        $moreContainer.append('<div class="dropdown-content"><button class="feedUpdateBt">수정</button></div>');
+                        $moreContainer.append('<div class="dropdown-content"><button class="feedDeleteBt" style="z-index:1">삭제</button></div>');
+                    }
+                    $header.append($moreContainer);
 
-                $div.append($header);
+                    $div.append($header);
 
-                $div.append('<div class="feedContent">' + element.feedContent + '</div>');
+                    $div.append('<div class="feedContent">' + element.feedContent + '</div>');
 
-                if (element.filePath !== undefined) {
-                    const fileArr = element.filePath.split(",");
-                    const img_list = $('<div>').attr('class', 'img_list');
-                    $div.append(img_list);
-                    const img_listBt = $('<div>').attr('class', 'img_listBt');
-                    img_list.append(img_listBt);
+                    if (element.filePath !== undefined) {
+                        const fileArr = element.filePath.split(",");
+                        const img_list = $('<div>').attr('class', 'img_list');
+                        $div.append(img_list);
+                        const img_listBt = $('<div>').attr('class', 'img_listBt');
+                        img_list.append(img_listBt);
 
-                    for (let i = 0; i < fileArr.length; i++) {
-                        if (fileArr[i] !== "/SemiProject-KLP/upload/feed/null") {
-                            img_listBt.append($('<div>').html($('<img>').attr({
-                                'src': "<%=request.getContextPath()%>/upload/feed/"+fileArr[i],
-                                'width': '500px',
-                                'height': '500px'
-                            })));
+                        for (let i = 0; i < fileArr.length; i++) {
+                            if (fileArr[i] !== "/SemiProject-KLP/upload/feed/null") {
+                                img_listBt.append($('<div>').html($('<img>').attr({
+                                    'src': "<%=request.getContextPath()%>/upload/feed/" + fileArr[i],
+                                    'width': '500px',
+                                    'height': '500px'
+                                })));
+                            }
                         }
+
+                        const slider_btn = $('<div>').attr('class', 'slider_btn');
+                        slider_btn.append($('<a>').html('<').attr('class', 'prev'));
+                        slider_btn.append($('<a>').html('>').attr('class', 'next'));
+                        img_list.append(slider_btn);
+
+                        initializeCarousel(img_list);
                     }
 
-                    const slider_btn = $('<div>').attr('class', 'slider_btn');
-                    slider_btn.append($('<a>').html('<').attr('class', 'prev'));
-                    slider_btn.append($('<a>').html('>').attr('class', 'next'));
-                    img_list.append(slider_btn);
-
-                    initializeCarousel(img_list);
-                }
-
-                const $footer = $('<div>').addClass('board-footer');
+                    const $footer = $('<div>').addClass('board-footer');
 
                     checkLikes(element.feedNo, function(data) {
                         if (data == "true") {
@@ -657,29 +681,27 @@ const loadPage = () => {
                             console.log(data);
                         }
                     });
-                
 
-                $footer.append(
-                    '<a class="comment">' +
-                    '<svg viewBox="0 -13 35 55" class="commentIcon">' +
-                    '<path d="M61.44,0a61.46,61.46,0,0,1,54.91,89l6.44,25.74a5.83,5.83,0,0,1-7.25,7L91.62,115A61.43,61.43,0,1,1,61.44,0ZM96.63,26.25a49.78,49.78,0,1,0-9,77.52A5.83,5.83,0,0,1,92.4,103L109,107.77l-4.5-18a5.86,5.86,0,0,1,.51-4.34,49.06,49.06,0,0,0,4.62-11.58,50,50,0,0,0-13-47.62Z"/>' +
-                    '</svg>' +
-                    '</a>'
-                );
-                $div.append($footer);
+                    $footer.append(
+                        '<a class="comment">' +
+                        '<svg viewBox="0 -13 35 55" class="commentIcon">' +
+                        '<path d="M61.44,0a61.46,61.46,0,0,1,54.91,89l6.44,25.74a5.83,5.83,0,0,1-7.25,7L91.62,115A61.43,61.43,0,1,1,61.44,0ZM96.63,26.25a49.78,49.78,0,1,0-9,77.52A5.83,5.83,0,0,1,92.4,103L109,107.77l-4.5-18a5.86,5.86,0,0,1,.51-4.34,49.06,49.06,0,0,0,4.62-11.58,50,50,0,0,0-13-47.62Z"/>' +
+                        '</svg>' +
+                        '</a>'
+                    );
+                    $div.append($footer);
 
-                $('.likes1.clicked .heart > path').css('fill', 'var(--color-heart)');
+                    $('.likes1.clicked .heart > path').css('fill', 'var(--color-heart)');
 
-                $(container).append($div);
+                    $(container).append($div);
+                }
+            
             });
             time = true;
             page++;
-        },
-        error: function(request, status, error) {
-            alert('code:' + request.status + "\nmessage:" + request.responseText + "\nerror:" + error);
         }
     });
-}
+};
 
 
 

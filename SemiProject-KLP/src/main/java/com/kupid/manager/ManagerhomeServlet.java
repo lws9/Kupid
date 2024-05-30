@@ -1,11 +1,15 @@
 package com.kupid.manager;
 
 import java.io.IOException;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kupid.manager.member.service.MemberService;
 
 /**
  * Servlet implementation class ManagerhomeServlet
@@ -27,6 +31,11 @@ public class ManagerhomeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("pagenum", 1);
+		
+		Map m=new MemberService().managerHomeCountAll();
+		
+		request.setAttribute("count", m);
+		
 		request.getRequestDispatcher("/WEB-INF/views/manager/managehome.jsp").forward(request, response);
 	}
 

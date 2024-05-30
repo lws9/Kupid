@@ -1,4 +1,4 @@
-package com.kupid.feed.controller;
+package com.kupid.calender.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kupid.feed.model.dto.Feed;
-import com.kupid.feed.model.service.FeedService;
+import com.kupid.calender.model.dto.Calendar;
+import com.kupid.calender.model.service.CalendarService;
 
 /**
- * Servlet implementation class InfiniteScrollServlet
+ * Servlet implementation class CalanderSelectBirthServlet
  */
-@WebServlet("/feed/InfiniteScroll.do")
-public class InfiniteScrollServlet extends HttpServlet {
+@WebServlet(name = "CalenderSelectBirthServlet", urlPatterns = { "/calendar/calendarbirth.do" })
+public class CalanderSelectBirthServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InfiniteScrollServlet() {
+    public CalanderSelectBirthServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,29 +32,13 @@ public class InfiniteScrollServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int cPage=1;
-		try {
-			cPage=Integer.parseInt(request.getParameter("cPage"));
-		}catch(NumberFormatException e) {}
-		
-		int numPerpage=10;
-		try {
-			numPerpage=Integer.parseInt(request.getParameter("numPerpage"));			
-		}catch(NumberFormatException e) {}
-		
-		List<Feed> feeds=new FeedService().selectFeedAll(cPage,numPerpage);
+		int groupNo = Integer.parseInt(request.getParameter("groupNo"));
+        List<Calendar> events = new CalendarService().getEventsByGroupNo(groupNo);
+        
+		Gson gson = new Gson();
+		gson.toJson(events,response.getWriter());
 
-			
-//			int totalData=new FeedService().selectFeedCount();
-//			int totalPage=(int)Math.ceil((double)totalData/numPerpage);
-			
-			response.setContentType("application/json;charset=utf-8");
-
-			Gson gson = new Gson();
-			gson.toJson(feeds,response.getWriter());
-
-       }
-	
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
