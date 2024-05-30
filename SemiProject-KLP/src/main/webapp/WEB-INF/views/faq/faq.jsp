@@ -33,6 +33,7 @@
         flex-direction: column; 
         align-items: center; 
         margin-bottom:50px;
+        
     }
     
     .faq-header h1 {
@@ -48,7 +49,7 @@
     .search-container {
         text-align: center;
         margin-bottom: 20px;
-        white-space: nowrap; /* 버튼이 한 줄에 표시되도록 설정 */
+        white-space: nowrap; 
     }
     
     .search-container button,
@@ -76,13 +77,14 @@
     
     table {
         width: 90%;
-        border-collapse: collapse;
+        /* border-collapse: collapse; */
         margin-top: 20px;
         border-radius: 5px;
         overflow: hidden;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      /*   box-shadow: 0 0 20px #B39DDB; */
         background-color: #fff;
-    }
+        border: 2px solid #B39DDB !important;
+   }
     
     table th,
     table td {
