@@ -7,10 +7,7 @@
 %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+
 <body>	
 	<div class="myInfo-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
@@ -23,7 +20,7 @@
                         <form action="<%=request.getContextPath()%>/manager/groupupdateend.do?no=<%=g.getGroupNo()%>" method="post" enctype="multipart/form-data">
                        	<div class="content-container">
                        	    <%-- <h3><img src="<%=getServletContext().getRealPath("/upload/")%><%=g.getGroupImg()%>" width=150px height=150px></h3> --%>
-                       	    <h3><img src="<%=request.getContextPath()%>/upload/manager/artist/<%=g.getGroupImg()%>" width=150px height=150px></h3>
+                       	    <h3><img src="<%=request.getContextPath()%>/upload/artist/<%=g.getGroupImg()%>" width=150px height=150px></h3>
                        	    <h3>사진변경</h3>
                            	<div class="input_box">
 								<input type="file" name="upfile" class="inputTag" required>

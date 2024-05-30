@@ -9,9 +9,7 @@
 %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>faqlist(manager)</title>
+
 <style>
  ul{
    /* width:80%; */
@@ -196,7 +194,7 @@ ul li:hover > a{
     margin-top: 20px;
 }
 </style>
-</head>
+
 <body>
 
 <div class="faq-container">

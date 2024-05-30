@@ -62,7 +62,7 @@ public class SearchArtistServlet extends HttpServlet {
 		sb.append("<ul class='pagination justify-content-end'>");
 		if(pageNo==1) {
 			sb.append("<li class='page-item disabled'>");
-			sb.append("<a class='page-link' href='#'>이전</a>");
+			sb.append("<span>이전</span>");
 			sb.append("</li>");
 		}else {
 			sb.append("<li class='page-item'>");
@@ -78,7 +78,7 @@ public class SearchArtistServlet extends HttpServlet {
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(pageNo==cPage) {
 				sb.append("<li class='page-item active'>");
-				sb.append("<a class='page-link' href='#'>"+pageNo+"</a>");
+				sb.append("<span id='nowpage'>"+pageNo+"</span>");
 				sb.append("</li>");
 			}else {
 				sb.append("<li class='page-item'>");
@@ -94,7 +94,7 @@ public class SearchArtistServlet extends HttpServlet {
 		}
 		if(pageNo>totalPage) {
 			sb.append("<li class='page-item disabled'>");
-			sb.append("<a class='page-link' href='#'>다음</a>");
+			sb.append("<span>다음</span>");
 			sb.append("</li>");
 		}else {
 			sb.append("<li class='page-item'>");

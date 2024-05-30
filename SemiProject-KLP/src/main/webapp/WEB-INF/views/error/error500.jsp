@@ -35,7 +35,7 @@ body{
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <div class="error500">
 <img src="<%=request.getContextPath()%>/image/error/500에러.png" width=50%; class="text-align-center">
-<button class="btn btn-outline-secondary mb-5">home</button>
+<button class="btn btn-outline-secondary mb-5" onclick="location.assign('<%=request.getContextPath()%>')">home</button>
 </div>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>

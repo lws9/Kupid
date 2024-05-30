@@ -7,9 +7,6 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-</head>
 <style>
 .input_box p{
 	margin-top:2px;
@@ -26,7 +23,7 @@
                     <div class="flex_row">
                         
                        	<div class="content-container">
-                       		<h3><img src="<%=request.getContextPath()%>/upload/<%=m.getProfileImgOriname()%>" width=150px height=150px></h3>                 
+                       		<h3><img src="<%=request.getContextPath()%>/upload/artist/<%=m.getProfileImgOriname()%>" width=150px height=150px></h3>                 
                             <h3>이름</h3>
                             <div class="input_box">
 	                            <p><%=m.getMemberName() %></p>

@@ -13,6 +13,20 @@
 
 <html>
 <style>
+@font-face {
+	     font-family: 'DungGeunMo';
+	     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+	     font-weight: normal;
+	     font-style: normal;
+	}
+	body{
+     font-family: 'DungGeunMo';
+     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/DungGeunMo.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+     letter-spacing: -1.36px;
+     font-size: 1.1rem;
+	}
 .myInfo-container{
 	display: flex;
 	width: 100%;
@@ -333,6 +347,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<link rel="icon" sizes="32x32" href="<%=request.getContextPath() %>/image/favicon/faviconKUPID.png" type="image/png">
+<title>KUPID</title>
 </head>
 <!-- 임시디자인 -->
 <aside class="aside">

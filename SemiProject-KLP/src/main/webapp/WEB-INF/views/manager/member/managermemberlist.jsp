@@ -9,9 +9,7 @@
 %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
 <style>
  ul{
    /* width:80%; */
@@ -208,7 +206,7 @@ ul li:hover > a{
 }
 
 </style>
-</head>
+
 <body>
 <div class="member-container">
 <%@ include file="/WEB-INF/views/manager/manageraside.jsp" %>
