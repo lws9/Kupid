@@ -6,6 +6,7 @@ import static com.kupid.common.JDBCTemplate.getConnection;
 import static com.kupid.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.List;
 
 import com.kupid.member.model.dao.MemberDao;
@@ -20,6 +21,30 @@ public class MemberService {
 		if(m==null||!m.getMemberPw().equals(password)) m=null;
 		close(conn);
 		return m;
+	}
+	public int selectMemberByEmail(String name,String email, Date birth) {
+		Connection conn=getConnection();
+		int result =dao.selectMemberByEmail(conn, name, email, birth);
+		close(conn);
+		return result;
+	}
+	public int selectMemberByIdNameEmailBirth(String id, String name,String email, Date birth) {
+		Connection conn=getConnection();
+		int result =dao.selectMemberByIdNameEmailBirth(conn, id, name, email, birth);
+		close(conn);
+		return result;
+	}
+	public MemberDto findId(String name,String email, Date birth) {
+		Connection conn=getConnection();
+		MemberDto result =dao.findId(conn, name, email, birth);
+		close(conn);
+		return result;
+	}
+	public MemberDto findPw(String id, String name,String email, Date birth) {
+		Connection conn=getConnection();
+		MemberDto result =dao.findPw(conn,id, name, email, birth);
+		close(conn);
+		return result;
 	}
 	public int checkId(String nickname) {
 		Connection conn = getConnection();
