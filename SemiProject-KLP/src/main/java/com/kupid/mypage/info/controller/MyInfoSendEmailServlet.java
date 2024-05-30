@@ -51,7 +51,6 @@ public class MyInfoSendEmailServlet extends HttpServlet {
 		
 		String email = request.getParameter("email");
 		MemberSendEmail mse = new MemberSendEmail(email);
-//		Session session = mse.setting(new Properties(), "kupid_79@naver.com", "kupid7979!");
 		Session session = mse.setting(new Properties(), sql.getProperty("id"), sql.getProperty("pw"));
 		
 		int result = mse.SendMail(session, title, content);

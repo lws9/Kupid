@@ -137,7 +137,7 @@ body{
 	});
 	$("#input_name").on('input', e=>{
 		let target = e.target.value;
-		target = target.replace(/[^가-힣]/g, '');
+		target = target.replace(/[^가-힣ㄱ-ㅎ]/g, '');
 		e.target.value = target;
 	});
 	$("#sendBtn").click(e=>{
