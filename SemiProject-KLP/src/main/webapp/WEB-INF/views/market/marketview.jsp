@@ -48,8 +48,8 @@
             margin: 10px 0;
         }
         .product .price {
-            font-weight: bold;
-            font-size: 40px;
+            /* font-weight: bold; */
+            font-size: 25px;
         }
         .button {
             padding: 10px 20px;
@@ -74,6 +74,7 @@
 	.marketprice{
 		width: 100%;
 		padding-left: 50px;
+		margin : 50px;
 	}
 	
 	.membership-info {
@@ -103,6 +104,12 @@
     color: #ff0000;
     font-style: italic;
 }
+.imgcenter{
+	display:flex;
+	flex-direction:column;
+	justify-content: center;
+	text-align: center;
+}
     </style>
 </head>
 <body>
@@ -114,40 +121,19 @@
             	<h2>RIIZE MEMBERSHIP</h2>
 	            <p>Subheading</p>
 	            <p class="price">30,000원</p>
+	            <br>
 	            <!-- <button class="button">장바구니</button> -->
-	            <button class="button" onclick="location.assign('<%=request.getContextPath()%>/membershipinsert.do?no=<%=loginMember.getMemberNo()%>')">구매</button>
+	            <button class="button" style="width:100%;" onclick="location.assign('<%=request.getContextPath()%>/membershipinsert.do?no=<%=loginMember.getMemberNo()%>')">구매</button>
             </div>
         </div>
+        	<div class="imgcenter">
+	        	<p><img src="./image/market/상품설명1.png" width="80%" height="600px"></p>
+	        	<p><img src="./image/market/상품설명.jpg" width="80%"></p>
+	        	<!-- <p><img src="./image/market/상품설명4.png" width="70%" height="1400px"></p> -->
+	        </div>
         <div class="article">
-        	<div class="membership-info">
-    <dl>
-        <dt>안내사항</dt>
-        <dd>RIIZE OFFICIAL FANCLUB BRIIZE MEMBERSHIP(이하 멤버십)은 상시 가입 가능합니다. (멤버십 유효기간 : 가입일로부터 365일)</dd>
-        <dd>하나의 계정으로 해당 아티스트의 오픈된 모든 국가샵의 멤버십 구매가 가능합니다.</dd>
-        <dd>위버스(Weverse)와 위버스샵(Weverse Shop)에서 동일한 계정을 사용하셔야 정상적으로 멤버십 혜택을 받으실 수 있습니다.</dd>
-        <dd>멤버십 가입 후 7일 이내 환불 가능합니다. 단, 일부라도 멤버십 혜택을 받은 경우 환불이 불가합니다.</dd>
-        <dd class="attention">※하단 상품 상세 이미지에 나온 1) 가입 혜택 2) 기타 안내사항 3) 자주 묻는 질문을 필독해 주세요※</dd>
-    </dl>
-</div>
-        	<!-- <div class="sc-c288ee72-20">
-	        	<dl class="sc-be4a1006-0 bvraTF">
-	        	<dt class="sc-be4a1006-1 exLTfv">안내사항</dt>
-	        	<dd class="sc-be4a1006-2 gIdytb">RIIZE OFFICIAL FANCLUB BRIIZE MEMBERSHIP(이하 멤버십)은 상시 가입 가능합니다. (멤버십 유효기간 : 가입일로부터 365일)</dd>
-	        	<dd class="sc-be4a1006-2 gIdytb">하나의 계정으로 해당 아티스트의 오픈된 모든 국가샵의 멤버십 구매가 가능합니다.</dd>
-	        	<dd class="sc-be4a1006-2 gIdytb">위버스(Weverse)와 위버스샵(Weverse Shop)에서 동일한 계정을 사용하셔야 정상적으로 멤버십 혜택을 받으실 수 있습니다.</dd>
-	        	<dd class="sc-be4a1006-2 gIdytb">멤버십 가입 후 7일 이내 환불 가능합니다. 단, 일부라도 멤버십 혜택을 받은 경우 환불이 불가합니다.</dd>
-	        	<dd class="sc-be4a1006-2 gIdytb">※하단 상품 상세 이미지에 나온 1) 가입 혜택 2) 기타 안내사항 3) 자주 묻는 질문을 필독해 주세요※</dd>
-        	</dl>
-        	</div> -->
-            <p>Excepteur efficient emerging, minim veniam anim aute carefully curated Ginza conversation exquisite perfect nostrud nisi intricate Content. Qui international first-class nulla ut. Punctual adipisicing, essential lovely queen tempor eiusmod irure. Exclusive izakaya charming Scandinavian impeccable aute quality of life soft power pariatur Melbourne occaecat discerning. Qui wardrobe aliquip, et Porter destination Toto remarkable officia Helsinki excepteur Basset hound. Zürich sleepy perfect consectetur.</p>
-            <p>Exquisite sophisticated iconic cutting-edge laborum deserunt Addis Ababa esse bureaux cupidatat id minim. Sharp classic the best commodo nostrud delightful. Conversation aute Rochester id. Qui sunt remarkable deserunt intricate airport handsome K-pop excepteur classic esse Asia-Pacific laboris.</p>
-        </div>
-        <div class="pagination">
-            <a href="#">Topic</a>
-            <a href="#">Topic</a>
-            <a href="#">Topic</a>
-            <a href="#">Page</a>
-            <!-- 추가 페이지 및 주제 링크 -->
+
+       
         </div>
     </div>
 </body>

@@ -56,9 +56,7 @@ public class MembershipInsertServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         Set<String> serialKeys = new HashSet<>();
-        
-
-        
+       
             String serialKey = generateSerialKey();
             
             // 중복 체크
@@ -68,7 +66,7 @@ public class MembershipInsertServlet extends HttpServlet {
             
             // 중복이 없을 때 추가
             serialKeys.add(serialKey);
-            
+
             int result=new MembershipService().insertMembership(no,serialKey);
             
             String msg,loc;

@@ -15,11 +15,11 @@
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['day', 'member', 'artist','membership'],
-          ['5/1',  	98,      121,		41],
-          ['5/8',  	102,     121,		47],
-          ['5/15',  107,     127,		45],
-          ['5/22',  111,     127,		50],
-          ['5/31',  150,     138,		51]
+          ['5/1',  	2,      3,		1],
+          ['5/8',  	6,     7,		3],
+          ['5/15',  8,     7,		3],
+          ['5/22',  4,     8,		3],
+          ['5/31',  <%=count.get("mc")%>,     <%=count.get("ac")%>,		<%=count.get("msc")%>]
         ]);
 
         var options = {
