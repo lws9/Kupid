@@ -99,6 +99,7 @@
         }
 		.help-section p {
 		    margin-top: 20px; 
+		    line-height:180%;
 		}
 
         .faq-section,
@@ -109,7 +110,7 @@
             margin-bottom: 50px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border: 2px solid #d3adf7; /* 연보라색 테두리 추가 */
+            border: 2px solid #d3adf7;
         }
 
         .faq-section h1,
@@ -206,26 +207,28 @@
                 커뮤니티
             </button>
         </div>
-        <div class="faq_button"><a href="/faq/faq.do"><i class="fas fa-question-circle"></i> FAQ 바로가기</a></div>
+		<div class="faq_button"><a href="<%= request.getContextPath() %>/faq/faq.do"><i class="fas fa-question-circle"></i> FAQ 바로가기</a></div>
+
 
         <div class="faq-section">
             <h1>1:1 정확한 채팅문의 <i class="fas fa-comment"></i></h1>
             <h4>KUPID 담당 상담원에게 자세하고 확실하게 해결해 보세요</h4>
-            <button onclick="showFAQ('member')"><i class="fas fa-comments"></i> 문의하기</button>
+            <button onclick="location.assign('<%= request.getContextPath() %>/inquiry/inquiry.do')"><i class="fas fa-comments"></i> 문의하기</button>
         </div>
 
         <div class="contact-section">
             <h1>KUPID 고객센터 <i class="fas fa-headset"></i></h1>
-            <p>전화번호: 유료</p>
+            <p>전화번호: 1588-1108(유료)</p>
             <p>월~금요일 09:00 ~ 18:00</p>
             <p>주말, 공휴일 휴무</p>
         </div>
 
         <div class="help-section">
             <h2>음성메시지 상담 안내 <i class="fas fa-microphone"></i></h2>
-            <p>KUPID 고객센터에서는 고객님의 문의를 녹음으로 접수받고 <br>답변 드리는 음성메시지 서비스를 운영하고 있습니다. <br>음성메시지를 남겨주시면 빠르게 확인하여 답변드리겠습니다.</p>
+            <p>KUPID 고객센터에서는 고객님의 문의를 녹음으로 접수받고 답변 드리는 <br>음성메시지 서비스를 운영하고 있습니다. 음성메시지를 남겨주시면 빠르게 확인하여 답변드리겠습니다.</p>
         </div>
     </div>
     
 </body>
 </html>
+<%-- <%@ include file="/WEB-INF/views/common/header.jsp" %>   --%>

@@ -33,6 +33,7 @@ public class FaqDao {
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
 			List<FaqDto> faq=new ArrayList<FaqDto>();
+		System.out.println(cPage);
 			try {
 				pstmt=conn.prepareStatement(sql.getProperty("selectFaqAll"));
 				pstmt.setInt(1,(cPage-1)*numberpage+1);
