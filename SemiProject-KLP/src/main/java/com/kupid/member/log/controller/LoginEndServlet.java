@@ -67,12 +67,12 @@ public class LoginEndServlet extends HttpServlet {
 				}else {
 					response.sendRedirect(request.getContextPath()+"/manager/home.do");
 				}
-			}else if(m.getMemberGrade().equals("탈퇴")) {//탈퇴된 애들 로그인 막는 로직
+			}else if(m!=null&&m.getMemberGrade().equals("탈퇴")) {//탈퇴된 애들 로그인 막는 로직
 				request.setAttribute("msg", "탈퇴된 회원입니다.");
 				request.setAttribute("loc", "/");
 				request.getRequestDispatcher(request.getServletContext().getInitParameter("viewpath")+"common/msg.jsp")
 				.forward(request, response);
-			}else if(m.getMemberGrade().equals("정지")){
+			}else if(m!=null&&m.getMemberGrade().equals("정지")){
 				request.setAttribute("msg", "정지된 회원입니다.");
 				request.setAttribute("loc", "/");
 				request.getRequestDispatcher(request.getServletContext().getInitParameter("viewpath")+"common/msg.jsp")
