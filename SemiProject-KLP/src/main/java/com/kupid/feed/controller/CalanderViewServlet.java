@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class CalanderViewServlet
  */
-@WebServlet("/feed/calanderservlet.do")
+@WebServlet("/calendar/calendarservlet.do")
 public class CalanderViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,7 +26,7 @@ public class CalanderViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/views/feed/calanderView.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/calendar/calendarView.jsp").forward(request, response);
 
 	}
 

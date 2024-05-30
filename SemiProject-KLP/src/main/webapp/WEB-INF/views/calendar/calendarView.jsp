@@ -13,17 +13,17 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
-	
+
     var calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {
             left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            center: 'title'
         },
+        initialView:'dayGridMonth',
         navLinks: true, // can click day/week names to navigate views
         selectable: true,
         selectMirror: true,
-        select: function(arg) {
+        /* select: function(arg) {
             console.log(arg);
 
             var title = prompt('입력할 일정:');
@@ -38,36 +38,44 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
             calendar.unselect();
-        },
+        } ,*/
         eventClick: function(arg) {
-            console.log("#등록된 일정 클릭#");
-            console.log(arg.event);
             
-            if (confirm('Are you sure you want to delete this event?')) {
-                arg.event.remove();
-            }
         },
         editable: true,
         dayMaxEvents: true, // allow "more" link when too many events
+
         events: function(fetchInfo, successCallback, failureCallback) {
             //================ ajax 데이터 불러올 부분 =====================//
-            $.ajax({
-                url: '<%=request.getContextPath()%>/feed/calendarbirth.do', // 이벤트 데이터를 불러올 서버의 URL
-                method: 'GET',
-                data:{"groupNo":}
-                dataType: 'json',
-                success: function(data) {
-                    successCallback(data);
-                },
-                error: function() {
-                    failureCallback();
-                }
-            });
-        }
+	        $.ajax({
+	        url: '<%=request.getContextPath()%>/calendar/calendarbirth.do', // 이벤트 데이터를 불러올 서버의 URL
+	        method: 'POST',
+	        data:{"groupNo":<%=request.getParameter("groupNo")%>},
+	        dataType: 'json',
+	        success: function(data) {
+
+	        	let events=[];
+	        	data.forEach(function(eventData,index) {
+	        		console.log(eventData.scStart);
+	                var event = {
+	                    id: eventData.scId,
+	                    title: eventData.scTitle,
+	                    start: eventData.scStart,
+	                    end: eventData.scEnd,
+	                };
+	            	events.push(event); // 이벤트를 events 배열에 추가
+	            });
+	            successCallback(events);
+	        },
+	        error: function() {
+	            failureCallback();
+	        }
     });
-	console.log("dsasad");
+        }  
+    });
     calendar.render();
 });
+
 
   
 
