@@ -223,7 +223,7 @@
                 </td>
             </tr>
             <tr class="faq-content-row">
-                <td></td>
+               
                 <td colspan="2" class="faq-content"><%= f.getFaqContent() %></td>
             </tr>
         <% } %>
