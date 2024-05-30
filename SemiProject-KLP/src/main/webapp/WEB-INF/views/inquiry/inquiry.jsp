@@ -83,7 +83,7 @@
             
         </table>
          <div class="btn-container">
-            <input class="form-control" type="submit" value="접수하기" onclick="">
+            <input class="form-control d-flex align-items-center" type="submit" value="접수하기" onclick="">
         </div>
     </form>
 </section>
