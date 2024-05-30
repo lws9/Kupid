@@ -3,9 +3,6 @@
 <%@ page import="com.kupid.member.model.dto.MemberDto, com.kupid.group.model.dto.GroupDto, java.util.List, java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <style>
  .slider-container {
     width: 50vw; 

@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "com.kupid.member.model.dto.MemberDto" %>
+<head>
+<meta charset="UTF-8">
+<link rel="icon" sizes="32x32" href="<%=request.getContextPath() %>/image/favicon/faviconKUPID.png" type="image/png">
+<title>KUPID</title>
 <!-- 제이쿼리 -->
 <script src = "<%=request.getContextPath()%>/js/jquery-3.7.1.min.js"></script>
 <!-- 부트스트랩 -->
