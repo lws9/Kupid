@@ -4,9 +4,7 @@
 <% Map count=(Map)request.getAttribute("count"); %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
@@ -33,7 +31,7 @@
         chart.draw(data, options);
       }
     </script>
-</head>
+
 <style>
 .myprofile-container{
 	display: flex;
