@@ -88,7 +88,7 @@ public class FeedWriteServlet extends HttpServlet {
 				}
 				new FeedService().insertProcess(f, fileNames,groupNo);
 
-				
+				request.setAttribute("groupNo", groupNo);
 				
 				
 
